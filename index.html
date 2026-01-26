@@ -3,268 +3,390 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maker Eğitmen Eğitimi</title>
+    <title>Bilişim Eğitmen Eğitimi</title>
     <style>
-        /* --- MODERN MAKER TEMASI --- */
         :root {
-            --bg-body: #121212;
-            --bg-card: #1e1e24;
+            --bg-body: #0f0f13;
+            --bg-card: #1a1a20;
             --text-main: #e0e0e0;
             --text-muted: #a0a0a0;
-            --accent: #ff9f43; /* Maker Turuncusu */
-            --accent-glow: rgba(255, 159, 67, 0.3);
-            --code-bg: #2d2d2d;
+            --accent-maker: #ff9f43; /* Maker Turuncusu */
+            --accent-code: #00d2d3; /* Kod Mavisi */
+            --accent-robot: #ff6b6b; /* Robotik Kırmızısı */
+            --accent-ai: #a55eea;    /* Yapay Zeka Moru */
             --border-radius: 12px;
         }
 
         body {
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: var(--bg-body);
             color: var(--text-main);
             margin: 0;
             padding: 0;
             line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
+            scroll-behavior: smooth;
         }
 
-        /* Ana Konteyner */
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        /* Header (Başlık Alanı) */
+        /* Header */
         header {
+            background: linear-gradient(135deg, #222, #000);
+            padding: 40px 20px;
             text-align: center;
-            padding: 40px 0;
-            animation: fadeIn 1s ease-in;
+            border-bottom: 4px solid var(--accent-maker);
+            margin-bottom: 30px;
         }
 
         h1 {
-            font-size: 2.5rem;
             margin: 0;
-            background: linear-gradient(45deg, #ff9f43, #ff6b6b);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-size: 2rem;
             text-transform: uppercase;
             letter-spacing: 2px;
+            background: -webkit-linear-gradient(#fff, #999);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .subtitle {
-            color: var(--text-muted);
+            color: var(--accent-maker);
+            font-weight: bold;
             font-size: 1.1rem;
-            margin-top: 10px;
             display: block;
+            margin-top: 10px;
         }
+
+        /* Navigasyon (Sticky) */
+        nav {
+            position: sticky;
+            top: 0;
+            background: rgba(15, 15, 19, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 10px;
+            overflow-x: auto;
+            white-space: nowrap;
+            z-index: 1000;
+            border-bottom: 1px solid #333;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            transition: 0.3s;
+            background: #222;
+        }
+
+        nav a:hover { background: var(--accent-maker); color: #000; }
+
+        /* Ana Konteyner */
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
 
         /* Kart Yapısı */
-        .card {
+        .module-card {
             background: var(--bg-card);
             border-radius: var(--border-radius);
-            padding: 20px;
-            margin-bottom: 20px;
-            border-left: 4px solid var(--accent);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            transition: transform 0.2s;
+            padding: 25px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            border-top: 3px solid transparent;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
 
-        .card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(255, 159, 67, 0.15);
-        }
+        /* Modül Renk Kodları */
+        .mod-maker { border-color: var(--accent-maker); }
+        .mod-robot { border-color: var(--accent-robot); }
+        .mod-code { border-color: var(--accent-code); }
+        .mod-ai { border-color: var(--accent-ai); }
 
-        h2 {
-            color: var(--accent);
+        .module-title {
             font-size: 1.5rem;
             margin-top: 0;
+            margin-bottom: 15px;
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
-        /* Açılır/Kapanır Menü (Details/Summary) */
+        /* Akordiyon (Details) */
         details {
             background: rgba(255,255,255,0.03);
             margin-bottom: 10px;
             border-radius: 8px;
             overflow: hidden;
+            transition: all 0.3s;
         }
 
         summary {
             padding: 15px;
             cursor: pointer;
-            font-weight: bold;
-            list-style: none; /* Üçgeni gizle */
+            font-weight: 600;
+            list-style: none;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-        
-        summary::-webkit-details-marker { display: none; } /* Chrome için üçgeni gizle */
 
-        summary::after {
-            content: '+'; 
-            font-size: 1.5rem; 
-            color: var(--accent);
-        }
-
+        summary:hover { background: rgba(255,255,255,0.05); }
+        summary::after { content: '+'; font-size: 1.2rem; font-weight: bold; }
         details[open] summary::after { content: '-'; }
-        details[open] summary { border-bottom: 1px solid rgba(255,255,255,0.1); }
-
-        .details-content { padding: 15px; font-size: 0.95rem; color: var(--text-muted); }
-
-        /* Kod Bloğu Görünümü */
-        pre {
-            background: var(--code-bg);
-            padding: 15px;
-            border-radius: 8px;
-            overflow-x: auto;
-            border: 1px solid #444;
-            color: #bd93f9; /* Kod rengi */
-            font-family: 'Consolas', monospace;
-        }
-
-        /* Butonlar */
-        .btn-group { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 15px; }
         
-        .btn {
-            background: transparent;
-            border: 2px solid var(--accent);
-            color: var(--accent);
-            padding: 10px 20px;
-            border-radius: 30px;
+        .content {
+            padding: 15px;
+            color: var(--text-muted);
+            border-top: 1px solid #333;
+            font-size: 0.95rem;
+        }
+
+        .content ul { padding-left: 20px; margin: 5px 0; }
+        .content li { margin-bottom: 8px; }
+
+        /* Özel Etiketler */
+        .tag {
+            font-size: 0.75rem;
+            padding: 3px 8px;
+            border-radius: 4px;
+            margin-left: 10px;
+            background: #333;
+            color: #fff;
+            vertical-align: middle;
+        }
+
+        /* Link Butonları */
+        .link-btn {
+            display: inline-block;
+            margin-top: 10px;
             text-decoration: none;
+            color: var(--accent-code);
             font-weight: bold;
-            transition: all 0.3s;
-            flex: 1;
-            text-align: center;
-            min-width: 120px;
+            font-size: 0.9rem;
         }
-
-        .btn:hover {
-            background: var(--accent);
-            color: #000;
-            box-shadow: 0 0 15px var(--accent-glow);
-        }
-
-        .btn-primary {
-            background: var(--accent);
-            color: #000;
-        }
+        .link-btn:hover { text-decoration: underline; }
 
         /* Footer */
         footer {
             text-align: center;
-            padding: 30px;
+            padding: 40px;
             color: #555;
             font-size: 0.8rem;
-            border-top: 1px solid #333;
-            margin-top: 40px;
-        }
-
-        /* Animasyon */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Mobil Uyumu */
-        @media (max-width: 600px) {
-            h1 { font-size: 1.8rem; }
-            .btn { width: 100%; margin-bottom: 5px; }
+            border-top: 1px solid #222;
         }
     </style>
 </head>
 <body>
 
+    <header>
+        <h1>Bilişim Öğretmeni</h1>
+        <span class="subtitle">Eğitmen Eğitimi Portalı</span>
+        <div style="margin-top: 10px; font-size: 0.9rem; color: #888;">2026 Eğitim Dönemi • aydinincekara</div>
+    </header>
+
+    <nav>
+        <a href="#maker">🧊 3D & Maker</a>
+        <a href="#robot">🤖 Robotik</a>
+        <a href="#yazilim">💻 Yazılım</a>
+        <a href="#ileri">🚀 İleri Tek.</a>
+        <a href="#hackoutlon">🏆 Hackoutlon</a>
+    </nav>
+
     <div class="container">
-        
-        <header>
-            <h1>MAKER EĞİTMEN EĞİTİMİ</h1>
-            <span class="subtitle">Tasarla • Üret • Kodla</span>
-            <div style="margin-top: 15px;">
-                <span style="background: #333; padding: 5px 10px; border-radius: 5px; font-size: 0.8rem;">📅 2026 Bahar Dönemi</span>
-            </div>
-        </header>
 
-        <div class="card">
-            <h2>🧊 Modül 1: 3D Tasarım & Baskı</h2>
-            <p>Fikirleri fiziksel objelere dönüştürme sanatı. Tinkercad'den ileri seviye dilimleme (slicer) ayarlarına yolculuk.</p>
-            
+        <div id="maker" class="module-card mod-maker">
+            <h2 class="module-title" style="color: var(--accent-maker);">
+                🧊 Tasarım, Üretim ve Maker
+            </h2>
+            <p style="color: #aaa;">3D dünyadan fiziksel üretime uzanan yolculuk.</p>
+
             <details>
-                <summary>Ders 1: Tinkercad İpuçları</summary>
-                <div class="details-content">
+                <summary>🖊️ 3D Kalem ile Yaratıcılık</summary>
+                <div class="content">
+                    <p>Öğrencilerin hayal güçlerini somutlaştırdığı ilk adım.</p>
                     <ul>
-                        <li>Shape Generators kullanımı</li>
-                        <li>SVG Import ile logo tasarımı</li>
-                        <li>Ctrl+D (Duplicate) ile desen oluşturma</li>
+                        <li><b>Amaç:</b> Yaratıcılık, 3D düşünme ve el becerisi.</li>
+                        <li><b>Süreç:</b> Basit geometrik şekillerden küçük objelere geçiş.</li>
+                        <li><b>Kazanım:</b> STEM eğitimine pratik giriş.</li>
                     </ul>
                 </div>
             </details>
 
             <details>
-                <summary>Ders 2: Cura Ayarları (Uzman)</summary>
-                <div class="details-content">
-                    <p>Baskı kalitesini artıran kritik ayarlar:</p>
+                <summary>🟦 Tinkercad & Modelleme</summary>
+                <div class="content">
+                    <p>Tarayıcı tabanlı, "Legolarla oynamak" kadar basit modelleme.</p>
                     <ul>
-                        <li><b>Infill Pattern:</b> Gyroid (En sağlam)</li>
-                        <li><b>Wall Line Count:</b> En az 3 (Dayanıklılık için)</li>
-                        <li><b>Ironing:</b> Üst yüzey pürüzsüzleştirme</li>
+                        <li>Hazır geometrik şekillerle (küp, silindir) tasarım.</li>
+                        <li>Boyutlandırma, gruplama ve delik açma mantığı.</li>
+                    </ul>
+                    <a href="https://www.tinkercad.com/3d-design" target="_blank" class="link-btn">🔗 Tinkercad'e Git</a>
+                </div>
+            </details>
+
+            <details>
+                <summary>🖨️ 3D Yazıcı & İleri Teknikler</summary>
+                <div class="content">
+                    <ul>
+                        <li><b>Slicing (Dilimleme):</b> Cura ayarları ve stratejileri.</li>
+                        <li><b>Bakım:</b> Tıkanma, katman kayması çözümleri.</li>
+                        <li><b>İleri Seviye:</b> Fusion 360 ve Blender ile parametrik tasarım.</li>
                     </ul>
                 </div>
             </details>
+        </div>
+
+        <div id="robot" class="module-card mod-robot">
+            <h2 class="module-title" style="color: var(--accent-robot);">
+                🤖 Robotik ve Elektronik
+            </h2>
             
-            <div class="btn-group">
-                <a href="dokuman/3d-sunum.pdf" class="btn">📄 Sunumu İndir</a>
-                <a href="dokuman/ornek.stl" class="btn">📦 STL Dosyası</a>
-            </div>
+            <details>
+                <summary>⚡ Arduino & Tinkercad Circuits</summary>
+                <div class="content">
+                    <p>Kodlama mantığını somutlaştıran platform.</p>
+                    <ul>
+                        <li><b>Simülasyon:</b> Malzeme olmadan Tinkercad Circuits ile devre kurma.</li>
+                        <li><b>Fiziksel:</b> If/else mantığını LED yakarak öğretme.</li>
+                        <li><b>Kodlama:</b> C++ ve mBlock (Blok tabanlı) desteği.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details>
+                <summary>🚜 VEX Robotics (VR & IQ)</summary>
+                <div class="content">
+                    <ul>
+                        <li><b>VEXcode VR:</b> Tarayıcı tabanlı robot simülasyonu. Kurulum yok.</li>
+                        <li><b>VEX IQ:</b> Sensörlü (Mesafe, renk, jiroskop) fiziksel robot montajı.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details>
+                <summary>🏠 IoT ve Akıllı Sistemler</summary>
+                <div class="content">
+                    <ul>
+                        <li>Akıllı ev sistemleri mantığı.</li>
+                        <li>Wi-Fi modülleri ve Raspberry Pi kullanımı.</li>
+                        <li>Temel lehimleme atölyesi.</li>
+                    </ul>
+                </div>
+            </details>
         </div>
 
-        <div class="card">
-            <h2>⚡ Modül 2: Elektronik & Kodlama</h2>
-            <p>Sensörler ve aktüatörler ile dünyaya hükmedin. Temel devre mantığı ve C++ kodlama.</p>
+        <div id="yazilim" class="module-card mod-code">
+            <h2 class="module-title" style="color: var(--accent-code);">
+                💻 Yazılım Geliştirme
+            </h2>
 
-            <div style="background: #111; padding: 10px; border-radius: 8px; margin-bottom: 15px;">
-                <span style="color: #666; font-size: 0.8rem;">💻 Günün Kod Parçası (Blink)</span>
-                <pre>
-void setup() {
-  pinMode(13, OUTPUT); // LED
-}
+            <details>
+                <summary>🐍 Python Projeleri</summary>
+                <div class="content">
+                    <ul>
+                        <li><b>Turtle:</b> Grafik çizimleri ile algoritma.</li>
+                        <li><b>Tkinter:</b> Arayüz (GUI) tasarımı (Buton, Label).</li>
+                        <li><b>Görüntü İşleme:</b> Kamera verisiyle etkileşim.</li>
+                    </ul>
+                </div>
+            </details>
 
-void loop() {
-  digitalWrite(13, HIGH);
-  delay(1000); // 1 Saniye bekle
-  digitalWrite(13, LOW);
-  delay(1000);
-}</pre>
-            </div>
+            <details>
+                <summary>📱 App Inventor (Mobil)</summary>
+                <div class="content">
+                    <p>MIT App Inventor ile blok tabanlı mobil uygulama geliştirme.</p>
+                    <ul>
+                        <li>Döviz çevirici, oyunlar ve hesap makineleri.</li>
+                        <li>Tasarım odaklı düşünme becerisi.</li>
+                    </ul>
+                </div>
+            </details>
 
-            <div class="btn-group">
-                <a href="#" class="btn btn-primary">🔗 Tinkercad Devresi</a>
-                <a href="dokuman/kodlar.rar" class="btn">💾 Kodları İndir</a>
-            </div>
+            <details>
+                <summary>🎮 Oyun Geliştirme (Unity & MakeCode)</summary>
+                <div class="content">
+                    <ul>
+                        <li><b>MakeCode Arcade:</b> 2D retro oyun tasarımı.</li>
+                        <li><b>Unity:</b> Kodsuz oyun tasarımı ve "Karanlık İstasyon" bilimkurgu projesi.</li>
+                    </ul>
+                </div>
+            </details>
         </div>
 
-        <div class="card" style="border-left-color: #ff6b6b;">
-            <h2 style="color: #ff6b6b;">🚀 Proje Görevi</h2>
-            <p>Eğitimi tamamlamak için aşağıdaki görevi yapıp sisteme yükleyin.</p>
-            
-            <ul style="color: var(--text-muted);">
-                <li>✅ Kendi anahtarlık tasarımını yap.</li>
-                <li>✅ 3D Yazıcıda bas (Filament değiştir).</li>
-                <li>✅ Fotoğrafını çekip gruba at.</li>
-            </ul>
+        <div id="hackoutlon" class="module-card" style="border-color: #ffd700; background: linear-gradient(to bottom right, #1a1a20, #25251a);">
+            <h2 class="module-title" style="color: #ffd700;">
+                🏆 Hackoutlon & Mentörlük
+                <span class="tag">Özel Etkinlik</span>
+            </h2>
+            <p style="color: #aaa;">Kodlama ve Yaratıcılık Maratonu Yönetimi.</p>
 
-            <a href="mailto:hoca@mail.com" class="btn" style="border-color: #ff6b6b; color: #ff6b6b; width: 100%; box-sizing: border-box;">📤 Ödev Gönder</a>
+            <details open>
+                <summary style="color: #ffd700;">1. Hackoutlon Nedir?</summary>
+                <div class="content">
+                    <p>Öğrencilerin belirli sürede yenilikçi projeler geliştirdiği maraton.</p>
+                    <ul>
+                        <li>Kodlama, tasarım ve problem çözme bir arada.</li>
+                        <li>Takım çalışması ve kriz yönetimi.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details>
+                <summary>2. Hazırlık & Süreç</summary>
+                <div class="content">
+                    <ul>
+                        <li><b>Hazırlık:</b> Beyin fırtınası, ekip kurma, tema belirleme.</li>
+                        <li><b>Geliştirme:</b> Yazılım veya donanım prototip üretimi.</li>
+                        <li><b>Sunum:</b> "Pitching" teknikleri ile jüriye sunum.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details>
+                <summary>🎓 Bilişim Mentörlüğü</summary>
+                <div class="content">
+                    <ul>
+                        <li>Yarışma koçluğu ve stratejik hazırlık.</li>
+                        <li>Zaman yönetimi ve motivasyon artırma teknikleri.</li>
+                    </ul>
+                </div>
+            </details>
         </div>
 
-        <footer>
-            <p>Geleceği Tasarlayanlar Kulübü © 2026<br>
-            <span style="opacity: 0.5;">Powered by GitHub Pages & 3D Printing</span></p>
-        </footer>
+        <div id="ileri" class="module-card mod-ai">
+            <h2 class="module-title" style="color: var(--accent-ai);">
+                🚀 İleri Teknolojiler (AI/AR/VR)
+            </h2>
+
+            <details>
+                <summary>🧠 Yapay Zeka & BCI</summary>
+                <div class="content">
+                    <ul>
+                        <li><b>Teachable Machine:</b> Google ile model eğitme (Görsel/Ses).</li>
+                        <li><b>Neurosky:</b> Beyin dalgaları ile Unity oyunu kontrolü (BCI).</li>
+                        <li><b>JS AI:</b> TensorFlow.js ile tarayıcıda görsel tanıma.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details>
+                <summary>👓 AR & VR Uygulamaları</summary>
+                <div class="content">
+                    <ul>
+                        <li><b>AR (Artırılmış Gerçeklik):</b> Ders kitaplarını canlandırma, sanal sergiler.</li>
+                        <li><b>VR (Sanal Gerçeklik):</b> Sanal müze gezileri, laboratuvar simülasyonları.</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
 
     </div>
+
+    <footer>
+        <p>Bilişim Öğretmenleri Eğitmen Eğitimi Materyalleri<br>
+        <span style="opacity: 0.5;">Powered by GitHub Pages & Maker Spirit</span></p>
+    </footer>
 
 </body>
 </html>
