@@ -3,129 +3,266 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ders Portalı</title>
+    <title>Maker Eğitmen Eğitimi</title>
     <style>
+        /* --- MODERN MAKER TEMASI --- */
         :root {
-            --bg: #121212;
-            --card: #1e1e1e;
-            --text: #e0e0e0;
-            --accent: #00d4ff;
-            --btn-bg: #333;
+            --bg-body: #121212;
+            --bg-card: #1e1e24;
+            --text-main: #e0e0e0;
+            --text-muted: #a0a0a0;
+            --accent: #ff9f43; /* Maker Turuncusu */
+            --accent-glow: rgba(255, 159, 67, 0.3);
+            --code-bg: #2d2d2d;
+            --border-radius: 12px;
         }
-        body { font-family: sans-serif; background: var(--bg); color: var(--text); margin: 0; padding-bottom: 50px; }
-        
-        /* Navigasyon Menüsü */
-        .navbar {
-            background: #000;
-            padding: 15px;
-            position: sticky; /* Menü yukarıda sabit kalsın */
-            top: 0;
-            z-index: 1000;
-            display: flex;
-            justify-content: space-around;
-            border-bottom: 2px solid var(--accent);
-        }
-        .nav-item {
-            color: #fff;
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: bold;
-        }
-        .nav-item:hover { color: var(--accent); }
 
-        .container { max-width: 800px; margin: 20px auto; padding: 0 15px; }
-        
-        /* Kart Tasarımı */
-        .section {
-            background: var(--card);
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Ana Konteyner */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header (Başlık Alanı) */
+        header {
+            text-align: center;
+            padding: 40px 0;
+            animation: fadeIn 1s ease-in;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin: 0;
+            background: linear-gradient(45deg, #ff9f43, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-top: 10px;
+            display: block;
+        }
+
+        /* Kart Yapısı */
+        .card {
+            background: var(--bg-card);
+            border-radius: var(--border-radius);
             padding: 20px;
             margin-bottom: 20px;
-            border-radius: 10px;
-            scroll-margin-top: 70px; /* Menüye takılmasın diye boşluk */
-        }
-        
-        h2 { border-bottom: 1px solid #444; padding-bottom: 10px; color: var(--accent); }
-        
-        /* Resim Stili */
-        .responsive-img {
-            width: 100%;
-            height: auto;
-            border-radius: 8px;
-            border: 1px solid #444;
+            border-left: 4px solid var(--accent);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: transform 0.2s;
         }
 
-        /* Butonlar (PDF indirme vb.) */
-        .download-btn {
-            display: block;
-            background: var(--accent);
-            color: #000;
-            text-align: center;
-            padding: 12px;
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 159, 67, 0.15);
+        }
+
+        h2 {
+            color: var(--accent);
+            font-size: 1.5rem;
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Açılır/Kapanır Menü (Details/Summary) */
+        details {
+            background: rgba(255,255,255,0.03);
+            margin-bottom: 10px;
             border-radius: 8px;
+            overflow: hidden;
+        }
+
+        summary {
+            padding: 15px;
+            cursor: pointer;
+            font-weight: bold;
+            list-style: none; /* Üçgeni gizle */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        summary::-webkit-details-marker { display: none; } /* Chrome için üçgeni gizle */
+
+        summary::after {
+            content: '+'; 
+            font-size: 1.5rem; 
+            color: var(--accent);
+        }
+
+        details[open] summary::after { content: '-'; }
+        details[open] summary { border-bottom: 1px solid rgba(255,255,255,0.1); }
+
+        .details-content { padding: 15px; font-size: 0.95rem; color: var(--text-muted); }
+
+        /* Kod Bloğu Görünümü */
+        pre {
+            background: var(--code-bg);
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            border: 1px solid #444;
+            color: #bd93f9; /* Kod rengi */
+            font-family: 'Consolas', monospace;
+        }
+
+        /* Butonlar */
+        .btn-group { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 15px; }
+        
+        .btn {
+            background: transparent;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+            padding: 10px 20px;
+            border-radius: 30px;
             text-decoration: none;
             font-weight: bold;
-            margin-top: 10px;
+            transition: all 0.3s;
+            flex: 1;
+            text-align: center;
+            min-width: 120px;
         }
 
-        /* Video Kutusu */
-        .video-container {
-            position: relative;
-            padding-bottom: 56.25%; /* 16:9 Oranı */
-            height: 0;
-            overflow: hidden;
-            border-radius: 8px;
+        .btn:hover {
+            background: var(--accent);
+            color: #000;
+            box-shadow: 0 0 15px var(--accent-glow);
         }
-        .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+
+        .btn-primary {
+            background: var(--accent);
+            color: #000;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #555;
+            font-size: 0.8rem;
+            border-top: 1px solid #333;
+            margin-top: 40px;
+        }
+
+        /* Animasyon */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Mobil Uyumu */
+        @media (max-width: 600px) {
+            h1 { font-size: 1.8rem; }
+            .btn { width: 100%; margin-bottom: 5px; }
         }
     </style>
 </head>
 <body>
 
-    <nav class="navbar">
-        <a href="#ders-notu" class="nav-item">📚 Notlar</a>
-        <a href="#galeri" class="nav-item">📷 Görsel</a>
-        <a href="#video" class="nav-item">▶️ Video</a>
-        <a href="#dosyalar" class="nav-item">💾 İndir</a>
-    </nav>
-
     <div class="container">
         
-        <div id="ders-notu" class="section">
-            <h2>Bugünün Konusu: 3D Tasarım</h2>
-            <p>Arkadaşlar merhaba, bu hafta Tinkercad arayüzünü ve temel şekilleri öğreneceğiz.</p>
-            <ul>
-                <li>Workplane kullanımı</li>
-                <li>Gruplandırma (Ctrl+G)</li>
-                <li>Hizalama (L)</li>
-            </ul>
-        </div>
+        <header>
+            <h1>MAKER EĞİTMEN EĞİTİMİ</h1>
+            <span class="subtitle">Tasarla • Üret • Kodla</span>
+            <div style="margin-top: 15px;">
+                <span style="background: #333; padding: 5px 10px; border-radius: 5px; font-size: 0.8rem;">📅 2026 Bahar Dönemi</span>
+            </div>
+        </header>
 
-        <div id="galeri" class="section">
-            <h2>📷 Ders Görseli</h2>
-            <p>Örnek devre şeması / tasarım:</p>
-            <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=600" class="responsive-img" alt="Ders Görseli">
-        </div>
+        <div class="card">
+            <h2>🧊 Modül 1: 3D Tasarım & Baskı</h2>
+            <p>Fikirleri fiziksel objelere dönüştürme sanatı. Tinkercad'den ileri seviye dilimleme (slicer) ayarlarına yolculuk.</p>
+            
+            <details>
+                <summary>Ders 1: Tinkercad İpuçları</summary>
+                <div class="details-content">
+                    <ul>
+                        <li>Shape Generators kullanımı</li>
+                        <li>SVG Import ile logo tasarımı</li>
+                        <li>Ctrl+D (Duplicate) ile desen oluşturma</li>
+                    </ul>
+                </div>
+            </details>
 
-        <div id="video" class="section">
-            <h2>▶️ Ders Videosu</h2>
-            <div class="video-container">
-                <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>
+            <details>
+                <summary>Ders 2: Cura Ayarları (Uzman)</summary>
+                <div class="details-content">
+                    <p>Baskı kalitesini artıran kritik ayarlar:</p>
+                    <ul>
+                        <li><b>Infill Pattern:</b> Gyroid (En sağlam)</li>
+                        <li><b>Wall Line Count:</b> En az 3 (Dayanıklılık için)</li>
+                        <li><b>Ironing:</b> Üst yüzey pürüzsüzleştirme</li>
+                    </ul>
+                </div>
+            </details>
+            
+            <div class="btn-group">
+                <a href="dokuman/3d-sunum.pdf" class="btn">📄 Sunumu İndir</a>
+                <a href="dokuman/ornek.stl" class="btn">📦 STL Dosyası</a>
             </div>
         </div>
 
-        <div id="dosyalar" class="section">
-            <h2>💾 Dökümanlar</h2>
-            <p>Sunumu ve kaynak kodları buradan indirebilirsiniz:</p>
-            
-            <a href="dokuman/EULA.pdf" class="download-btn">📄 PDF Sunumu İndir</a>
-            <br>
-            <a href="dokuman/kodlar.rar" class="download-btn" style="background:#fff;">📦 Kaynak Kodları İndir</a>
+        <div class="card">
+            <h2>⚡ Modül 2: Elektronik & Kodlama</h2>
+            <p>Sensörler ve aktüatörler ile dünyaya hükmedin. Temel devre mantığı ve C++ kodlama.</p>
+
+            <div style="background: #111; padding: 10px; border-radius: 8px; margin-bottom: 15px;">
+                <span style="color: #666; font-size: 0.8rem;">💻 Günün Kod Parçası (Blink)</span>
+                <pre>
+void setup() {
+  pinMode(13, OUTPUT); // LED
+}
+
+void loop() {
+  digitalWrite(13, HIGH);
+  delay(1000); // 1 Saniye bekle
+  digitalWrite(13, LOW);
+  delay(1000);
+}</pre>
+            </div>
+
+            <div class="btn-group">
+                <a href="#" class="btn btn-primary">🔗 Tinkercad Devresi</a>
+                <a href="dokuman/kodlar.rar" class="btn">💾 Kodları İndir</a>
+            </div>
         </div>
+
+        <div class="card" style="border-left-color: #ff6b6b;">
+            <h2 style="color: #ff6b6b;">🚀 Proje Görevi</h2>
+            <p>Eğitimi tamamlamak için aşağıdaki görevi yapıp sisteme yükleyin.</p>
+            
+            <ul style="color: var(--text-muted);">
+                <li>✅ Kendi anahtarlık tasarımını yap.</li>
+                <li>✅ 3D Yazıcıda bas (Filament değiştir).</li>
+                <li>✅ Fotoğrafını çekip gruba at.</li>
+            </ul>
+
+            <a href="mailto:hoca@mail.com" class="btn" style="border-color: #ff6b6b; color: #ff6b6b; width: 100%; box-sizing: border-box;">📤 Ödev Gönder</a>
+        </div>
+
+        <footer>
+            <p>Geleceği Tasarlayanlar Kulübü © 2026<br>
+            <span style="opacity: 0.5;">Powered by GitHub Pages & 3D Printing</span></p>
+        </footer>
 
     </div>
 
