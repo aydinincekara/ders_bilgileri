@@ -1,118 +1,187 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="tr" data-bs-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bilişim Atölyesi | Geleceği Tasarla</title>
+    <title>K.Çekmece Bilişim | Geleceği Tasarla</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --bg-dark: #0f172a;
-            --card-bg: #1e293b;
-            --text-light: #f8fafc;
-            --gradient-code: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); /* Mavi-Mor (Yazılım) */
-            --gradient-design: linear-gradient(135deg, #f43f5e 0%, #f59e0b 100%); /* Kırmızı-Turuncu (Tasarım) */
-            --gradient-hardware: linear-gradient(135deg, #10b981 0%, #06b6d4 100%); /* Yeşil-Turkuaz (Donanım) */
-            --gradient-office: linear-gradient(135deg, #6366f1 0%, #ec4899 100%); /* Mor-Pembe (Ofis/Diğer) */
+            /* Marka Renkleri (Orijinale Yakın) */
+            --brand-python: #FFD43B; /* Python Sarısı/Mavisi için baz */
+            --brand-unity: #ffffff;
+            --brand-csharp: #9b4993;
+            --brand-java: #5382a1;
+            --brand-html: #e34c26;
+            --brand-css: #264de4;
+            --brand-js: #f7df1e;
+            --brand-android: #3ddc84;
+            --brand-arduino: #00979d;
+            
+            /* Canlı Konsept Renkleri */
+            --concept-3d: linear-gradient(45deg, #00f260, #0575e6);
+            --concept-design: linear-gradient(45deg, #ff00cc, #333399);
+            --concept-maker: linear-gradient(45deg, #fc4a1a, #f7b733);
+            --concept-office: linear-gradient(45deg, #4facfe, #00f2fe);
+
+            --neon-glow: 0 0 15px rgba(59, 130, 246, 0.5);
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #f1f5f9;
-            color: #334155;
+            font-family: 'Inter', sans-serif;
+            /* Hareketli, fütüristik arka plan */
+            background: 
+                radial-gradient(at 0% 0%, rgba(30, 64, 175, 0.3) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(139, 92, 246, 0.3) 0px, transparent 50%),
+                radial-gradient(at 50% 100%, rgba(6, 182, 212, 0.3) 0px, transparent 50%),
+                #0f172a; /* Koyu zemin */
+            background-attachment: fixed;
+            color: #e2e8f0;
+            overflow-x: hidden;
         }
 
-        /* Navbar */
-        .navbar {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        h1, h2, h3, h4, h5, .navbar-brand, .municipality-title {
+            font-family: 'Montserrat', sans-serif;
         }
-        .nav-link { font-weight: 600; color: #334155 !important; }
-        .nav-link:hover { color: #3b82f6 !important; }
+
+        /* Navbar - Glassmorphism Effect */
+        .navbar {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .municipality-badge {
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 5px 15px;
+            border-radius: 20px;
+            letter-spacing: 0.5px;
+            display: inline-block;
+            margin-bottom: 15px;
+            box-shadow: var(--neon-glow);
+        }
 
         /* Hero Section */
         .hero-section {
-            background: var(--bg-dark);
-            color: white;
-            padding: 100px 0 60px;
-            border-bottom-right-radius: 50px;
-            border-bottom-left-radius: 50px;
+            padding: 120px 0 80px;
             position: relative;
-            overflow: hidden;
         }
         
-        /* Modern Kart Tasarımı */
-        .course-card {
-            border: none;
-            border-radius: 20px;
-            background: white;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
-            transition: all 0.3s ease;
-            height: 100%;
-            overflow: hidden;
-            position: relative;
-        }
-        .course-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        .hero-title {
+            font-weight: 800;
+            background: linear-gradient(to right, #ffffff, #a5b4fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(165, 180, 252, 0.3);
         }
 
-        /* İkon Kutuları - Renkli */
-        .icon-box {
-            width: 70px;
-            height: 70px;
-            border-radius: 18px;
-            display: flex;
+        /* Glass Card Design (Buzlu Cam Kartlar) */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05); /* Çok şeffaf beyaz */
+            backdrop-filter: blur(16px) saturate(180%); /* Bulanıklık efekti */
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.125);
+            padding: 2rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-10px) scale(1.02);
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+        
+        /* Kartların içine hafif bir parlama efekti */
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -50%;
+            width: 100%; height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.1), transparent);
+            transform: skewX(-25deg);
+            transition: 0.7s;
+            opacity: 0;
+        }
+        .glass-card:hover::before { left: 125%; opacity: 1; }
+
+        /* İkon Stilleri - Orijinal Renkler İçin */
+        .icon-wrapper {
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 15px;
-            font-size: 2rem;
-            color: white;
+            width: 70px; height: 70px;
+            margin-bottom: 1.5rem;
+            /* Arka plandaki hafif parlama */
+            filter: drop-shadow(0 0 10px rgba(255,255,255,0.2));
+            transition: transform 0.3s;
         }
-        
-        .bg-code { background: var(--gradient-code); }
-        .bg-design { background: var(--gradient-design); }
-        .bg-hardware { background: var(--gradient-hardware); }
-        .bg-office { background: var(--gradient-office); }
+        .glass-card:hover .icon-wrapper { transform: scale(1.1) rotate(5deg); }
 
-        .card-title { font-weight: 700; font-size: 1.1rem; margin-bottom: 0.5rem; }
-        .card-text { font-size: 0.85rem; color: #64748b; line-height: 1.5; }
+        .icon-wrapper i { font-size: 3.5rem; }
 
-        /* Zaman Kartları (Sabah/Öğlen/Akşam) */
+        /* Özel Marka Renklendirmeleri (Font Awesome Üzerine) */
+        /* Python: Çift renkli olduğu için degrade kullandık */
+        .fa-python { background: -webkit-linear-gradient(135deg, #3776AB 50%, #FFD43B 50%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .fa-unity { color: var(--brand-unity); filter: drop-shadow(0 0 5px rgba(255,255,255,0.5)); }
+        .fa-java { color: var(--brand-java); }
+        .fa-html5 { color: var(--brand-html); }
+        .fa-css3-alt { color: var(--brand-css); }
+        .fa-js { color: var(--brand-js); }
+        .fa-android { color: var(--brand-android); }
+        /* C# için özel bir hile (Font awesome'da direkt C# logosu yok, code ikonu kullanıp renklendirdik) */
+        .csharp-icon { color: var(--brand-csharp); font-weight: bold; } 
+
+        /* Konsept İkonları İçin Canlı Degradeler */
+        .gradient-icon-3d { background: var(--concept-3d); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .gradient-icon-design { background: var(--concept-design); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .gradient-icon-maker { background: var(--concept-maker); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .gradient-icon-office { background: var(--concept-office); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+
+        .card-title { font-weight: 700; font-size: 1.25rem; margin-bottom: 0.75rem; color: #fff; }
+        .card-text { font-size: 0.9rem; color: #94a3b8; line-height: 1.6; font-weight: 300; }
+
+        /* Zaman Rozetleri */
         .time-badge {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 700;
-            padding: 5px 10px;
-            border-radius: 8px;
-            color: white;
-            display: inline-block;
-            margin-bottom: 10px;
+            position: absolute; top: 20px; right: 20px;
+            font-size: 0.7rem; font-weight: 800;
+            padding: 6px 12px; border-radius: 30px;
+            text-transform: uppercase; letter-spacing: 1px;
         }
+        .badge-sabah { background: rgba(245, 158, 11, 0.2); color: #fbbf24; border: 1px solid #fbbf24; }
+        .badge-oglen { background: rgba(6, 182, 212, 0.2); color: #22d3ee; border: 1px solid #22d3ee; }
+        .badge-aksam { background: rgba(139, 92, 246, 0.2); color: #c084fc; border: 1px solid #c084fc; }
 
         /* Footer */
-        footer { background: var(--bg-dark); color: #94a3b8; padding: 40px 0; font-size: 0.9rem; }
+        footer { background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(10px); border-top: 1px solid rgba(255, 255, 255, 0.1); }
     </style>
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-lg fixed-top">
+    <nav class="navbar navbar-expand-lg fixed-top navbar-dark">
         <div class="container">
-            <a class="navbar-brand fw-bold text-dark" href="#">
-                <i class="fa-solid fa-layer-group text-primary me-2"></i>Bilişim Atölyesi
+            <a class="navbar-brand fw-bold" href="#">
+                <i class="fa-solid fa-microchip text-info me-2 fs-4"></i>
+                <span class="d-none d-sm-inline">Bilişim Atölyesi</span>
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="#aktif">Canlı Dersler</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#katalog">Tüm Eğitimler</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#katalog">Tüm Katalog</a></li>
                 </ul>
             </div>
         </div>
@@ -120,228 +189,237 @@
 
     <section class="hero-section text-center">
         <div class="container">
-            <h1 class="display-4 fw-bold mb-3">Yeteneklerini <span style="color: #38bdf8;">Güncelle</span></h1>
-            <p class="lead text-white-50 mx-auto" style="max-width: 600px;">
-                Kapıdan içeri girdiğin an, teknoloji dünyasına adım atarsın. Aşağıdaki derslerden sana uygun olanı seç ve üretmeye başla.
+            <div class="municipality-badge">
+                <i class="fa-solid fa-building-columns me-2"></i>KÜÇÜKÇEKMECE BELEDİYESİ GENÇLİK MERKEZİ
+            </div>
+            <h1 class="hero-title display-3 mb-3">Geleceği Kodla, Tasarla ve Üret.</h1>
+            <p class="lead text-light opacity-75 mx-auto mb-5" style="max-width: 700px; font-weight: 300;">
+                Burası sadece bir sınıf değil, bir teknoloji üssü. Aşağıdaki 21 farklı yetenekten birini seç, dijital dünyada yerini al.
             </p>
-            <a href="#katalog" class="btn btn-primary btn-lg rounded-pill mt-3 px-5 fw-bold shadow-lg">Keşfetmeye Başla</a>
+            <a href="#katalog" class="btn btn-info btn-lg rounded-pill px-5 fw-bold shadow-lg" style="background: linear-gradient(45deg, #06b6d4, #3b82f6); border:none;">
+                <i class="fa-solid fa-rocket me-2"></i>Yeteneklerini Keşfet
+            </a>
         </div>
     </section>
 
-    <section id="aktif" class="container my-5 pt-4">
-        <div class="d-flex align-items-center justify-content-between mb-4">
-            <h3 class="fw-bold mb-0">🔴 Şu An Devam Edenler</h3>
+    <section id="aktif" class="container my-5">
+        <div class="d-flex align-items-center mb-4">
+            <i class="fa-solid fa-circle text-danger me-2 fa-beat-fade"></i>
+            <h3 class="fw-bold mb-0 text-white">Şu An Devam Edenler</h3>
         </div>
 
-        <div class="row g-3">
-            <div class="col-md-4">
-                <div class="p-4 rounded-4 bg-white shadow-sm border-start border-4 border-warning h-100">
-                    <span class="badge bg-warning text-dark mb-2"><i class="fa-regular fa-sun me-1"></i> SABAH</span>
-                    <h5 class="fw-bold">C# Programlama</h5>
-                    <p class="small text-muted mb-0">Unity oyun motoru için kodlama temelleri atılıyor.</p>
+        <div class="row g-4">
+            <div class="col-lg-4 col-md-6">
+                <div class="glass-card">
+                    <span class="time-badge badge-sabah">Sabah Grubu</span>
+                    <div class="icon-wrapper"><i class="fa-solid fa-code csharp-icon"></i></div>
+                    <h5 class="card-title">C# Programlama</h5>
+                    <p class="card-text">Profesyonel kodlamaya giriş. Unity ve Windows uygulamalarının temeli burada atılıyor.</p>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="p-4 rounded-4 bg-white shadow-sm border-start border-4 border-info h-100">
-                    <span class="badge bg-info text-white mb-2"><i class="fa-solid fa-cloud-sun me-1"></i> ÖĞLEN</span>
-                    <h5 class="fw-bold">Unity Oyun Tasarımı</h5>
-                    <p class="small text-muted mb-0">Kendi oyun dünyanı ve mekaniklerini inşa et.</p>
+            <div class="col-lg-4 col-md-6">
+                <div class="glass-card">
+                    <span class="time-badge badge-oglen">Öğlen Grubu</span>
+                    <div class="icon-wrapper"><i class="fa-brands fa-unity"></i></div>
+                    <h5 class="card-title">Unity Oyun Tasarımı</h5>
+                    <p class="card-text">Kendi oyun dünyanı ve mekaniklerini inşa et. Hayal gücünü ekrana yansıt.</p>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="p-4 rounded-4 bg-white shadow-sm border-start border-4 border-primary h-100">
-                    <span class="badge bg-primary mb-2"><i class="fa-solid fa-moon me-1"></i> AKŞAM</span>
-                    <h5 class="fw-bold">Tersine Mühendislik</h5>
-                    <p class="small text-muted mb-0">Var olanı tarayıp dijitalleştirmeyi öğren.</p>
+            <div class="col-lg-4 col-md-6">
+                <div class="glass-card">
+                    <span class="time-badge badge-aksam">Akşam Grubu</span>
+                    <div class="icon-wrapper"><i class="fa-solid fa-wand-magic-sparkles gradient-icon-3d"></i></div>
+                    <h5 class="card-title">Tersine Mühendislik</h5>
+                    <p class="card-text">Gerçek objeleri 3D tarayıcılarla dijital ortama aktar, düzenle ve yeniden üret.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="katalog" class="container mb-5 pb-5">
+    <section id="katalog" class="container mb-5 pb-5 pt-5">
         <div class="text-center mb-5">
-            <span class="text-primary fw-bold text-uppercase small ls-2">PORTFOLYO</span>
-            <h2 class="fw-bold">Hangi Yeteneği Kazanmak İstersin?</h2>
-            <p class="text-muted">Toplam 21 farklı alanda kendini geliştir.</p>
+            <span class="text-info fw-bold text-uppercase small ls-2"><i class="fa-solid fa-list-ul me-2"></i>TAM LİSTE</span>
+            <h2 class="fw-bold display-5 text-white">Hangi Yeteneği Kazanmak İstersin?</h2>
         </div>
 
         <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-4">
             
             <div class="col">
-                <div class="course-card p-4">
-                    <div class="icon-box bg-code"><i class="fa-brands fa-python"></i></div>
+                <div class="glass-card">
+                    <div class="icon-wrapper"><i class="fa-brands fa-python"></i></div>
                     <h5 class="card-title">Python Programlama</h5>
                     <p class="card-text">Yapay zekanın dili Python'ı öğren. Hesap makinesinden veri analizine ilk adımı at.</p>
                 </div>
             </div>
 
             <div class="col">
-                <div class="course-card p-4">
-                    <div class="icon-box bg-code"><i class="fa-brands fa-unity"></i></div>
+                <div class="glass-card">
+                    <div class="icon-wrapper"><i class="fa-brands fa-unity"></i></div>
                     <h5 class="card-title">Unity ile 3D Oyun</h5>
                     <p class="card-text">Sadece oynama, tasarla. Kendi evrenini yarat, karakterlerini yönet ve oyununu yayınla.</p>
                 </div>
             </div>
 
             <div class="col">
-                <div class="course-card p-4">
-                    <div class="icon-box bg-code"><i class="fa-solid fa-code"></i></div>
+                <div class="glass-card">
+                    <div class="icon-wrapper"><i class="fa-solid fa-code csharp-icon"></i></div>
                     <h5 class="card-title">C# Programlama</h5>
-                    <p class="card-text">Profesyonel kodlamaya giriş. Unity ve Windows uygulamalarının temeli burada.</p>
+                    <p class="card-text">Unity ve kurumsal yazılımların temeli. Güçlü ve güvenli kod yazmayı öğren.</p>
                 </div>
             </div>
 
             <div class="col">
-                <div class="course-card p-4">
-                    <div class="icon-box bg-code"><i class="fa-brands fa-java"></i></div>
+                <div class="glass-card">
+                    <div class="icon-wrapper"><i class="fa-brands fa-java"></i></div>
                     <h5 class="card-title">Java Geliştirme</h5>
-                    <p class="card-text">Nesne tabanlı programlamanın kralı Java ile sağlam algoritmalar kurmayı öğren.</p>
+                    <p class="card-text">Nesne tabanlı programlamanın devi Java ile sağlam algoritmalar kur.</p>
                 </div>
             </div>
 
             <div class="col">
-                <div class="course-card p-4">
-                    <div class="icon-box bg-code"><i class="fa-brands fa-html5"></i></div>
+                <div class="glass-card">
+                    <div class="icon-wrapper"><i class="fa-brands fa-html5"></i></div>
                     <h5 class="card-title">HTML/CSS Web</h5>
                     <p class="card-text">Modern web siteleri tasarla. Kendi portföyünü kodlayarak internete aç.</p>
                 </div>
             </div>
 
              <div class="col">
-                <div class="course-card p-4">
-                    <div class="icon-box bg-code"><i class="fa-brands fa-js"></i></div>
+                <div class="glass-card">
+                    <div class="icon-wrapper"><i class="fa-brands fa-js"></i></div>
                     <h5 class="card-title">JavaScript & Etkileşim</h5>
                     <p class="card-text">Web sitelerine can ver. Dinamik, hareketli ve kullanıcıyla konuşan arayüzler yap.</p>
                 </div>
             </div>
 
             <div class="col">
-                <div class="course-card p-4">
-                    <div class="icon-box bg-design"><i class="fa-solid fa-cube"></i></div>
+                <div class="glass-card">
+                    <div class="icon-wrapper"><i class="fa-solid fa-cube gradient-icon-3d"></i></div>
                     <h5 class="card-title">Blender 3D Modelleme</h5>
                     <p class="card-text">Karakterler, mekanlar ve objeler modelle. Hayalindekini 3 boyutlu dünyaya aktar.</p>
                 </div>
             </div>
 
             <div class="col">
-                <div class="course-card p-4">
-                    <div class="icon-box bg-design"><i class="fa-solid fa-plane-up"></i></div>
+                <div class="glass-card">
+                    <div class="icon-wrapper"><i class="fa-solid fa-jet-fighter-up gradient-icon-design"></i></div>
                     <h5 class="card-title">Tinkercad & Drone</h5>
-                    <p class="card-text">Basit arayüzle hızlı tasarım. Kendi drone gövdeni çiz ve 3D yazıcıdan çıkart.</p>
+                    <p class="card-text">Hızlı ve eğlenceli tasarım. Kendi drone gövdeni çiz ve 3D yazıcıdan çıkart.</p>
                 </div>
             </div>
 
             <div class="col">
-                <div class="course-card p-4">
-                    <div class="icon-box bg-design"><i class="fa-solid fa-layer-group"></i></div>
-                    <h5 class="card-title">Katı Modelleme</h5>
-                    <p class="card-text">Fusion 360 ile endüstriyel tasarım. Parçaları çiz, montajla ve üretime hazırla.</p>
+                <div class="glass-card">
+                    <div class="icon-wrapper"><i class="fa-solid fa-layer-group gradient-icon-design"></i></div>
+                    <h5 class="card-title">Katı Modelleme (Fusion)</h5>
+                    <p class="card-text">Endüstriyel tasarımın temeli. Parçaları milimetrik çiz, montajla ve üretime hazırla.</p>
                 </div>
             </div>
 
             <div class="col">
-                <div class="course-card p-4">
-                    <div class="icon-box bg-design"><i class="fa-solid fa-paintbrush"></i></div>
-                    <h5 class="card-title">Figür Boyama</h5>
-                    <p class="card-text">3D çıktılarını sanat eserine dönüştür. Astarlama, gölgelendirme ve efekt teknikleri.</p>
+                <div class="glass-card">
+                    <div class="icon-wrapper"><i class="fa-solid fa-palette gradient-icon-design"></i></div>
+                    <h5 class="card-title">Figür Boyama Atölyesi</h5>
+                    <p class="card-text">3D çıktılarını sanat eserine dönüştür. Astarlama, gölgelendirme ve eskitme teknikleri.</p>
                 </div>
             </div>
 
              <div class="col">
-                <div class="course-card p-4">
-                    <div class="icon-box bg-design"><i class="fa-solid fa-pen-ruler"></i></div>
+                <div class="glass-card">
+                    <div class="icon-wrapper"><i class="fa-solid fa-pen-ruler gradient-icon-maker"></i></div>
                     <h5 class="card-title">3D Prototipleme</h5>
-                    <p class="card-text">3D Kalem ve el aletleriyle mimari maketler ve hızlı ürün prototipleri üret.</p>
+                    <p class="card-text">3D Kalem ve el aletleriyle fikirlerini anında fiziksel maketlere dönüştür.</p>
                 </div>
             </div>
 
             <div class="col">
-                <div class="course-card p-4">
-                    <div class="icon-box bg-hardware"><i class="fa-solid fa-scissors"></i></div>
+                <div class="glass-card">
+                    <div class="icon-wrapper"><i class="fa-solid fa-scissors gradient-icon-maker"></i></div>
                     <h5 class="card-title">Çiz, Kes, Yarat (CNC)</h5>
-                    <p class="card-text">Vektörel çizimlerini ahşap veya pleksiye kazı. Lazer kesimle kendi ürününü yap.</p>
+                    <p class="card-text">Vektörel çizimlerini lazerle ahşap veya pleksiye işle. Kendi ürününü üret.</p>
                 </div>
             </div>
 
             <div class="col">
-                <div class="course-card p-4">
-                    <div class="icon-box bg-hardware"><i class="fa-solid fa-microchip"></i></div>
+                <div class="glass-card">
+                    <div class="icon-wrapper" style="color: var(--brand-arduino);"><i class="fa-solid fa-microchip"></i></div>
                     <h5 class="card-title">Arduino Robotik</h5>
-                    <p class="card-text">Elektronik beyinleri kodla. Sensörler ve motorlarla hareket eden robotlar yap.</p>
+                    <p class="card-text">Elektronik beyinleri kodla. Sensörler ve motorlarla hareket eden sistemler kur.</p>
                 </div>
             </div>
 
             <div class="col">
-                <div class="course-card p-4">
-                    <div class="icon-box bg-hardware"><i class="fa-solid fa-house-signal"></i></div>
+                <div class="glass-card">
+                    <div class="icon-wrapper"><i class="fa-solid fa-house-signal gradient-icon-office"></i></div>
                     <h5 class="card-title">IoT & Akıllı Ev</h5>
-                    <p class="card-text">Eviniz cebinizde olsun. Wi-Fi modülleriyle internetten kontrol edilen sistemler kur.</p>
+                    <p class="card-text">Eviniz cebinizde olsun. Wi-Fi modülleriyle internetten kontrol edilen sistemler tasarla.</p>
                 </div>
             </div>
 
             <div class="col">
-                <div class="course-card p-4">
-                    <div class="icon-box bg-hardware"><i class="fa-solid fa-crosshairs"></i></div>
+                <div class="glass-card">
+                    <div class="icon-wrapper"><i class="fa-solid fa-bullseye gradient-icon-3d"></i></div>
                     <h5 class="card-title">Tersine Mühendislik</h5>
-                    <p class="card-text">3D Tarayıcı kullanmayı öğren. Gerçek objeleri dijital ortama aktar ve onar.</p>
+                    <p class="card-text">3D Tarayıcı teknolojisini öğren. Fiziksel dünyayı dijital veriye çevir.</p>
                 </div>
             </div>
 
             <div class="col">
-                <div class="course-card p-4">
-                    <div class="icon-box bg-hardware"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
-                    <h5 class="card-title">İleri Tersine Müh.</h5>
-                    <p class="card-text">Taranmış veriyi sanata dönüştür. Blender ile sculpting yaparak yüzeyleri mükemmelleştir.</p>
+                <div class="glass-card">
+                    <div class="icon-wrapper"><i class="fa-solid fa-bezier-curve gradient-icon-3d"></i></div>
+                    <h5 class="card-title">İleri Düzey Modelleme</h5>
+                    <p class="card-text">Taranmış veriyi Blender ile düzenle. Yüzeyleri pürüzsüzleştir ve baskıya hazırla.</p>
                 </div>
             </div>
 
             <div class="col">
-                <div class="course-card p-4">
-                    <div class="icon-box bg-code"><i class="fa-brands fa-android"></i></div>
+                <div class="glass-card">
+                    <div class="icon-wrapper"><i class="fa-brands fa-android"></i></div>
                     <h5 class="card-title">Mobil Uygulama</h5>
                     <p class="card-text">Kod yazmadan bloklarla kendi Android uygulamanı yap, telefona yükle ve kullan.</p>
                 </div>
             </div>
 
             <div class="col">
-                <div class="course-card p-4">
-                    <div class="icon-box bg-code"><i class="fa-solid fa-terminal"></i></div>
+                <div class="glass-card">
+                    <div class="icon-wrapper"><i class="fa-solid fa-terminal gradient-icon-maker"></i></div>
                     <h5 class="card-title">C++ Programlama</h5>
                     <p class="card-text">Yüksek performanslı yazılımın temeli. Algoritma mantığını derinlemesine kavra.</p>
                 </div>
             </div>
 
             <div class="col">
-                <div class="course-card p-4">
-                    <div class="icon-box bg-office"><i class="fa-solid fa-file-excel"></i></div>
+                <div class="glass-card">
+                    <div class="icon-wrapper"><i class="fa-solid fa-table gradient-icon-office"></i></div>
                     <h5 class="card-title">Excel Kullanımı</h5>
                     <p class="card-text">Verilerle konuşmayı öğren. Tablolar, grafikler ve formüllerle işini organize et.</p>
                 </div>
             </div>
 
             <div class="col">
-                <div class="course-card p-4">
-                    <div class="icon-box bg-office"><i class="fa-solid fa-robot"></i></div>
-                    <h5 class="card-title">Excel Otomasyon</h5>
-                    <p class="card-text">Sıkıcı işleri robota bırak. VBA makroları ile Excel'i otomatikleştir.</p>
+                <div class="glass-card">
+                    <div class="icon-wrapper"><i class="fa-solid fa-robot gradient-icon-office"></i></div>
+                    <h5 class="card-title">Excel Otomasyon (VBA)</h5>
+                    <p class="card-text">Sıkıcı ve tekrar eden işleri robota bırak. Makrolar ile Excel'i otomatikleştir.</p>
                 </div>
             </div>
 
             <div class="col">
-                <div class="course-card p-4">
-                    <div class="icon-box bg-office"><i class="fa-solid fa-laptop-file"></i></div>
+                <div class="glass-card">
+                    <div class="icon-wrapper"><i class="fa-solid fa-laptop-file gradient-icon-office"></i></div>
                     <h5 class="card-title">Ofis Yönetimi</h5>
-                    <p class="card-text">Word, PowerPoint ve Excel üçlüsüne hakim ol. Profesyonel sunumlar ve belgeler hazırla.</p>
+                    <p class="card-text">Word, PowerPoint ve Excel üçlüsüne hakim ol. Profesyonel belgeler hazırla.</p>
                 </div>
             </div>
 
         </div>
     </section>
 
-    <footer class="text-center">
+    <footer class="text-center py-5">
         <div class="container">
-            <p class="mb-0 fw-bold">🚀 Geleceği Burada Tasarla.</p>
-            <small class="text-white-50">© 2026 Bilişim Sınıfı | GitHub Pages</small>
+            <h4 class="fw-bold mb-3 text-white">KÜÇÜKÇEKMECE BELEDİYESİ GENÇLİK MERKEZİ</h4>
+            <p class="mb-4 text-white-50">Geleceği Burada Tasarla. 🚀</p>
+            <small class="text-white-50 opacity-50">© 2026 Bilişim Sınıfı | QR Erişim Portalı</small>
         </div>
     </footer>
 
