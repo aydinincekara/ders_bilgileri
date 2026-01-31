@@ -70,62 +70,67 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* --- NEON TABELA EFEKTLERİ (YENİ) --- */
-        .neon-sign {
+        /* --- YENİ GRUP BAŞLIKLARI (LIVE PULSE EFFECT) --- */
+        .group-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-weight: 800;
             font-family: 'Montserrat', sans-serif;
-            font-weight: 900;
-            font-size: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            padding: 10px 20px;
-            border: 3px solid;
-            border-radius: 12px;
-            display: inline-block;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
             margin-bottom: 25px;
             position: relative;
-            background: rgba(0,0,0,0.4); /* Cam arka plan */
-            box-shadow: 0 0 15px rgba(0,0,0,0.5);
-            transition: 0.3s;
+            /* "Ripple" animasyonu için */
+            animation: pulse-border 2s infinite;
         }
 
-        /* Sabah Neonu (Altın Sarısı) */
-        .neon-morning {
+        /* Yanıp Sönen Canlı Nokta */
+        .live-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 10px;
+            animation: blink 1.5s infinite;
+        }
+
+        @keyframes blink {
+            0% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        /* RENK VARYASYONLARI */
+        
+        /* Sabah (Sarı) */
+        .badge-morning {
+            background: rgba(255, 215, 0, 0.1);
             color: #FFD700;
-            border-color: #FFD700;
-            text-shadow: 0 0 5px #FFD700, 0 0 10px #FFD700;
-            box-shadow: 0 0 10px #FFD700, inset 0 0 10px #FFD700;
-            animation: neonPulseGold 2s infinite alternate;
+            border: 1px solid rgba(255, 215, 0, 0.5);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
         }
-        @keyframes neonPulseGold {
-            from { box-shadow: 0 0 10px #FFD700, inset 0 0 5px #FFD700; }
-            to { box-shadow: 0 0 25px #FFD700, inset 0 0 10px #FFD700; text-shadow: 0 0 20px #FFD700; }
-        }
+        .badge-morning .live-dot { background-color: #FFD700; box-shadow: 0 0 10px #FFD700; }
 
-        /* Öğlen Neonu (Elektrik Mavisi) */
-        .neon-noon {
-            color: #00FFFF;
-            border-color: #00FFFF;
-            text-shadow: 0 0 5px #00FFFF, 0 0 10px #00FFFF;
-            box-shadow: 0 0 10px #00FFFF, inset 0 0 10px #00FFFF;
-            animation: neonPulseBlue 2.5s infinite alternate;
+        /* Öğlen (Mavi) */
+        .badge-noon {
+            background: rgba(0, 243, 255, 0.1);
+            color: #00f3ff;
+            border: 1px solid rgba(0, 243, 255, 0.5);
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.2);
         }
-        @keyframes neonPulseBlue {
-            from { box-shadow: 0 0 10px #00FFFF, inset 0 0 5px #00FFFF; }
-            to { box-shadow: 0 0 25px #00FFFF, inset 0 0 10px #00FFFF; text-shadow: 0 0 20px #00FFFF; }
-        }
+        .badge-noon .live-dot { background-color: #00f3ff; box-shadow: 0 0 10px #00f3ff; }
 
-        /* Akşam Neonu (Hot Pink) */
-        .neon-evening {
-            color: #FF00FF;
-            border-color: #FF00FF;
-            text-shadow: 0 0 5px #FF00FF, 0 0 10px #FF00FF;
-            box-shadow: 0 0 10px #FF00FF, inset 0 0 10px #FF00FF;
-            animation: neonPulsePink 1.8s infinite alternate;
+        /* Akşam (Mor/Pembe) */
+        .badge-evening {
+            background: rgba(188, 19, 254, 0.1);
+            color: #bc13fe;
+            border: 1px solid rgba(188, 19, 254, 0.5);
+            box-shadow: 0 0 15px rgba(188, 19, 254, 0.2);
         }
-        @keyframes neonPulsePink {
-            from { box-shadow: 0 0 10px #FF00FF, inset 0 0 5px #FF00FF; }
-            to { box-shadow: 0 0 25px #FF00FF, inset 0 0 10px #FF00FF; text-shadow: 0 0 20px #FF00FF; }
-        }
+        .badge-evening .live-dot { background-color: #bc13fe; box-shadow: 0 0 10px #bc13fe; }
 
         /* Kart Tasarımı */
         .active-card {
@@ -139,7 +144,7 @@
             overflow: hidden;
             height: 100%;
         }
-        .active-card:hover { transform: scale(1.03); background: rgba(30, 41, 59, 0.9); }
+        .active-card:hover { transform: translateY(-5px); background: rgba(30, 41, 59, 0.9); border-color: rgba(255,255,255,0.3); }
 
         /* Buton ve Hakkında Bölümü */
         .mega-btn-container { padding: 60px 0; }
@@ -228,16 +233,16 @@
     <section class="container mb-5">
         <div class="row g-4 justify-content-center">
             <div class="col-12 text-center mb-4">
-                <h3 class="fw-bold text-white"><i class="fa-solid fa-tower-broadcast me-2 text-danger fa-beat"></i>ŞU AN CANLI YAYINDA</h3>
+                <h3 class="fw-bold text-white"><i class="fa-solid fa-tower-broadcast me-2 text-danger fa-beat-fade"></i>ŞU AN CANLI YAYINDA</h3>
             </div>
 
             <div class="col-md-4">
                 <div class="active-card">
-                    <div class="neon-sign neon-morning">
-                        <i class="fa-regular fa-sun me-2"></i>SABAH GRUBU
+                    <div class="group-badge badge-morning">
+                        <span class="live-dot"></span> SABAH GRUBU
                     </div>
                     
-                    <div class="mb-3 text-warning"><i class="fa-solid fa-code fa-4x"></i></div>
+                    <div class="mb-3 text-warning"><i class="fa-solid fa-code fa-4x fa-fade" style="--fa-animation-duration: 3s;"></i></div>
                     <h4 class="fw-bold">C# PROGRAMLAMA</h4>
                     <p class="text-white-50">Unity ve Windows tabanlı yazılım geliştirme temelleri.</p>
                 </div>
@@ -245,11 +250,11 @@
 
             <div class="col-md-4">
                 <div class="active-card">
-                    <div class="neon-sign neon-noon">
-                        <i class="fa-solid fa-cloud-sun me-2"></i>ÖĞLEN GRUBU
+                    <div class="group-badge badge-noon">
+                        <span class="live-dot"></span> ÖĞLEN GRUBU
                     </div>
 
-                    <div class="mb-3 text-info"><i class="fa-brands fa-unity fa-4x"></i></div>
+                    <div class="mb-3 text-info"><i class="fa-brands fa-unity fa-4x fa-fade" style="--fa-animation-duration: 3s;"></i></div>
                     <h4 class="fw-bold">UNITY OYUN TASARIMI</h4>
                     <p class="text-white-50">Oyun mekanikleri, sahne tasarımı ve fizik motoru.</p>
                 </div>
@@ -257,11 +262,11 @@
 
             <div class="col-md-4">
                 <div class="active-card">
-                    <div class="neon-sign neon-evening">
-                        <i class="fa-solid fa-moon me-2"></i>AKŞAM GRUBU
+                    <div class="group-badge badge-evening">
+                        <span class="live-dot"></span> AKŞAM GRUBU
                     </div>
 
-                    <div class="mb-3" style="color: var(--neon-purple);"><i class="fa-solid fa-wand-magic-sparkles fa-4x"></i></div>
+                    <div class="mb-3" style="color: var(--neon-purple);"><i class="fa-solid fa-wand-magic-sparkles fa-4x fa-fade" style="--fa-animation-duration: 3s;"></i></div>
                     <h4 class="fw-bold">TERSİNE MÜHENDİSLİK</h4>
                     <p class="text-white-50">3D Tarama, model onarımı ve dijitalleştirme süreçleri.</p>
                 </div>
