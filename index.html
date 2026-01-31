@@ -8,9 +8,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --sabah-color: #ffc107; /* Sabah için sarı ton */
-            --oglen-color: #0dcaf0; /* Öğlen için mavi ton */
-            --aksam-color: #6610f2; /* Akşam için mor ton */
+            --sabah-color: #ffc107;
+            --oglen-color: #0dcaf0;
+            --aksam-color: #6610f2;
             --primary-bg: #f8f9fa;
         }
 
@@ -29,6 +29,7 @@
             border: none;
             transition: transform 0.3s;
             border-top: 5px solid gray;
+            background: white;
         }
         .time-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
         .border-sabah { border-color: var(--sabah-color); }
@@ -49,24 +50,28 @@
         /* Ders Katalog Kartları */
         .course-card {
             height: 100%;
-            border-radius: 15px;
+            border-radius: 12px;
             overflow: hidden;
             border: 1px solid #e0e0e0;
             background: white;
+            transition: 0.2s;
         }
-        .course-icon {
-            font-size: 3rem;
-            margin-bottom: 15px;
-            color: #2a5298;
+        .course-card:hover {
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            border-color: #2a5298;
+            transform: translateY(-3px);
         }
-        .course-img-placeholder {
-            height: 150px;
-            background-color: #ddd;
+        .course-icon-header {
+            background-color: #f8f9fa;
+            height: 90px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #666;
+            color: #2a5298;
+            border-bottom: 1px solid #eee;
         }
+        .card-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 10px; color: #333; }
+        .card-text { font-size: 0.9rem; color: #666; line-height: 1.5; }
     </style>
 </head>
 <body>
@@ -82,7 +87,6 @@
                     <li class="nav-item"><a class="nav-link active" href="#anasayfa">Ana Sayfa</a></li>
                     <li class="nav-item"><a class="nav-link" href="#aktif-dersler">Devam Edenler</a></li>
                     <li class="nav-item"><a class="nav-link" href="#tum-dersler">Tüm Eğitimler</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#iletisim">İletişim</a></li>
                 </ul>
             </div>
         </div>
@@ -90,54 +94,56 @@
 
     <section id="anasayfa" class="hero-section">
         <div class="container">
-            <h1 class="display-4 fw-bold">Geleceği Kodla, Tasarla ve Üret</h1>
-            <p class="lead">Yazılım, 3D Tasarım, Robotik ve Ofis Uygulamaları üzerine kapsamlı eğitim merkezi.</p>
-            <a href="#tum-dersler" class="btn btn-light btn-lg mt-3">Eğitimleri Keşfet</a>
+            <h1 class="display-4 fw-bold">Teknoloji ve Tasarım Atölyesi</h1>
+            <p class="lead">Yazılım, 3D Tasarım, Robotik ve Ofis Uygulamaları üzerine kapsamlı eğitim kataloğu.</p>
+            <a href="#tum-dersler" class="btn btn-light btn-lg mt-3">Kataloğu İncele</a>
         </div>
     </section>
 
     <section id="aktif-dersler" class="container my-5">
         <div class="text-center mb-5">
             <h2 class="fw-bold">Şu An Devam Eden Gruplar</h2>
-            <p class="text-muted">Aktif olarak işlenen derslerimiz ve zaman çizelgesi.</p>
+            <div class="d-flex justify-content-center">
+                <div style="height: 3px; width: 60px; background-color: #2a5298;"></div>
+            </div>
         </div>
 
         <div class="row g-4">
             <div class="col-md-4">
-                <div class="card time-card border-sabah h-100 shadow-sm">
+                <div class="card time-card border-sabah h-100">
                     <div class="card-body text-center">
                         <div class="display-6 mb-3 text-warning"><i class="fa-regular fa-sun"></i></div>
                         <h3 class="card-title">Sabah Grubu</h3>
                         <span class="badge badge-live mb-3">CANLI / DEVAM EDİYOR</span>
                         <h4 class="fw-bold text-dark">C# Programlama</h4>
-                        <p class="card-text text-muted">Unity için temel C# eğitimi ve algoritma mantığı.</p>
-                        <button class="btn btn-outline-warning w-100">Ders Detayları</button>
+                        <p class="card-text">Unity için temel C# eğitimi ve algoritma mantığı.</p>
+                        <button class="btn btn-outline-warning w-100 btn-sm">Ders Detayları</button>
                     </div>
                 </div>
             </div>
 
             <div class="col-md-4">
-                <div class="card time-card border-oglen h-100 shadow-sm">
+                <div class="card time-card border-oglen h-100">
                     <div class="card-body text-center">
                         <div class="display-6 mb-3 text-info"><i class="fa-solid fa-cloud-sun"></i></div>
                         <h3 class="card-title">Öğlen Grubu</h3>
                         <span class="badge badge-live mb-3">CANLI / DEVAM EDİYOR</span>
                         <h4 class="fw-bold text-dark">Unity ile Oyun Tasarımı-2</h4>
-                        <p class="card-text text-muted">İleri seviye oyun mekanikleri ve sahne tasarımları.</p>
-                        <button class="btn btn-outline-info w-100">Ders Detayları</button>
+                        <p class="card-text">İleri seviye oyun mekanikleri ve sahne tasarımları.</p>
+                        <button class="btn btn-outline-info w-100 btn-sm">Ders Detayları</button>
                     </div>
                 </div>
             </div>
 
             <div class="col-md-4">
-                <div class="card time-card border-aksam h-100 shadow-sm">
+                <div class="card time-card border-aksam h-100">
                     <div class="card-body text-center">
                         <div class="display-6 mb-3 text-primary"><i class="fa-solid fa-moon"></i></div>
                         <h3 class="card-title">Akşam Grubu</h3>
                         <span class="badge badge-live mb-3">CANLI / DEVAM EDİYOR</span>
                         <h4 class="fw-bold text-dark">Tersine Mühendislik-2</h4>
-                        <p class="card-text text-muted">3D Tarama, Mesh düzenleme ve ileri seviye modelleme.</p>
-                        <button class="btn btn-outline-primary w-100">Ders Detayları</button>
+                        <p class="card-text">3D Tarama, Mesh düzenleme ve ileri seviye modelleme.</p>
+                        <button class="btn btn-outline-primary w-100 btn-sm">Ders Detayları</button>
                     </div>
                 </div>
             </div>
@@ -148,117 +154,217 @@
         <div class="container">
             <div class="text-center mb-5">
                 <h2 class="fw-bold">Eğitim Kataloğu</h2>
-                <p>Sınıfımızda verilen tüm derslerin içerikleri ve kazanımları.</p>
+                <p>Sınıfımızda verilen 21 farklı dersin detaylı içerikleri.</p>
             </div>
 
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
                 
                 <div class="col">
                     <div class="card course-card">
-                        <div class="course-img-placeholder"><i class="fa-solid fa-file-excel fa-3x"></i></div>
+                        <div class="course-icon-header"><i class="fa-solid fa-desktop fa-3x"></i></div>
                         <div class="card-body">
-                            <h5 class="card-title fw-bold">Bilgisayar İşletmenliği</h5>
-                            <p class="card-text small">Word, Excel ve PowerPoint ile profesyonel belge ve sunum hazırlama.</p>
+                            <h5 class="card-title">Bilgisayar İşletmenliği</h5>
+                            <p class="card-text">Bilgisayar İşletmenliği dersi, Word, Excel ve PowerPoint ile belge oluşturma, veri analizi ve sunum hazırlama becerileri kazandırır. Özgeçmiş, not tablosu ve proje sunumu gibi uygulamalarla Office programlarını entegre kullanmayı öğrenirsiniz.</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="col">
                     <div class="card course-card">
-                        <div class="course-img-placeholder"><i class="fa-solid fa-table fa-3x"></i></div>
+                        <div class="course-icon-header"><i class="fa-solid fa-file-excel fa-3x"></i></div>
                         <div class="card-body">
-                            <h5 class="card-title fw-bold">Excel & Makrolar</h5>
-                            <p class="card-text small">Temel formüllerden VBA ile otomasyon ve veri analizine kadar kapsamlı eğitim.</p>
+                            <h5 class="card-title">Excel 2019 Temel Kullanımı 1. Seviye</h5>
+                            <p class="card-text">Arayüzü tanıyarak veri girişi, biçimlendirme ve temel formüllerle (TOPLA, ORTALAMA) analiz yapmayı öğretir. Öğrenciler, bütçe veya not takip tablosu gibi projelerle verileri görselleştirip sunum becerisi kazanır.</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="col">
                     <div class="card course-card">
-                        <div class="course-img-placeholder"><i class="fa-solid fa-cubes fa-3x"></i></div>
+                        <div class="course-icon-header"><i class="fa-solid fa-file-code fa-3x"></i></div>
                         <div class="card-body">
-                            <h5 class="card-title fw-bold">Tinkercad & Drone Tasarımı</h5>
-                            <p class="card-text small">Drone gövdesi tasarımı, STL oluşturma ve 3D baskıya hazırlık.</p>
+                            <h5 class="card-title">Excel Makrolara Giriş</h5>
+                            <p class="card-text">VBA editörünü kullanarak makro kaydetme, değişkenlerle çalışma ve koşullu ifadelerle veri işleme becerileri öğretir. Öğrenciler, döngüler ve otomatik veri girişi gibi projelerle VBA’da otomasyon yapmayı öğrenir.</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="col">
                     <div class="card course-card">
-                        <div class="course-img-placeholder"><i class="fa-solid fa-cube fa-3x"></i></div>
+                        <div class="course-icon-header"><i class="fa-solid fa-plane fa-3x"></i></div>
                         <div class="card-body">
-                            <h5 class="card-title fw-bold">Blender 3D Modelleme</h5>
-                            <p class="card-text small">Karakter heykelleme, organik modelleme ve render alma teknikleri.</p>
-                        </div>
-                    </div>
-                </div>
-
-                 <div class="col">
-                    <div class="card course-card">
-                        <div class="course-img-placeholder"><i class="fa-solid fa-scanner-gun fa-3x"></i> </div>
-                        <div class="card-body">
-                            <h5 class="card-title fw-bold">Tersine Mühendislik 1 & 2</h5>
-                            <p class="card-text small">3D Tarama, Geomagic/Meshmixer kullanımı ve bozuk yüzey onarımı.</p>
+                            <h5 class="card-title">Tinkercad ile 3D Tasarım (Drone)</h5>
+                            <p class="card-text">Tinkercad arayüzünü kullanarak 3D drone tasarımı ve baskı sürecini öğretir. Öğrenciler, temel şekillerle drone gövdesi tasarlar, STL dosyası oluşturur ve 3D baskı için optimizasyon yapar.</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="col">
                     <div class="card course-card">
-                        <div class="course-img-placeholder"><i class="fa-solid fa-pen-ruler fa-3x"></i></div>
+                        <div class="course-icon-header"><i class="fa-solid fa-pen-ruler fa-3x"></i></div>
                         <div class="card-body">
-                            <h5 class="card-title fw-bold">Çiz, Kes, Yarat (CNC)</h5>
-                            <p class="card-text small">Inkscape ve Illustrator ile vektörel çizim ve lazer kesim uygulamaları.</p>
+                            <h5 class="card-title">3D Prototipleme ve Mimari</h5>
+                            <p class="card-text">3D kalemle temel çizim, prototipleme ve mimari modelleme becerileri öğretir. Öğrenciler, geometrik şekiller, denge ve birleşim teknikleriyle mimari model veya ürün prototipi tasarlar.</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="col">
                     <div class="card course-card">
-                        <div class="course-img-placeholder"><i class="fa-solid fa-paintbrush fa-3x"></i></div>
+                        <div class="course-icon-header"><i class="fa-solid fa-cube fa-3x"></i></div>
                         <div class="card-body">
-                            <h5 class="card-title fw-bold">Figür Boyama Atölyesi</h5>
-                            <p class="card-text small">3D baskı sonrası zımparalama, astarlama ve artistik boyama teknikleri.</p>
+                            <h5 class="card-title">Blender ile 3D Temel Modelleme</h5>
+                            <p class="card-text">Blender arayüzü ve temel 3D modelleme tekniklerini öğretir. Öğrenciler, basit nesneler, karakter heykelleme, 3D tarama düzenleme ve 3D baskı için model hazırlama becerileri kazanır.</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="col">
                     <div class="card course-card">
-                        <div class="course-img-placeholder"><i class="fa-brands fa-python fa-3x"></i></div>
+                        <div class="course-icon-header"><i class="fa-solid fa-bullseye fa-3x"></i></div>
                         <div class="card-body">
-                            <h5 class="card-title fw-bold">Python Programlama</h5>
-                            <p class="card-text small">Temel algoritma, veri analizi ve proje geliştirme uygulamaları.</p>
+                            <h5 class="card-title">Tersine Mühendislik-1</h5>
+                            <p class="card-text">Tersine mühendislik ve 3D tarama süreçlerini, mesh dosyası oluşturma ve Meshmixer ile düzenlemeyi öğretir. Öğrenciler, bozuk yüzeyleri düzelterek STL dosyası hazırlar.</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="col">
                     <div class="card course-card">
-                        <div class="course-img-placeholder"><i class="fa-brands fa-unity fa-3x"></i></div>
+                        <div class="course-icon-header"><i class="fa-solid fa-bezier-curve fa-3x"></i></div>
                         <div class="card-body">
-                            <h5 class="card-title fw-bold">Unity ile 3D Oyun Tasarımı</h5>
-                            <p class="card-text small">Terrain tasarımı, fizik motoru ve C# ile oyun mekanikleri.</p>
+                            <h5 class="card-title">Tersine Mühendislik-2</h5>
+                            <p class="card-text">Blender ile tarama verisi aktarımı, karakter modelleme ve ileri düzey sculpting öğretir. Öğrenciler modellerini STL formatına dönüştürerek 3D baskıya hazırlar.</p>
                         </div>
                     </div>
                 </div>
 
-                 <div class="col">
+                <div class="col">
                     <div class="card course-card">
-                        <div class="course-img-placeholder"><i class="fa-brands fa-html5 fa-3x"></i></div>
+                        <div class="course-icon-header"><i class="fa-solid fa-layer-group fa-3x"></i></div>
                         <div class="card-body">
-                            <h5 class="card-title fw-bold">Web Tasarım (HTML/CSS/JS)</h5>
-                            <p class="card-text small">Responsive tasarım, flexbox ve dinamik arayüz geliştirme.</p>
+                            <h5 class="card-title">Katı Modelleme (Fusion 360)</h5>
+                            <p class="card-text">Fusion 360 ile model tasarımı, montaj, parametrik tasarım ve 3D baskı hazırlığını kapsar. Öğrenciler teknik çizim ve analiz becerileri kazanarak projelerini baskıya hazırlar.</p>
                         </div>
                     </div>
                 </div>
 
-                 <div class="col">
+                <div class="col">
                     <div class="card course-card">
-                        <div class="course-img-placeholder"><i class="fa-solid fa-microchip fa-3x"></i></div>
+                        <div class="course-icon-header"><i class="fa-solid fa-scissors fa-3x"></i></div>
                         <div class="card-body">
-                            <h5 class="card-title fw-bold">Arduino & Akıllı Ev</h5>
-                            <p class="card-text small">Sensör kullanımı, IoT uygulamaları ve Blynk App entegrasyonu.</p>
+                            <h5 class="card-title">Çiz, Kes, Yarat CNC</h5>
+                            <p class="card-text">Vektörel çizim, Inkscape ve Autocad ile geometrik şekiller ve logo tasarımı becerileri kazandırır. Öğrenciler lazer CNC cihazı kullanımı ve malzeme seçimi projeleri yapar.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card course-card">
+                        <div class="course-icon-header"><i class="fa-solid fa-paintbrush fa-3x"></i></div>
+                        <div class="card-body">
+                            <h5 class="card-title">Figür Boyama Atölyesi</h5>
+                            <p class="card-text">3D baskı sonrası zımparalama, astarlama, renk geçişleri ve efekt uygulamalarını öğretir. Öğrenciler figürlerini boyayarak vernikle tamamlar.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card course-card">
+                        <div class="course-icon-header"><i class="fa-brands fa-python fa-3x"></i></div>
+                        <div class="card-body">
+                            <h5 class="card-title">Python Programlama 1. Seviye</h5>
+                            <p class="card-text">Python ortamında temel programlama becerileri öğretir. Koşullu ifadeler, döngüler ve fonksiyonlarla basit bir hesap makinesi veya sayı tahmin oyunu tasarlanır.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card course-card">
+                        <div class="course-icon-header"><i class="fa-brands fa-unity fa-3x"></i></div>
+                        <div class="card-body">
+                            <h5 class="card-title">C# (Unity için) Giriş</h5>
+                            <p class="card-text">Unity ve C# ile oyun geliştirme temellerini öğretir. Koşullu ifadeler, input sistemleri ve listelerle basit bir 2D/3D oyun tasarlanır, ses ve UI entegrasyonu yapılır.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card course-card">
+                        <div class="course-icon-header"><i class="fa-brands fa-java fa-3x"></i></div>
+                        <div class="card-body">
+                            <h5 class="card-title">Java Programlama 1. Seviye</h5>
+                            <p class="card-text">Java ortamında temel programlama, diziler ve metotlar öğretilir. Öğrenciler hesap makinesi veya sayı tahmin oyunu tasarlar ve dosya işlemleri yapar.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card course-card">
+                        <div class="course-icon-header"><i class="fa-solid fa-code fa-3x"></i></div>
+                        <div class="card-body">
+                            <h5 class="card-title">C++ Programlama 1. Seviye</h5>
+                            <p class="card-text">C++ ortamında temel programlama becerileri öğretir. Koşullu ifadeler, döngüler ve dizilerle basit oyunlar tasarlanır ve dosya işlemleriyle sunulur.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card course-card">
+                        <div class="course-icon-header"><i class="fa-solid fa-gamepad fa-3x"></i></div>
+                        <div class="card-body">
+                            <h5 class="card-title">Unity ile 3D Oyun Tasarımı</h5>
+                            <p class="card-text">Unity arayüzü ve C# ile 3D oyun geliştirme temellerini öğretir. Fizik motoru, terrain tasarımı, animasyon ve UI ile 3D toplama oyunu tasarlanır.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card course-card">
+                        <div class="course-icon-header"><i class="fa-brands fa-android fa-3x"></i></div>
+                        <div class="card-body">
+                            <h5 class="card-title">App Inventor ile Mobil Uygulama</h5>
+                            <p class="card-text">MIT App Inventor ile blok tabanlı mobil uygulama geliştirmeyi öğretir. Sensörler ve TinyDB ile not alma veya quiz uygulaması tasarlanır.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card course-card">
+                        <div class="course-icon-header"><i class="fa-brands fa-html5 fa-3x"></i></div>
+                        <div class="card-body">
+                            <h5 class="card-title">HTML/CSS ile Web Tasarımı</h5>
+                            <p class="card-text">HTML ve CSS kullanarak temel web sayfası oluşturma, CSS Box Model, flexbox ve görsel efektlerle kişisel portföy sitesi tasarımı öğretilir.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card course-card">
+                        <div class="course-icon-header"><i class="fa-brands fa-js fa-3x"></i></div>
+                        <div class="card-body">
+                            <h5 class="card-title">JavaScript ile Web Arayüz</h5>
+                            <p class="card-text">HTML, CSS ve JavaScript ile dinamik web sayfaları oluşturmayı öğretir. DOM manipülasyonu ve olay yönetimi ile etkileşimli araçlar tasarlanır.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card course-card">
+                        <div class="course-icon-header"><i class="fa-solid fa-microchip fa-3x"></i></div>
+                        <div class="card-body">
+                            <h5 class="card-title">Arduino ile Robotik Programlama</h5>
+                            <p class="card-text">Arduino kartı ve IDE ile temel programlama, LED kontrolü, potansiyometre ve sensör kullanımı öğretilir. Robotik sistemler oluşturulur.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card course-card">
+                        <div class="course-icon-header"><i class="fa-solid fa-house-signal fa-3x"></i></div>
+                        <div class="card-body">
+                            <h5 class="card-title">Akıllı Ev Sistemleri (IoT)</h5>
+                            <p class="card-text">Arduino ve Blynk App ile IoT temellerini öğretir. ESP8266 ile Wi-Fi bağlantısı, LM35 sensörü ve servo motorla akıllı ev projesi tasarlanır.</p>
                         </div>
                     </div>
                 </div>
