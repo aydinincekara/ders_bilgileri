@@ -6,7 +6,7 @@
     <title>K.Çekmece Bilişim | Geleceği Kodla</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Exo+2:wght@300;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet">
     
     <style>
         :root {
@@ -38,15 +38,16 @@
 
         /* Navbar */
         .navbar {
-            background: rgba(5, 5, 5, 0.85);
+            background: rgba(5, 5, 5, 0.9);
             backdrop-filter: blur(15px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.08);
             padding: 15px 0;
+            z-index: 1000;
         }
 
-        /* Hero Başlık */
+        /* Hero */
         .hero-section {
-            padding: 120px 0 40px;
+            padding: 140px 0 30px;
             text-align: center;
         }
         
@@ -58,7 +59,7 @@
             filter: drop-shadow(0 0 20px rgba(165, 180, 252, 0.4));
         }
 
-        /* --- KART TASARIMLARI (DÜZELTİLDİ) --- */
+        /* --- KART TASARIMI --- */
         .time-card {
             border-radius: 24px;
             padding: 2rem 1.5rem;
@@ -66,7 +67,7 @@
             position: relative;
             overflow: hidden;
             height: 100%;
-            min-height: 500px; /* Kart boyu sabitlendi */
+            min-height: 520px; /* PC Yüksekliği */
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -90,7 +91,7 @@
             filter: blur(20px); opacity: 0.6; transition: 0.5s;
         }
         .card-morning:hover::after { opacity: 1; height: 200px; }
-        .icon-morning { font-size: 3.5rem; color: #FFD700; filter: drop-shadow(0 0 15px #FFD700); margin-bottom: 1.5rem; z-index: 2; animation: floatIcon 4s ease-in-out infinite; }
+        .icon-morning { font-size: 4rem; color: #FFD700; filter: drop-shadow(0 0 15px #FFD700); margin-bottom: 1.5rem; z-index: 2; animation: floatIcon 4s ease-in-out infinite; }
 
         /* ÖĞLEN */
         .card-noon { box-shadow: 0 10px 30px -10px rgba(0, 243, 255, 0.15); }
@@ -100,17 +101,17 @@
             filter: blur(20px); opacity: 0.6; transition: 0.5s;
         }
         .card-noon:hover::after { opacity: 1; height: 200px; }
-        .icon-noon { font-size: 3.5rem; color: #00f3ff; filter: drop-shadow(0 0 15px #00f3ff); margin-bottom: 1.5rem; z-index: 2; animation: spinSlow 12s linear infinite; }
+        .icon-noon { font-size: 4rem; color: #00f3ff; filter: drop-shadow(0 0 15px #00f3ff); margin-bottom: 1.5rem; z-index: 2; animation: spinSlow 12s linear infinite; }
 
         /* AKŞAM */
-        .card-evening { box-shadow: 0 10px 30px -10px rgba(188, 19, 254, 0.15); background: linear-gradient(160deg, rgba(15,15,20,0.8), rgba(30,10,40,0.8)); }
+        .card-evening { box-shadow: 0 10px 30px -10px rgba(188, 19, 254, 0.15); background: linear-gradient(160deg, rgba(15,15,20,0.9), rgba(30,10,40,0.9)); }
         .card-evening::before {
             content: ''; position: absolute; top:0; left:0; right:0; bottom:0;
             background-image: radial-gradient(white 1px, transparent 1px);
             background-size: 30px 30px; opacity: 0.1;
         }
-        .icon-evening { font-size: 3.5rem; color: #d8b4fe; filter: drop-shadow(0 0 15px #a855f7); transform: rotate(-15deg); margin-bottom: 1.5rem; z-index: 2; }
-        
+        .icon-evening { font-size: 4rem; color: #d8b4fe; filter: drop-shadow(0 0 15px #a855f7); transform: rotate(-15deg); margin-bottom: 1.5rem; z-index: 2; }
+
         @keyframes floatIcon { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
         @keyframes spinSlow { 100% { transform: rotate(360deg); } }
 
@@ -120,9 +121,9 @@
             margin-bottom: 25px; z-index: 2; position: relative; display: inline-block;
             background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
         }
-        .tech-title { font-weight: 900; font-size: 1.4rem; margin-bottom: 10px; z-index: 2; position: relative; }
-        .tech-desc { font-size: 0.9rem; color: #cbd5e1; line-height: 1.5; z-index: 2; position: relative; }
-        .tech-icon { font-size: 2rem; margin-bottom: 15px; z-index: 2; position: relative; }
+        .tech-title { font-weight: 900; font-size: 1.5rem; margin-bottom: 10px; z-index: 2; position: relative; }
+        .tech-desc { font-size: 0.95rem; color: #cbd5e1; line-height: 1.5; z-index: 2; position: relative; }
+        .tech-icon { font-size: 2.2rem; margin-bottom: 15px; z-index: 2; position: relative; }
 
         /* Buton */
         .mega-btn-container { padding: 60px 0; }
@@ -143,34 +144,49 @@
         .modal-header, .modal-footer { border-color: rgba(255,255,255,0.1); }
         .catalog-item { background: rgba(255,255,255,0.03); border-radius: 12px; padding: 20px; border-left: 4px solid #444; height: 100%; transition: 0.3s; }
         .catalog-item:hover { background: rgba(255,255,255,0.08); transform: translateX(5px); }
-        .cat-icon { font-size: 2rem; margin-bottom: 15px; display: block; }
         .cat-title { font-weight: 700; font-size: 1rem; color: #fff; margin-bottom: 8px; }
         .cat-desc { font-size: 0.85rem; color: #94a3b8; line-height: 1.4; }
 
         /* -----------------------------------------------------------
-           MOBİL DÜZELTMELER (ÖNEMLİ)
+           MOBİL SNAP SCROLL FIX (DÜZELTİLEN KISIM)
            ----------------------------------------------------------- */
         @media (max-width: 768px) {
             .hero-title { font-size: 2rem; }
             
-            /* DÜZELTME: justify-content-center MOBİLDE KALDIRILDI */
             .mobile-scroll {
                 display: flex;
                 flex-wrap: nowrap;
                 overflow-x: auto;
-                gap: 15px;
-                padding: 10px 20px 30px 20px; /* Soldan boşluk verildi */
-                justify-content: flex-start !important; /* SABAH KARTININ GÖRÜNMESİ İÇİN KRİTİK AYAR */
-                scroll-snap-type: x mandatory;
+                gap: 15px; /* Kartlar arası boşluk */
+                
+                /* SAĞ VE SOLA EŞİT BOŞLUK (PADDING) */
+                /* Kart %85 genişlikteyse, kenarlarda %7.5 boşluk kalmalı ki ortalansın */
+                padding: 10px 7.5%; 
+                
+                /* ÖNEMLİ: Listeyi en soldan başlat, center değil */
+                justify-content: flex-start !important; 
+                
+                scroll-snap-type: x mandatory; /* Manyetik kilitlenme */
+                -webkit-overflow-scrolling: touch; /* iOS için akıcı kaydırma */
+                
+                /* Scroll çubuğunu gizle */
+                scrollbar-width: none; 
+                -ms-overflow-style: none;
             }
-            
+            .mobile-scroll::-webkit-scrollbar { display: none; }
+
             .mobile-scroll .col-md-4 {
-                flex: 0 0 85%; /* Kart genişliği */
-                width: 85%;
-                scroll-snap-align: center;
+                flex: 0 0 85%; /* Kart Genişliği: Ekranın %85'i */
+                max-width: 85%;
+                scroll-snap-align: center; /* Kartın merkezi ekranın merkezine kilitlenir */
+                scroll-snap-stop: always; /* ÖNEMLİ: Hızlı kaydırmayı engeller, tek tek durdurur */
             }
 
-            .time-card { min-height: 400px; padding: 1.5rem; }
+            /* Kartın içini biraz küçült */
+            .time-card { min-height: 450px; padding: 1.5rem; }
+            .icon-morning, .icon-noon, .icon-evening { font-size: 3rem; margin-bottom: 1rem; }
+            .tech-title { font-size: 1.3rem; }
+            
             .mega-btn { width: 90%; justify-content: center; font-size: 0.9rem; }
         }
     </style>
@@ -273,31 +289,31 @@
                 <div class="modal-body p-4">
                     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
                         
-                        <div class="col"><div class="catalog-item" style="border-color: var(--brand-python);"><i class="fa-brands fa-python cat-icon" style="color:var(--brand-python)"></i><div class="cat-title">PYTHON PROGRAMLAMA</div><p class="cat-desc">Koşullu ifadeler, döngüler ve hesap makinesi veya sayı tahmin oyunu tasarımı.</p></div></div>
-                        <div class="col"><div class="catalog-item"><i class="fa-brands fa-unity cat-icon text-white"></i><div class="cat-title">UNITY İLE 3D OYUN</div><p class="cat-desc">Fizik motoru, terrain tasarımı, animasyon ve UI ile 3D toplama oyunu.</p></div></div>
-                        <div class="col"><div class="catalog-item" style="border-color: var(--brand-java);"><i class="fa-brands fa-java cat-icon" style="color:var(--brand-java)"></i><div class="cat-title">JAVA PROGRAMLAMA</div><p class="cat-desc">Nesne tabanlı programlama, diziler ve metotlarla proje geliştirme.</p></div></div>
-                        <div class="col"><div class="catalog-item"><i class="fa-solid fa-code cat-icon text-white"></i><div class="cat-title">C# (UNITY İÇİN)</div><p class="cat-desc">Oyun geliştirme temelleri, koşullu ifadeler, döngüler ve listeler.</p></div></div>
-                        <div class="col"><div class="catalog-item" style="border-color: var(--brand-android);"><i class="fa-brands fa-android cat-icon" style="color:var(--brand-android)"></i><div class="cat-title">MOBİL UYGULAMA (APP)</div><p class="cat-desc">MIT App Inventor ile blok tabanlı Android uygulama ve TinyDB kullanımı.</p></div></div>
-                        <div class="col"><div class="catalog-item" style="border-color: #00599C;"><i class="fa-solid fa-terminal cat-icon" style="color:#00599C"></i><div class="cat-title">C++ PROGRAMLAMA</div><p class="cat-desc">Temel programlama, döngüler, diziler ve fonksiyonlarla oyun tasarımı.</p></div></div>
+                        <div class="col"><div class="catalog-item" style="border-color: var(--brand-python);"><i class="fa-brands fa-python cat-icon" style="color:var(--brand-python)"></i><div class="cat-title">PYTHON PROGRAMLAMA</div><p class="cat-desc">Koşullu ifadeler, döngüler, listeler ve hesap makinesi projesi.</p></div></div>
+                        <div class="col"><div class="catalog-item"><i class="fa-brands fa-unity cat-icon text-white"></i><div class="cat-title">UNITY İLE 3D OYUN</div><p class="cat-desc">Fizik motoru, terrain tasarımı, animasyon ve 3D toplama oyunu.</p></div></div>
+                        <div class="col"><div class="catalog-item" style="border-color: var(--brand-java);"><i class="fa-brands fa-java cat-icon" style="color:var(--brand-java)"></i><div class="cat-title">JAVA PROGRAMLAMA</div><p class="cat-desc">Nesne tabanlı programlama, diziler ve metotlarla proje.</p></div></div>
+                        <div class="col"><div class="catalog-item"><i class="fa-solid fa-code cat-icon text-white"></i><div class="cat-title">C# (UNITY İÇİN)</div><p class="cat-desc">Oyun geliştirme temelleri, koşullu ifadeler ve döngüler.</p></div></div>
+                        <div class="col"><div class="catalog-item" style="border-color: var(--brand-android);"><i class="fa-brands fa-android cat-icon" style="color:var(--brand-android)"></i><div class="cat-title">MOBİL UYGULAMA (APP)</div><p class="cat-desc">App Inventor ile Android uygulama ve TinyDB kullanımı.</p></div></div>
+                        <div class="col"><div class="catalog-item" style="border-color: #00599C;"><i class="fa-solid fa-terminal cat-icon" style="color:#00599C"></i><div class="cat-title">C++ PROGRAMLAMA</div><p class="cat-desc">Temel programlama, döngüler, diziler ve fonksiyonlar.</p></div></div>
                         
-                        <div class="col"><div class="catalog-item" style="border-color: var(--brand-html);"><i class="fa-brands fa-html5 cat-icon" style="color:var(--brand-html)"></i><div class="cat-title">WEB TASARIMI (HTML/CSS)</div><p class="cat-desc">Semantik HTML, CSS Box Model, Flexbox ve responsive kişisel portföy.</p></div></div>
-                        <div class="col"><div class="catalog-item" style="border-color: #F7DF1E;"><i class="fa-brands fa-js cat-icon" style="color:#F7DF1E"></i><div class="cat-title">JAVASCRIPT ARAYÜZ</div><p class="cat-desc">DOM manipülasyonu, olay yönetimi ve etkileşimli hesap makinesi.</p></div></div>
+                        <div class="col"><div class="catalog-item" style="border-color: var(--brand-html);"><i class="fa-brands fa-html5 cat-icon" style="color:var(--brand-html)"></i><div class="cat-title">WEB TASARIMI (HTML/CSS)</div><p class="cat-desc">Semantik HTML, CSS Box Model ve responsive portföy.</p></div></div>
+                        <div class="col"><div class="catalog-item" style="border-color: #F7DF1E;"><i class="fa-brands fa-js cat-icon" style="color:#F7DF1E"></i><div class="cat-title">JAVASCRIPT ARAYÜZ</div><p class="cat-desc">DOM manipülasyonu, olay yönetimi ve dinamik sayfalar.</p></div></div>
 
-                        <div class="col"><div class="catalog-item" style="border-color: var(--brand-blender);"><i class="fa-solid fa-cube cat-icon" style="color:var(--brand-blender)"></i><div class="cat-title">BLENDER 3D MODELLEME</div><p class="cat-desc">Karakter heykelleme, 3D tarama düzenleme ve baskı hazırlığı.</p></div></div>
-                        <div class="col"><div class="catalog-item" style="border-color: var(--brand-fusion);"><i class="fa-solid fa-layer-group cat-icon" style="color:var(--brand-fusion)"></i><div class="cat-title">KATI MODELLEME (FUSION)</div><p class="cat-desc">Parametrik tasarım, montaj, teknik çizim ve dilimleme yazılımı.</p></div></div>
-                        <div class="col"><div class="catalog-item" style="border-color: #128FC8;"><i class="fa-solid fa-cubes-stacked cat-icon" style="color:#128FC8"></i><div class="cat-title">TINKERCAD (DRONE)</div><p class="cat-desc">Drone gövde tasarımı, STL oluşturma ve 3D baskı optimizasyonu.</p></div></div>
-                        <div class="col"><div class="catalog-item" style="border-color: #ff0055;"><i class="fa-solid fa-pen-ruler cat-icon" style="color:#ff0055"></i><div class="cat-title">3D PROTOTİPLEME</div><p class="cat-desc">3D Kalem ve el aletleriyle geometrik şekiller ve ürün prototipi.</p></div></div>
-                        <div class="col"><div class="catalog-item" style="border-color: #ff0055;"><i class="fa-solid fa-paintbrush cat-icon" style="color:#ff0055"></i><div class="cat-title">FİGÜR BOYAMA</div><p class="cat-desc">Zımparalama, astarlama, gölgelendirme ve efekt uygulamaları.</p></div></div>
-                        <div class="col"><div class="catalog-item" style="border-color: #ff0055;"><i class="fa-solid fa-scissors cat-icon" style="color:#ff0055"></i><div class="cat-title">ÇİZ, KES, YARAT (CNC)</div><p class="cat-desc">Vektörel çizim, lazer CNC kullanımı ve kesim-gravür projeleri.</p></div></div>
+                        <div class="col"><div class="catalog-item" style="border-color: var(--brand-blender);"><i class="fa-solid fa-cube cat-icon" style="color:var(--brand-blender)"></i><div class="cat-title">BLENDER 3D MODELLEME</div><p class="cat-desc">Karakter heykelleme, organik modelleme ve baskıya hazırlık.</p></div></div>
+                        <div class="col"><div class="catalog-item" style="border-color: var(--brand-fusion);"><i class="fa-solid fa-layer-group cat-icon" style="color:var(--brand-fusion)"></i><div class="cat-title">KATI MODELLEME (FUSION)</div><p class="cat-desc">Parametrik tasarım, montaj, analiz ve teknik çizim.</p></div></div>
+                        <div class="col"><div class="catalog-item" style="border-color: #128FC8;"><i class="fa-solid fa-cubes-stacked cat-icon" style="color:#128FC8"></i><div class="cat-title">TINKERCAD (DRONE)</div><p class="cat-desc">Drone gövde tasarımı, STL oluşturma ve optimizasyon.</p></div></div>
+                        <div class="col"><div class="catalog-item" style="border-color: #ff0055;"><i class="fa-solid fa-pen-ruler cat-icon" style="color:#ff0055"></i><div class="cat-title">3D PROTOTİPLEME</div><p class="cat-desc">3D Kalem ve el aletleriyle mimari model ve prototip.</p></div></div>
+                        <div class="col"><div class="catalog-item" style="border-color: #ff0055;"><i class="fa-solid fa-paintbrush cat-icon" style="color:#ff0055"></i><div class="cat-title">FİGÜR BOYAMA</div><p class="cat-desc">Zımparalama, astarlama, gölgelendirme ve efektler.</p></div></div>
+                        <div class="col"><div class="catalog-item" style="border-color: #ff0055;"><i class="fa-solid fa-scissors cat-icon" style="color:#ff0055"></i><div class="cat-title">ÇİZ, KES, YARAT (CNC)</div><p class="cat-desc">Vektörel çizim, lazer kesim ve malzeme seçimi.</p></div></div>
                         
                         <div class="col"><div class="catalog-item" style="border-color: #00f3ff;"><i class="fa-solid fa-bullseye cat-icon" style="color:#00f3ff"></i><div class="cat-title">TERSİNE MÜHENDİSLİK-1</div><p class="cat-desc">3D Tarama, mesh düzenleme, optimizasyon ve onarım.</p></div></div>
-                        <div class="col"><div class="catalog-item" style="border-color: #bc13fe;"><i class="fa-solid fa-wand-magic-sparkles cat-icon" style="color:#bc13fe"></i><div class="cat-title">TERSİNE MÜHENDİSLİK-2</div><p class="cat-desc">Blender ile tarama aktarımı, organik modelleme ve sculpting.</p></div></div>
-                        <div class="col"><div class="catalog-item" style="border-color: var(--brand-arduino);"><i class="fa-solid fa-microchip cat-icon" style="color:var(--brand-arduino)"></i><div class="cat-title">ARDUINO ROBOTİK</div><p class="cat-desc">Sensörler, LED kontrolü, potansiyometre ve robotik sistemler.</p></div></div>
-                        <div class="col"><div class="catalog-item" style="border-color: var(--brand-arduino);"><i class="fa-solid fa-house-signal cat-icon" style="color:var(--brand-arduino)"></i><div class="cat-title">AKILLI EV (IOT)</div><p class="cat-desc">Arduino, Blynk App, Wi-Fi kontrolü ve akıllı ev projeleri.</p></div></div>
+                        <div class="col"><div class="catalog-item" style="border-color: #bc13fe;"><i class="fa-solid fa-wand-magic-sparkles cat-icon" style="color:#bc13fe"></i><div class="cat-title">TERSİNE MÜHENDİSLİK-2</div><p class="cat-desc">Blender ile tarama aktarımı, sculpting ve organik model.</p></div></div>
+                        <div class="col"><div class="catalog-item" style="border-color: var(--brand-arduino);"><i class="fa-solid fa-microchip cat-icon" style="color:var(--brand-arduino)"></i><div class="cat-title">ARDUINO ROBOTİK</div><p class="cat-desc">LED, potansiyometre, sensörler ve robotik sistemler.</p></div></div>
+                        <div class="col"><div class="catalog-item" style="border-color: var(--brand-arduino);"><i class="fa-solid fa-house-signal cat-icon" style="color:var(--brand-arduino)"></i><div class="cat-title">AKILLI EV (IOT)</div><p class="cat-desc">Arduino, Blynk App, Wi-Fi ve sensör entegrasyonu.</p></div></div>
                         
-                        <div class="col"><div class="catalog-item" style="border-color: #217346;"><i class="fa-solid fa-laptop-file cat-icon" style="color:#217346"></i><div class="cat-title">BİLGİSAYAR İŞLETMENLİĞİ</div><p class="cat-desc">Word, Excel, PowerPoint ile belge oluşturma ve sunum hazırlama.</p></div></div>
-                        <div class="col"><div class="catalog-item" style="border-color: #217346;"><i class="fa-solid fa-file-excel cat-icon" style="color:#217346"></i><div class="cat-title">EXCEL TEMEL</div><p class="cat-desc">Veri analizi, biçimlendirme, formüller ve tablo görselleştirme.</p></div></div>
-                        <div class="col"><div class="catalog-item" style="border-color: #217346;"><i class="fa-solid fa-robot cat-icon" style="color:#217346"></i><div class="cat-title">EXCEL MAKROLAR</div><p class="cat-desc">VBA ile makro kaydetme, otomasyon ve otomatik veri girişi.</p></div></div>
+                        <div class="col"><div class="catalog-item" style="border-color: #217346;"><i class="fa-solid fa-laptop-file cat-icon" style="color:#217346"></i><div class="cat-title">BİLGİSAYAR İŞLETMENLİĞİ</div><p class="cat-desc">Word, Excel, PowerPoint ile belge ve sunum hazırlama.</p></div></div>
+                        <div class="col"><div class="catalog-item" style="border-color: #217346;"><i class="fa-solid fa-file-excel cat-icon" style="color:#217346"></i><div class="cat-title">EXCEL TEMEL</div><p class="cat-desc">Veri analizi, biçimlendirme, formüller ve tablolar.</p></div></div>
+                        <div class="col"><div class="catalog-item" style="border-color: #217346;"><i class="fa-solid fa-robot cat-icon" style="color:#217346"></i><div class="cat-title">EXCEL MAKROLAR</div><p class="cat-desc">VBA ile makro kaydetme, otomasyon ve döngüler.</p></div></div>
 
                     </div>
                 </div>
