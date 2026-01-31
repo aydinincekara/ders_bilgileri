@@ -64,7 +64,6 @@
         }
 
         /* --- ATMOSFERİK KART TASARIMLARI --- */
-        
         .time-card {
             border-radius: 24px;
             padding: 2rem;
@@ -72,9 +71,14 @@
             transition: all 0.4s ease;
             position: relative;
             overflow: hidden;
-            height: 100%;
+            height: 100%; /* Kartların boyunu eşitle */
+            min-height: 450px; /* PC için minimum yükseklik */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             border: 1px solid rgba(255,255,255,0.1);
-            background: rgba(20, 20, 30, 0.6); /* Yarı saydam zemin */
+            background: rgba(20, 20, 30, 0.6);
             backdrop-filter: blur(10px);
         }
 
@@ -83,154 +87,79 @@
             box-shadow: 0 20px 40px rgba(0,0,0,0.4);
         }
 
-        /* 1. SABAH KARTI (GÜNDOĞUMU EFEKTİ) */
-        .card-morning {
-            border-bottom: 4px solid #FFD700; /* Altın Sarısı Taban */
-        }
+        /* 1. SABAH KARTI */
+        .card-morning { border-bottom: 4px solid #FFD700; }
         .card-morning::before {
-            content: '';
-            position: absolute;
-            bottom: 0; left: 0; width: 100%; height: 60%;
-            background: linear-gradient(to top, rgba(255, 215, 0, 0.25), transparent);
-            z-index: 0;
-            transition: 0.5s;
+            content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 60%;
+            background: linear-gradient(to top, rgba(255, 215, 0, 0.25), transparent); z-index: 0; transition: 0.5s;
         }
         .card-morning:hover::before { height: 80%; opacity: 1; }
         
         .icon-morning {
-            font-size: 4rem;
-            color: #FFD700;
-            text-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
-            animation: riseUp 3s infinite alternate ease-in-out;
-            margin-bottom: 1rem;
-            position: relative; z-index: 1;
+            font-size: 4rem; color: #FFD700; text-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+            animation: riseUp 3s infinite alternate ease-in-out; margin-bottom: 1rem; position: relative; z-index: 1;
         }
         @keyframes riseUp { from { transform: translateY(5px); opacity: 0.8; } to { transform: translateY(-5px); opacity: 1; } }
 
-        /* 2. ÖĞLEN KARTI (MAVİ GÖKYÜZÜ EFEKTİ) */
-        .card-noon {
-            border-top: 4px solid #00f3ff; /* Camgöbeği Tavan */
-        }
+        /* 2. ÖĞLEN KARTI */
+        .card-noon { border-top: 4px solid #00f3ff; }
         .card-noon::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 60%;
-            background: linear-gradient(to bottom, rgba(0, 243, 255, 0.2), transparent);
-            z-index: 0;
-            transition: 0.5s;
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 60%;
+            background: linear-gradient(to bottom, rgba(0, 243, 255, 0.2), transparent); z-index: 0; transition: 0.5s;
         }
         .card-noon:hover::before { height: 90%; }
 
         .icon-noon {
-            font-size: 4rem;
-            color: #00f3ff;
-            filter: drop-shadow(0 0 15px rgba(0, 243, 255, 0.5));
-            animation: shineRotate 10s infinite linear;
-            margin-bottom: 1rem;
-            position: relative; z-index: 1;
+            font-size: 4rem; color: #00f3ff; filter: drop-shadow(0 0 15px rgba(0, 243, 255, 0.5));
+            animation: shineRotate 10s infinite linear; margin-bottom: 1rem; position: relative; z-index: 1;
         }
         @keyframes shineRotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
-        /* 3. AKŞAM KARTI (GECE/KARANLIK EFEKTİ) */
-        .card-evening {
-            background: linear-gradient(160deg, #0b0f19 0%, #240b36 100%);
-            border: 1px solid #6a0dad;
-        }
-        /* Yıldız Efekti (Noktalar) */
+        /* 3. AKŞAM KARTI */
+        .card-evening { background: linear-gradient(160deg, #0b0f19 0%, #240b36 100%); border: 1px solid #6a0dad; }
         .card-evening::before {
-            content: '.';
-            color: transparent;
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-image: 
-                radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 3px),
-                radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 2px),
-                radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 3px);
-            background-size: 550px 550px, 350px 350px, 250px 250px;
-            background-position: 0 0, 40px 60px, 130px 270px;
-            opacity: 0.3;
-            z-index: 0;
+            content: '.'; color: transparent; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 3px), radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 2px);
+            background-size: 550px 550px, 350px 350px; opacity: 0.3; z-index: 0;
         }
-        
         .icon-evening {
-            font-size: 4rem;
-            color: #d8b4fe; /* Açık Mor */
-            text-shadow: 0 0 15px #7c3aed;
-            margin-bottom: 1rem;
-            position: relative; z-index: 1;
-            transform: rotate(-15deg);
-            transition: 0.5s;
+            font-size: 4rem; color: #d8b4fe; text-shadow: 0 0 15px #7c3aed; margin-bottom: 1rem; position: relative; z-index: 1;
+            transform: rotate(-15deg); transition: 0.5s;
         }
         .card-evening:hover .icon-evening { transform: rotate(0deg) scale(1.1); color: #fff; }
 
-
         /* İçerik Stilleri */
         .card-badge {
-            display: inline-block;
-            padding: 8px 20px;
-            border-radius: 50px;
-            font-weight: 800;
-            font-size: 0.85rem;
-            letter-spacing: 1px;
-            margin-bottom: 20px;
-            position: relative;
-            z-index: 1;
-            text-transform: uppercase;
+            display: inline-block; padding: 8px 20px; border-radius: 50px; font-weight: 800; font-size: 0.85rem; letter-spacing: 1px;
+            margin-bottom: 20px; position: relative; z-index: 1; text-transform: uppercase;
         }
-        
         .badge-morning-style { background: rgba(255, 215, 0, 0.15); color: #FFD700; border: 1px solid rgba(255, 215, 0, 0.4); }
         .badge-noon-style { background: rgba(0, 243, 255, 0.15); color: #00f3ff; border: 1px solid rgba(0, 243, 255, 0.4); }
         .badge-evening-style { background: rgba(188, 19, 254, 0.15); color: #d8b4fe; border: 1px solid rgba(188, 19, 254, 0.4); }
 
         .card-content h4 { font-weight: 800; margin-bottom: 0.5rem; position: relative; z-index: 1; }
         .card-content p { color: #ccc; font-size: 0.9rem; position: relative; z-index: 1; }
+        .tech-icon { font-size: 2.5rem; margin-bottom: 15px; position: relative; z-index: 1; } /* PC'de tech icon boyutu */
 
-        /* Buton ve Hakkında Bölümü */
+        /* Buton ve Hakkında */
         .mega-btn-container { padding: 60px 0; }
         .mega-btn {
-            background: rgba(10, 255, 96, 0.05);
-            border: 2px solid #0aff60;
-            color: #0aff60;
-            padding: 20px 50px;
-            font-size: 1.3rem;
-            font-weight: 800;
-            border-radius: 50px;
-            transition: 0.3s;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            text-decoration: none;
-            cursor: pointer;
+            background: rgba(10, 255, 96, 0.05); border: 2px solid #0aff60; color: #0aff60;
+            padding: 20px 50px; font-size: 1.3rem; font-weight: 800; border-radius: 50px;
+            transition: 0.3s; text-transform: uppercase; letter-spacing: 2px; text-decoration: none; cursor: pointer;
             box-shadow: 0 0 20px rgba(10, 255, 96, 0.2);
         }
         .mega-btn:hover { background: #0aff60; color: #000; box-shadow: 0 0 50px rgba(10, 255, 96, 0.8); transform: translateY(-5px); }
 
-        .about-section {
-            background: linear-gradient(to top, #020617, transparent);
-            padding: 80px 0;
-            margin-top: 40px;
-            border-top: 1px solid rgba(255,255,255,0.05);
-        }
-        .info-card {
-            background: rgba(255, 255, 255, 0.03);
-            border-left: 5px solid #00f3ff;
-            border-radius: 15px;
-            padding: 3rem;
-        }
+        .about-section { background: linear-gradient(to top, #020617, transparent); padding: 80px 0; margin-top: 40px; border-top: 1px solid rgba(255,255,255,0.05); }
+        .info-card { background: rgba(255, 255, 255, 0.03); border-left: 5px solid #00f3ff; border-radius: 15px; padding: 3rem; }
 
         /* Modal & Katalog */
         .modal-content { background-color: #0f172a; border: 1px solid #00f3ff; box-shadow: 0 0 50px rgba(0, 243, 255, 0.2); }
         .modal-header { border-bottom: 1px solid rgba(255,255,255,0.1); }
         .modal-footer { border-top: 1px solid rgba(255,255,255,0.1); }
         .btn-close { filter: invert(1); }
-        
-        .catalog-item {
-            background: rgba(255,255,255,0.03);
-            border-radius: 12px;
-            padding: 18px;
-            border-left: 4px solid #555;
-            transition: 0.2s;
-            height: 100%;
-        }
+        .catalog-item { background: rgba(255,255,255,0.03); border-radius: 12px; padding: 18px; border-left: 4px solid #555; transition: 0.2s; height: 100%; }
         .catalog-item:hover { background: rgba(255,255,255,0.08); transform: translateX(5px); }
         .cat-icon { font-size: 2.2rem; margin-bottom: 12px; display: block; }
         .cat-title { font-weight: 700; font-size: 1rem; color: #fff; margin-bottom: 6px; }
@@ -248,17 +177,74 @@
         .br-pink { border-color: #ff0055; color: #ff0055; }
         .br-green { border-color: var(--brand-android); color: var(--brand-android); }
 
+        /* -----------------------------------------------------------
+           MOBİL UYUMLULUK (RESPONSIVE OPTIMIZATION)
+           ----------------------------------------------------------- */
+        @media (max-width: 768px) {
+            /* 1. Yana Kaydırma (Scroll) Yapısı */
+            /* Mobilde kartları alt alta değil, yan yana kaydırılabilir yap */
+            .mobile-scroll-container {
+                display: flex;
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                gap: 15px;
+                padding-bottom: 20px;
+                scroll-snap-type: x mandatory;
+                -webkit-overflow-scrolling: touch; /* iOS smooth scroll */
+            }
+
+            .mobile-scroll-container .col-md-4 {
+                flex: 0 0 85%; /* Ekranda kartın %85'ini göster, kalanı ipucu olsun */
+                width: 85%;
+                scroll-snap-align: center;
+            }
+
+            /* 2. Boyutları Küçült (Shrink Everything) */
+            .hero-section { padding: 60px 0 20px; }
+            .hero-title { font-size: 2.5rem; }
+            .display-4 { font-size: 2rem; }
+            
+            .time-card {
+                padding: 1.5rem 1rem; /* Paddingleri azalt */
+                min-height: 350px; /* Mobilde kart boyunu kısalt */
+            }
+
+            /* Atmosferik İkonları Küçült */
+            .icon-morning, .icon-noon, .icon-evening { font-size: 2.5rem; margin-bottom: 0.5rem; }
+            
+            /* Tech İkonları Küçült */
+            .tech-icon { font-size: 2rem; margin-bottom: 10px; }
+
+            /* Yazıları Küçült */
+            .card-badge { padding: 5px 15px; font-size: 0.7rem; margin-bottom: 10px; }
+            .card-content h4 { font-size: 1.1rem; }
+            .card-content p { font-size: 0.8rem; line-height: 1.3; }
+
+            /* 3. Butonu Küçült */
+            .mega-btn-container { padding: 30px 0; }
+            .mega-btn {
+                padding: 12px 20px;
+                font-size: 0.9rem;
+                width: 90%; /* Mobilde genişlik ver */
+                letter-spacing: 1px;
+            }
+
+            .about-section { padding: 40px 0; }
+            .info-card { padding: 1.5rem; }
+            .info-card h3 { font-size: 1.5rem; }
+        }
+
     </style>
 </head>
 <body>
 
     <nav class="navbar fixed-top">
-        <div class="container d-flex align-items-center">
+        <div class="container d-flex align-items-center justify-content-center">
             <div class="d-flex align-items-center">
                 <i class="fa-solid fa-laptop-code fa-2x me-3" style="color: #00f3ff;"></i>
                 <div class="brand-logo-text text-start">
-                    <div class="fw-bold fs-5">KÜÇÜKÇEKMECE BELEDİYESİ</div>
-                    <div class="small text-secondary fw-bold" style="letter-spacing: 2px;">GENÇLİK MERKEZİ BİLİŞİM SINIFI</div>
+                    <div class="fw-bold fs-6">KÜÇÜKÇEKMECE BELEDİYESİ</div>
+                    <div class="small text-secondary fw-bold" style="letter-spacing: 1px; font-size: 0.7rem;">GENÇLİK MERKEZİ BİLİŞİM SINIFI</div>
                 </div>
             </div>
         </div>
@@ -266,25 +252,25 @@
 
     <section class="hero-section container">
         <h1 class="hero-title display-4 fw-black mb-2">GELECEĞİ <span>TASARLA</span></h1>
-        <p class="text-secondary lead">Teknolojiye Dokun, Üret ve Paylaş.</p>
+        <p class="text-secondary lead small">Teknolojiye Dokun, Üret ve Paylaş.</p>
     </section>
 
     <section class="container mb-5">
-        <div class="row g-4 justify-content-center">
-            <div class="col-12 text-center mb-4">
-                <h3 class="fw-bold text-white"><i class="fa-solid fa-signal me-2 text-danger fa-fade"></i>ŞU AN CANLI YAYINDA</h3>
-            </div>
+        <div class="col-12 text-center mb-4">
+            <h3 class="fw-bold text-white fs-5"><i class="fa-solid fa-signal me-2 text-danger fa-fade"></i>ŞU AN CANLI YAYINDA</h3>
+            <p class="text-muted d-block d-md-none small">(Kartları yana kaydırın)</p>
+        </div>
+
+        <div class="row g-4 justify-content-center mobile-scroll-container">
 
             <div class="col-md-4">
                 <div class="time-card card-morning">
                     <div class="icon-morning"><i class="fa-regular fa-sun"></i></div>
-                    
                     <span class="card-badge badge-morning-style">SABAH GRUBU</span>
-                    
                     <div class="card-content">
-                        <div class="mb-2 text-warning fs-1"><i class="fa-solid fa-code"></i></div>
-                        <h4>C# PROGRAMLAMA</h4>
-                        <p>Unity ve Windows tabanlı yazılım geliştirme temelleri.</p>
+                        <div class="tech-icon text-warning"><i class="fa-solid fa-code"></i></div>
+                        [cite_start]<h4>C# PROGRAMLAMA [cite: 14]</h4>
+                        [cite_start]<p>Unity ve Windows tabanlı yazılım geliştirme temelleri[cite: 48].</p>
                     </div>
                 </div>
             </div>
@@ -292,13 +278,11 @@
             <div class="col-md-4">
                 <div class="time-card card-noon">
                     <div class="icon-noon"><i class="fa-solid fa-cloud-sun"></i></div>
-
                     <span class="card-badge badge-noon-style">ÖĞLEN GRUBU</span>
-                    
                     <div class="card-content">
-                        <div class="mb-2 text-info fs-1"><i class="fa-brands fa-unity"></i></div>
-                        <h4>UNITY OYUN TASARIMI</h4>
-                        <p>Oyun mekanikleri, sahne tasarımı ve fizik motoru.</p>
+                        <div class="tech-icon text-info"><i class="fa-brands fa-unity"></i></div>
+                        [cite_start]<h4>UNITY OYUN TASARIMI [cite: 17]</h4>
+                        [cite_start]<p>Oyun mekanikleri, sahne tasarımı ve fizik motoru[cite: 54].</p>
                     </div>
                 </div>
             </div>
@@ -306,13 +290,11 @@
             <div class="col-md-4">
                 <div class="time-card card-evening">
                     <div class="icon-evening"><i class="fa-solid fa-moon"></i></div>
-
                     <span class="card-badge badge-evening-style">AKŞAM GRUBU</span>
-                    
                     <div class="card-content">
-                        <div class="mb-2 fs-1" style="color: #d8b4fe;"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
-                        <h4>TERSİNE MÜHENDİSLİK</h4>
-                        <p>3D Tarama, model onarımı ve dijitalleştirme süreçleri.</p>
+                        <div class="tech-icon" style="color: #d8b4fe;"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                        [cite_start]<h4>TERSİNE MÜHENDİSLİK [cite: 8, 9]</h4>
+                        [cite_start]<p>3D Tarama, model onarımı ve dijitalleştirme süreçleri[cite: 36].</p>
                     </div>
                 </div>
             </div>
@@ -320,9 +302,9 @@
     </section>
 
     <section class="container mega-btn-container text-center">
-        <p class="text-muted mb-4 h5">Merkezimizde verilen diğer 21 farklı eğitimi keşfetmek ister misin?</p>
+        <p class="text-muted mb-4 h6">Merkezimizde verilen diğer 21 farklı eğitimi keşfetmek ister misin?</p>
         <button class="mega-btn" data-bs-toggle="modal" data-bs-target="#katalogModal">
-            <i class="fa-solid fa-layer-group me-3"></i>TÜM DERSLERİ GÖRÜNTÜLE
+            <i class="fa-solid fa-layer-group me-2"></i>TÜM DERSLERİ GÖRÜNTÜLE
         </button>
     </section>
 
@@ -332,15 +314,14 @@
                 <h3 class="text-white fw-bold mb-4">BİLİŞİM SINIFI HAKKINDA</h3>
                 <div class="row">
                     <div class="col-lg-8">
-                        <p class="text-light lead" style="line-height: 1.8; opacity: 0.9;">
+                        <p class="text-light lead" style="line-height: 1.6; opacity: 0.9; font-size: 1rem;">
                             Küçükçekmece Belediyesi Gençlik Merkezi Bilişim Sınıfı, gençleri 21. yüzyılın yetkinlikleriyle donatmak için tasarlanmış, son teknoloji donanıma sahip bir eğitim üssüdür. 
                         </p>
-                        <p class="text-secondary">
+                        <p class="text-secondary small">
                             Amacımız; sadece teknolojiyi tüketen değil, <strong>üreten, kodlayan ve tasarlayan</strong> bir nesil yetiştirmektir. 
-                            Robotik kodlamadan 3D tasarıma, yapay zekadan mobil uygulamaya kadar geniş bir yelpazede, tamamen ücretsiz ve profesyonel eğitimler sunuyoruz.
                         </p>
                     </div>
-                    <div class="col-lg-4 d-flex align-items-center justify-content-center">
+                    <div class="col-lg-4 d-flex align-items-center justify-content-center d-none d-lg-flex">
                         <i class="fa-solid fa-microchip fa-5x text-secondary opacity-25"></i>
                     </div>
                 </div>
@@ -352,35 +333,35 @@
         <div class="modal-dialog modal-xl modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title fw-bold text-white" id="katalogLabel"><i class="fa-solid fa-book-open me-2 text-info"></i>2025-2026 EĞİTİM KATALOĞU</h5>
+                    [cite_start]<h5 class="modal-title fw-bold text-white" id="katalogLabel"><i class="fa-solid fa-book-open me-2 text-info"></i>2025-2026 EĞİTİM KATALOĞU [cite: 1]</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body p-4">
                     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
                         
-                        <div class="col"><div class="catalog-item br-python"><i class="fa-brands fa-python cat-icon"></i><div class="cat-title">PYTHON PROGRAMLAMA</div><p class="cat-desc">Yapay zeka ve veri bilimi temelli kodlama.</p></div></div>
-                        <div class="col"><div class="catalog-item br-unity"><i class="fa-brands fa-unity cat-icon"></i><div class="cat-title">UNITY İLE 3D OYUN</div><p class="cat-desc">Fizik motoru ve C# ile oyun geliştirme.</p></div></div>
-                        <div class="col"><div class="catalog-item br-java"><i class="fa-brands fa-java cat-icon"></i><div class="cat-title">JAVA PROGRAMLAMA</div><p class="cat-desc">Nesne tabanlı programlama ve algoritmalar.</p></div></div>
-                        <div class="col"><div class="catalog-item br-unity"><i class="fa-solid fa-code cat-icon"></i><div class="cat-title">C# (UNITY İÇİN)</div><p class="cat-desc">Oyun motoru tabanlı kodlama ve script yazımı.</p></div></div>
-                        <div class="col"><div class="catalog-item br-android"><i class="fa-brands fa-android cat-icon"></i><div class="cat-title">MOBİL UYGULAMA (APP)</div><p class="cat-desc">App Inventor ile Android uygulama geliştirme.</p></div></div>
-                        <div class="col"><div class="catalog-item" style="border-color:#00599C; color:#00599C"><i class="fa-solid fa-terminal cat-icon"></i><div class="cat-title">C++ PROGRAMLAMA</div><p class="cat-desc">Yüksek performanslı yazılım ve bellek yönetimi.</p></div></div>
-                        <div class="col"><div class="catalog-item br-html"><i class="fa-brands fa-html5 cat-icon"></i><div class="cat-title">WEB TASARIMI (HTML/CSS)</div><p class="cat-desc">Modern, responsive ve şık web siteleri.</p></div></div>
-                        <div class="col"><div class="catalog-item" style="border-color:#F7DF1E; color:#F7DF1E"><i class="fa-brands fa-js cat-icon"></i><div class="cat-title">JAVASCRIPT ARAYÜZ</div><p class="cat-desc">Web sitelerine etkileşim ve dinamizm kazandırma.</p></div></div>
+                        [cite_start]<div class="col"><div class="catalog-item br-python"><i class="fa-brands fa-python cat-icon"></i><div class="cat-title">PYTHON PROGRAMLAMA [cite: 13][cite_start]</div><p class="cat-desc">Koşullu ifadeler, döngüler ve proje geliştirme[cite: 47].</p></div></div>
+                        [cite_start]<div class="col"><div class="catalog-item br-unity"><i class="fa-brands fa-unity cat-icon"></i><div class="cat-title">UNITY İLE 3D OYUN [cite: 17][cite_start]</div><p class="cat-desc">Fizik motoru ve C# ile oyun geliştirme[cite: 54].</p></div></div>
+                        [cite_start]<div class="col"><div class="catalog-item br-java"><i class="fa-brands fa-java cat-icon"></i><div class="cat-title">JAVA PROGRAMLAMA [cite: 15][cite_start]</div><p class="cat-desc">Nesne tabanlı programlama ve algoritmalar[cite: 50].</p></div></div>
+                        [cite_start]<div class="col"><div class="catalog-item br-unity"><i class="fa-solid fa-code cat-icon"></i><div class="cat-title">C# (UNITY İÇİN) [cite: 14][cite_start]</div><p class="cat-desc">Oyun motoru tabanlı kodlama ve script yazımı[cite: 48].</p></div></div>
+                        [cite_start]<div class="col"><div class="catalog-item br-android"><i class="fa-brands fa-android cat-icon"></i><div class="cat-title">MOBİL UYGULAMA (APP) [cite: 18][cite_start]</div><p class="cat-desc">App Inventor ile Android uygulama geliştirme[cite: 56].</p></div></div>
+                        [cite_start]<div class="col"><div class="catalog-item" style="border-color:#00599C; color:#00599C"><i class="fa-solid fa-terminal cat-icon"></i><div class="cat-title">C++ PROGRAMLAMA [cite: 16][cite_start]</div><p class="cat-desc">Yüksek performanslı yazılım ve bellek yönetimi[cite: 52].</p></div></div>
+                        [cite_start]<div class="col"><div class="catalog-item br-html"><i class="fa-brands fa-html5 cat-icon"></i><div class="cat-title">WEB TASARIMI (HTML/CSS) [cite: 19][cite_start]</div><p class="cat-desc">Modern, responsive ve şık web siteleri[cite: 58].</p></div></div>
+                        [cite_start]<div class="col"><div class="catalog-item" style="border-color:#F7DF1E; color:#F7DF1E"><i class="fa-brands fa-js cat-icon"></i><div class="cat-title">JAVASCRIPT ARAYÜZ [cite: 20][cite_start]</div><p class="cat-desc">Web sitelerine etkileşim ve dinamizm kazandırma[cite: 60].</p></div></div>
 
-                        <div class="col"><div class="catalog-item br-blender"><i class="fa-solid fa-cube cat-icon"></i><div class="cat-title">BLENDER 3D MODELLEME</div><p class="cat-desc">Karakter tasarımı, animasyon ve render.</p></div></div>
-                        <div class="col"><div class="catalog-item br-fusion"><i class="fa-solid fa-layer-group cat-icon"></i><div class="cat-title">KATI MODELLEME (FUSION)</div><p class="cat-desc">Endüstriyel parça tasarımı ve teknik çizim.</p></div></div>
-                        <div class="col"><div class="catalog-item" style="border-color:#128FC8; color:#128FC8"><i class="fa-solid fa-cubes-stacked cat-icon"></i><div class="cat-title">TINKERCAD (DRONE)</div><p class="cat-desc">Drone gövde tasarımı ve 3D baskıya hazırlık.</p></div></div>
-                        <div class="col"><div class="catalog-item" style="border-color:#F5792A; color:#F5792A"><i class="fa-solid fa-pen-ruler cat-icon"></i><div class="cat-title">3D PROTOTİPLEME</div><p class="cat-desc">3D Kalem ve el aletleriyle hızlı model üretimi.</p></div></div>
-                        <div class="col"><div class="catalog-item br-pink"><i class="fa-solid fa-paintbrush cat-icon"></i><div class="cat-title">FİGÜR BOYAMA</div><p class="cat-desc">Model boyama, eskitme ve sanatsal işlemler.</p></div></div>
-                        <div class="col"><div class="catalog-item br-pink"><i class="fa-solid fa-scissors cat-icon"></i><div class="cat-title">ÇİZ, KES, YARAT (CNC)</div><p class="cat-desc">Lazer kesim, vektörel çizim ve üretim.</p></div></div>
+                        [cite_start]<div class="col"><div class="catalog-item br-blender"><i class="fa-solid fa-cube cat-icon"></i><div class="cat-title">BLENDER 3D MODELLEME [cite: 7][cite_start]</div><p class="cat-desc">Karakter tasarımı, animasyon ve render[cite: 35].</p></div></div>
+                        [cite_start]<div class="col"><div class="catalog-item br-fusion"><i class="fa-solid fa-layer-group cat-icon"></i><div class="cat-title">KATI MODELLEME (FUSION) [cite: 10][cite_start]</div><p class="cat-desc">Endüstriyel parça tasarımı ve teknik çizim[cite: 40].</p></div></div>
+                        [cite_start]<div class="col"><div class="catalog-item" style="border-color:#128FC8; color:#128FC8"><i class="fa-solid fa-cubes-stacked cat-icon"></i><div class="cat-title">TINKERCAD (DRONE) [cite: 5][cite_start]</div><p class="cat-desc">Drone gövde tasarımı ve 3D baskıya hazırlık[cite: 30].</p></div></div>
+                        [cite_start]<div class="col"><div class="catalog-item" style="border-color:#F5792A; color:#F5792A"><i class="fa-solid fa-pen-ruler cat-icon"></i><div class="cat-title">3D PROTOTİPLEME [cite: 6][cite_start]</div><p class="cat-desc">3D Kalem ve el aletleriyle hızlı model üretimi[cite: 32].</p></div></div>
+                        [cite_start]<div class="col"><div class="catalog-item br-pink"><i class="fa-solid fa-paintbrush cat-icon"></i><div class="cat-title">FİGÜR BOYAMA [cite: 12][cite_start]</div><p class="cat-desc">Model boyama, eskitme ve sanatsal işlemler[cite: 44].</p></div></div>
+                        [cite_start]<div class="col"><div class="catalog-item br-pink"><i class="fa-solid fa-scissors cat-icon"></i><div class="cat-title">ÇİZ, KES, YARAT (CNC) [cite: 11][cite_start]</div><p class="cat-desc">Lazer kesim, vektörel çizim ve üretim[cite: 42].</p></div></div>
                         
-                        <div class="col"><div class="catalog-item" style="border-color:#00f3ff; color:#00f3ff"><i class="fa-solid fa-bullseye cat-icon"></i><div class="cat-title">TERSİNE MÜHENDİSLİK-1</div><p class="cat-desc">3D Tarama, nokta bulutu ve mesh onarımı.</p></div></div>
-                        <div class="col"><div class="catalog-item" style="border-color:#bc13fe; color:#bc13fe"><i class="fa-solid fa-wand-magic-sparkles cat-icon"></i><div class="cat-title">TERSİNE MÜHENDİSLİK-2</div><p class="cat-desc">İleri düzey sculpting ve model düzenleme.</p></div></div>
-                        <div class="col"><div class="catalog-item br-arduino"><i class="fa-solid fa-infinity cat-icon"></i><div class="cat-title">ARDUINO ROBOTİK</div><p class="cat-desc">Elektronik devreler ve otonom sistemler.</p></div></div>
-                        <div class="col"><div class="catalog-item br-arduino"><i class="fa-solid fa-house-signal cat-icon"></i><div class="cat-title">AKILLI EV (IOT)</div><p class="cat-desc">Nesnelerin interneti ve Wi-Fi kontrol.</p></div></div>
-                        <div class="col"><div class="catalog-item br-green"><i class="fa-solid fa-laptop-file cat-icon"></i><div class="cat-title">BİLGİSAYAR İŞLETMENLİĞİ</div><p class="cat-desc">Word, Excel ve PowerPoint kullanımı.</p></div></div>
-                        <div class="col"><div class="catalog-item br-green"><i class="fa-solid fa-file-excel cat-icon"></i><div class="cat-title">EXCEL TEMEL</div><p class="cat-desc">Veri analizi, tablolar ve formüller.</p></div></div>
-                        <div class="col"><div class="catalog-item br-green"><i class="fa-solid fa-robot cat-icon"></i><div class="cat-title">EXCEL MAKROLAR</div><p class="cat-desc">VBA ile otomasyon ve programlama.</p></div></div>
+                        [cite_start]<div class="col"><div class="catalog-item" style="border-color:#00f3ff; color:#00f3ff"><i class="fa-solid fa-bullseye cat-icon"></i><div class="cat-title">TERSİNE MÜHENDİSLİK-1 [cite: 8][cite_start]</div><p class="cat-desc">3D Tarama, nokta bulutu ve mesh onarımı[cite: 36].</p></div></div>
+                        [cite_start]<div class="col"><div class="catalog-item" style="border-color:#bc13fe; color:#bc13fe"><i class="fa-solid fa-wand-magic-sparkles cat-icon"></i><div class="cat-title">TERSİNE MÜHENDİSLİK-2 [cite: 9][cite_start]</div><p class="cat-desc">İleri düzey sculpting ve model düzenleme[cite: 38].</p></div></div>
+                        [cite_start]<div class="col"><div class="catalog-item br-arduino"><i class="fa-solid fa-infinity cat-icon"></i><div class="cat-title">ARDUINO ROBOTİK [cite: 21][cite_start]</div><p class="cat-desc">Elektronik devreler ve otonom sistemler[cite: 62].</p></div></div>
+                        [cite_start]<div class="col"><div class="catalog-item br-arduino"><i class="fa-solid fa-house-signal cat-icon"></i><div class="cat-title">AKILLI EV (IOT) [cite: 22][cite_start]</div><p class="cat-desc">Nesnelerin interneti ve Wi-Fi kontrol[cite: 64].</p></div></div>
+                        [cite_start]<div class="col"><div class="catalog-item br-green"><i class="fa-solid fa-laptop-file cat-icon"></i><div class="cat-title">BİLGİSAYAR İŞLETMENLİĞİ [cite: 2][cite_start]</div><p class="cat-desc">Word, Excel ve PowerPoint kullanımı[cite: 24].</p></div></div>
+                        [cite_start]<div class="col"><div class="catalog-item br-green"><i class="fa-solid fa-file-excel cat-icon"></i><div class="cat-title">EXCEL TEMEL [cite: 3][cite_start]</div><p class="cat-desc">Veri analizi, tablolar ve formüller[cite: 26].</p></div></div>
+                        [cite_start]<div class="col"><div class="catalog-item br-green"><i class="fa-solid fa-robot cat-icon"></i><div class="cat-title">EXCEL MAKROLAR [cite: 4][cite_start]</div><p class="cat-desc">VBA ile otomasyon ve programlama[cite: 28].</p></div></div>
 
                     </div>
                 </div>
