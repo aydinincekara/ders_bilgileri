@@ -56,7 +56,6 @@
             backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
-
         .brand-logo-text { line-height: 1.2; }
 
         /* Hero Section */
@@ -71,52 +70,79 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* --- BÖLÜM 1: CANLI DERSLER (EN ÜSTTE) --- */
+        /* --- NEON TABELA EFEKTLERİ (YENİ) --- */
+        .neon-sign {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            padding: 10px 20px;
+            border: 3px solid;
+            border-radius: 12px;
+            display: inline-block;
+            margin-bottom: 25px;
+            position: relative;
+            background: rgba(0,0,0,0.4); /* Cam arka plan */
+            box-shadow: 0 0 15px rgba(0,0,0,0.5);
+            transition: 0.3s;
+        }
+
+        /* Sabah Neonu (Altın Sarısı) */
+        .neon-morning {
+            color: #FFD700;
+            border-color: #FFD700;
+            text-shadow: 0 0 5px #FFD700, 0 0 10px #FFD700;
+            box-shadow: 0 0 10px #FFD700, inset 0 0 10px #FFD700;
+            animation: neonPulseGold 2s infinite alternate;
+        }
+        @keyframes neonPulseGold {
+            from { box-shadow: 0 0 10px #FFD700, inset 0 0 5px #FFD700; }
+            to { box-shadow: 0 0 25px #FFD700, inset 0 0 10px #FFD700; text-shadow: 0 0 20px #FFD700; }
+        }
+
+        /* Öğlen Neonu (Elektrik Mavisi) */
+        .neon-noon {
+            color: #00FFFF;
+            border-color: #00FFFF;
+            text-shadow: 0 0 5px #00FFFF, 0 0 10px #00FFFF;
+            box-shadow: 0 0 10px #00FFFF, inset 0 0 10px #00FFFF;
+            animation: neonPulseBlue 2.5s infinite alternate;
+        }
+        @keyframes neonPulseBlue {
+            from { box-shadow: 0 0 10px #00FFFF, inset 0 0 5px #00FFFF; }
+            to { box-shadow: 0 0 25px #00FFFF, inset 0 0 10px #00FFFF; text-shadow: 0 0 20px #00FFFF; }
+        }
+
+        /* Akşam Neonu (Hot Pink) */
+        .neon-evening {
+            color: #FF00FF;
+            border-color: #FF00FF;
+            text-shadow: 0 0 5px #FF00FF, 0 0 10px #FF00FF;
+            box-shadow: 0 0 10px #FF00FF, inset 0 0 10px #FF00FF;
+            animation: neonPulsePink 1.8s infinite alternate;
+        }
+        @keyframes neonPulsePink {
+            from { box-shadow: 0 0 10px #FF00FF, inset 0 0 5px #FF00FF; }
+            to { box-shadow: 0 0 25px #FF00FF, inset 0 0 10px #FF00FF; text-shadow: 0 0 20px #FF00FF; }
+        }
+
+        /* Kart Tasarımı */
         .active-card {
             background: var(--card-bg);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 20px;
-            padding: 2rem;
+            padding: 2.5rem 1.5rem;
             text-align: center;
             transition: 0.3s;
             position: relative;
             overflow: hidden;
             height: 100%;
         }
+        .active-card:hover { transform: scale(1.03); background: rgba(30, 41, 59, 0.9); }
 
-        .active-card:hover {
-            transform: scale(1.03);
-            box-shadow: 0 0 25px rgba(188, 19, 254, 0.4);
-            border-color: var(--neon-purple);
-        }
-
-        /* Kartların içine hafif glow efekti */
-        .active-card::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: radial-gradient(circle at center, rgba(255,255,255,0.05) 0%, transparent 70%);
-            opacity: 0;
-            transition: 0.3s;
-        }
-        .active-card:hover::after { opacity: 1; }
-
-        .time-badge {
-            font-size: 0.8rem;
-            font-weight: 800;
-            padding: 6px 16px;
-            border-radius: 50px;
-            display: inline-block;
-            margin-bottom: 20px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.5);
-        }
-
-        /* --- BÖLÜM 2: TÜM DERSLER BUTONU --- */
-        .mega-btn-container {
-            padding: 60px 0;
-            position: relative;
-        }
-
+        /* Buton ve Hakkında Bölümü */
+        .mega-btn-container { padding: 60px 0; }
         .mega-btn {
             background: rgba(10, 255, 96, 0.05);
             border: 2px solid var(--neon-green);
@@ -128,63 +154,31 @@
             transition: 0.3s;
             text-transform: uppercase;
             letter-spacing: 2px;
-            position: relative;
-            overflow: hidden;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
             text-decoration: none;
             cursor: pointer;
             box-shadow: 0 0 20px rgba(10, 255, 96, 0.2);
         }
+        .mega-btn:hover { background: var(--neon-green); color: #000; box-shadow: 0 0 50px rgba(10, 255, 96, 0.8); transform: translateY(-5px); }
 
-        .mega-btn:hover {
-            background: var(--neon-green);
-            color: #000;
-            box-shadow: 0 0 50px rgba(10, 255, 96, 0.8);
-            transform: translateY(-5px);
-        }
-
-        /* --- BÖLÜM 3: HAKKINDA (EN SONDA) --- */
         .about-section {
             background: linear-gradient(to top, #020617, transparent);
             padding: 80px 0;
             margin-top: 40px;
             border-top: 1px solid rgba(255,255,255,0.05);
         }
-
         .info-card {
             background: rgba(255, 255, 255, 0.03);
             border-left: 5px solid var(--neon-blue);
             border-radius: 15px;
             padding: 3rem;
-            position: relative;
         }
 
-        .info-card::before {
-            content: '\f129'; /* FontAwesome Info Icon */
-            font-family: 'Font Awesome 6 Free';
-            font-weight: 900;
-            position: absolute;
-            top: -20px;
-            left: 20px;
-            font-size: 3rem;
-            color: var(--neon-blue);
-            background: var(--bg-dark);
-            padding: 0 10px;
-        }
-
-        /* --- MODAL TASARIMI --- */
-        .modal-content {
-            background-color: #0f172a;
-            border: 1px solid var(--neon-blue);
-            box-shadow: 0 0 50px rgba(0, 243, 255, 0.2);
-        }
+        /* Modal & Katalog */
+        .modal-content { background-color: #0f172a; border: 1px solid var(--neon-blue); box-shadow: 0 0 50px rgba(0, 243, 255, 0.2); }
         .modal-header { border-bottom: 1px solid rgba(255,255,255,0.1); }
         .modal-footer { border-top: 1px solid rgba(255,255,255,0.1); }
         .btn-close { filter: invert(1); }
-
-        /* Katalog Kartları */
+        
         .catalog-item {
             background: rgba(255,255,255,0.03);
             border-radius: 12px;
@@ -194,12 +188,11 @@
             height: 100%;
         }
         .catalog-item:hover { background: rgba(255,255,255,0.08); transform: translateX(5px); }
-        
         .cat-icon { font-size: 2.2rem; margin-bottom: 12px; display: block; }
         .cat-title { font-weight: 700; font-size: 1rem; color: #fff; margin-bottom: 6px; }
         .cat-desc { font-size: 0.85rem; color: #aaa; margin: 0; line-height: 1.4; }
 
-        /* Marka Renkleri (Sol Çizgi ve İkon) */
+        /* Marka Renkleri */
         .br-arduino { border-color: var(--brand-arduino); color: var(--brand-arduino); }
         .br-python { border-color: var(--brand-python); color: var(--brand-python); }
         .br-unity { border-color: #fff; color: #fff; }
@@ -209,7 +202,7 @@
         .br-blender { border-color: var(--brand-blender); color: var(--brand-blender); }
         .br-fusion { border-color: var(--brand-fusion); color: var(--brand-fusion); }
         .br-pink { border-color: var(--neon-pink); color: var(--neon-pink); }
-        .br-green { border-color: var(--brand-android); color: var(--brand-android); } /* Excel vb. */
+        .br-green { border-color: var(--brand-android); color: var(--brand-android); }
 
     </style>
 </head>
@@ -234,13 +227,16 @@
 
     <section class="container mb-5">
         <div class="row g-4 justify-content-center">
-            <div class="col-12 text-center mb-3">
-                <h3 class="fw-bold text-white"><i class="fa-solid fa-tower-broadcast me-2 text-danger fa-beat"></i>ŞU AN DEVAM EDENLER</h3>
+            <div class="col-12 text-center mb-4">
+                <h3 class="fw-bold text-white"><i class="fa-solid fa-tower-broadcast me-2 text-danger fa-beat"></i>ŞU AN CANLI YAYINDA</h3>
             </div>
 
             <div class="col-md-4">
                 <div class="active-card">
-                    <span class="time-badge bg-warning text-dark"><i class="fa-regular fa-sun me-1"></i>SABAH GRUBU</span>
+                    <div class="neon-sign neon-morning">
+                        <i class="fa-regular fa-sun me-2"></i>SABAH GRUBU
+                    </div>
+                    
                     <div class="mb-3 text-warning"><i class="fa-solid fa-code fa-4x"></i></div>
                     <h4 class="fw-bold">C# PROGRAMLAMA</h4>
                     <p class="text-white-50">Unity ve Windows tabanlı yazılım geliştirme temelleri.</p>
@@ -249,7 +245,10 @@
 
             <div class="col-md-4">
                 <div class="active-card">
-                    <span class="time-badge bg-info text-dark"><i class="fa-solid fa-cloud-sun me-1"></i>ÖĞLEN GRUBU</span>
+                    <div class="neon-sign neon-noon">
+                        <i class="fa-solid fa-cloud-sun me-2"></i>ÖĞLEN GRUBU
+                    </div>
+
                     <div class="mb-3 text-info"><i class="fa-brands fa-unity fa-4x"></i></div>
                     <h4 class="fw-bold">UNITY OYUN TASARIMI</h4>
                     <p class="text-white-50">Oyun mekanikleri, sahne tasarımı ve fizik motoru.</p>
@@ -258,7 +257,10 @@
 
             <div class="col-md-4">
                 <div class="active-card">
-                    <span class="time-badge text-white" style="background-color: var(--neon-purple);"><i class="fa-solid fa-moon me-1"></i>AKŞAM GRUBU</span>
+                    <div class="neon-sign neon-evening">
+                        <i class="fa-solid fa-moon me-2"></i>AKŞAM GRUBU
+                    </div>
+
                     <div class="mb-3" style="color: var(--neon-purple);"><i class="fa-solid fa-wand-magic-sparkles fa-4x"></i></div>
                     <h4 class="fw-bold">TERSİNE MÜHENDİSLİK</h4>
                     <p class="text-white-50">3D Tarama, model onarımı ve dijitalleştirme süreçleri.</p>
