@@ -3,390 +3,276 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bilişim Eğitmen Eğitimi</title>
+    <title>Bilişim Sınıfı Eğitim Portalı</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --bg-body: #0f0f13;
-            --bg-card: #1a1a20;
-            --text-main: #e0e0e0;
-            --text-muted: #a0a0a0;
-            --accent-maker: #ff9f43; /* Maker Turuncusu */
-            --accent-code: #00d2d3; /* Kod Mavisi */
-            --accent-robot: #ff6b6b; /* Robotik Kırmızısı */
-            --accent-ai: #a55eea;    /* Yapay Zeka Moru */
-            --border-radius: 12px;
+            --sabah-color: #ffc107; /* Sabah için sarı ton */
+            --oglen-color: #0dcaf0; /* Öğlen için mavi ton */
+            --aksam-color: #6610f2; /* Akşam için mor ton */
+            --primary-bg: #f8f9fa;
         }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-body);
-            color: var(--text-main);
-            margin: 0;
-            padding: 0;
-            line-height: 1.6;
-            scroll-behavior: smooth;
-        }
-
-        /* Header */
-        header {
-            background: linear-gradient(135deg, #222, #000);
-            padding: 40px 20px;
-            text-align: center;
-            border-bottom: 4px solid var(--accent-maker);
-            margin-bottom: 30px;
-        }
-
-        h1 {
-            margin: 0;
-            font-size: 2rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            background: -webkit-linear-gradient(#fff, #999);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .subtitle {
-            color: var(--accent-maker);
-            font-weight: bold;
-            font-size: 1.1rem;
-            display: block;
-            margin-top: 10px;
-        }
-
-        /* Navigasyon (Sticky) */
-        nav {
-            position: sticky;
-            top: 0;
-            background: rgba(15, 15, 19, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 10px;
-            overflow-x: auto;
-            white-space: nowrap;
-            z-index: 1000;
-            border-bottom: 1px solid #333;
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        nav a {
-            color: #fff;
-            text-decoration: none;
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            transition: 0.3s;
-            background: #222;
-        }
-
-        nav a:hover { background: var(--accent-maker); color: #000; }
-
-        /* Ana Konteyner */
-        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
-
-        /* Kart Yapısı */
-        .module-card {
-            background: var(--bg-card);
-            border-radius: var(--border-radius);
-            padding: 25px;
-            margin-bottom: 30px;
-            position: relative;
-            overflow: hidden;
-            border-top: 3px solid transparent;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        }
-
-        /* Modül Renk Kodları */
-        .mod-maker { border-color: var(--accent-maker); }
-        .mod-robot { border-color: var(--accent-robot); }
-        .mod-code { border-color: var(--accent-code); }
-        .mod-ai { border-color: var(--accent-ai); }
-
-        .module-title {
-            font-size: 1.5rem;
-            margin-top: 0;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        /* Akordiyon (Details) */
-        details {
-            background: rgba(255,255,255,0.03);
-            margin-bottom: 10px;
-            border-radius: 8px;
-            overflow: hidden;
-            transition: all 0.3s;
-        }
-
-        summary {
-            padding: 15px;
-            cursor: pointer;
-            font-weight: 600;
-            list-style: none;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        summary:hover { background: rgba(255,255,255,0.05); }
-        summary::after { content: '+'; font-size: 1.2rem; font-weight: bold; }
-        details[open] summary::after { content: '-'; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--primary-bg); }
         
-        .content {
-            padding: 15px;
-            color: var(--text-muted);
-            border-top: 1px solid #333;
-            font-size: 0.95rem;
-        }
-
-        .content ul { padding-left: 20px; margin: 5px 0; }
-        .content li { margin-bottom: 8px; }
-
-        /* Özel Etiketler */
-        .tag {
-            font-size: 0.75rem;
-            padding: 3px 8px;
-            border-radius: 4px;
-            margin-left: 10px;
-            background: #333;
-            color: #fff;
-            vertical-align: middle;
-        }
-
-        /* Link Butonları */
-        .link-btn {
-            display: inline-block;
-            margin-top: 10px;
-            text-decoration: none;
-            color: var(--accent-code);
-            font-weight: bold;
-            font-size: 0.9rem;
-        }
-        .link-btn:hover { text-decoration: underline; }
-
-        /* Footer */
-        footer {
+        /* Hero Bölümü */
+        .hero-section {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 80px 0;
             text-align: center;
-            padding: 40px;
-            color: #555;
-            font-size: 0.8rem;
-            border-top: 1px solid #222;
+        }
+
+        /* Grup Kartları (Aktif Dersler) */
+        .time-card {
+            border: none;
+            transition: transform 0.3s;
+            border-top: 5px solid gray;
+        }
+        .time-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .border-sabah { border-color: var(--sabah-color); }
+        .border-oglen { border-color: var(--oglen-color); }
+        .border-aksam { border-color: var(--aksam-color); }
+
+        .badge-live {
+            background-color: #dc3545;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        /* Ders Katalog Kartları */
+        .course-card {
+            height: 100%;
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid #e0e0e0;
+            background: white;
+        }
+        .course-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: #2a5298;
+        }
+        .course-img-placeholder {
+            height: 150px;
+            background-color: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>Bilişim Öğretmeni</h1>
-        <span class="subtitle">Eğitmen Eğitimi Portalı</span>
-        <div style="margin-top: 10px; font-size: 0.9rem; color: #888;">2026 Eğitim Dönemi • aydinincekara</div>
-    </header>
-
-    <nav>
-        <a href="#maker">🧊 3D & Maker</a>
-        <a href="#robot">🤖 Robotik</a>
-        <a href="#yazilim">💻 Yazılım</a>
-        <a href="#ileri">🚀 İleri Tek.</a>
-        <a href="#hackoutlon">🏆 Hackoutlon</a>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#"><i class="fa-solid fa-laptop-code me-2"></i>Bilişim Sınıfı</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link active" href="#anasayfa">Ana Sayfa</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#aktif-dersler">Devam Edenler</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#tum-dersler">Tüm Eğitimler</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#iletisim">İletişim</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
 
-    <div class="container">
+    <section id="anasayfa" class="hero-section">
+        <div class="container">
+            <h1 class="display-4 fw-bold">Geleceği Kodla, Tasarla ve Üret</h1>
+            <p class="lead">Yazılım, 3D Tasarım, Robotik ve Ofis Uygulamaları üzerine kapsamlı eğitim merkezi.</p>
+            <a href="#tum-dersler" class="btn btn-light btn-lg mt-3">Eğitimleri Keşfet</a>
+        </div>
+    </section>
 
-        <div id="maker" class="module-card mod-maker">
-            <h2 class="module-title" style="color: var(--accent-maker);">
-                🧊 Tasarım, Üretim ve Maker
-            </h2>
-            <p style="color: #aaa;">3D dünyadan fiziksel üretime uzanan yolculuk.</p>
-
-            <details>
-                <summary>🖊️ 3D Kalem ile Yaratıcılık</summary>
-                <div class="content">
-                    <p>Öğrencilerin hayal güçlerini somutlaştırdığı ilk adım.</p>
-                    <ul>
-                        <li><b>Amaç:</b> Yaratıcılık, 3D düşünme ve el becerisi.</li>
-                        <li><b>Süreç:</b> Basit geometrik şekillerden küçük objelere geçiş.</li>
-                        <li><b>Kazanım:</b> STEM eğitimine pratik giriş.</li>
-                    </ul>
-                </div>
-            </details>
-
-            <details>
-                <summary>🟦 Tinkercad & Modelleme</summary>
-                <div class="content">
-                    <p>Tarayıcı tabanlı, "Legolarla oynamak" kadar basit modelleme.</p>
-                    <ul>
-                        <li>Hazır geometrik şekillerle (küp, silindir) tasarım.</li>
-                        <li>Boyutlandırma, gruplama ve delik açma mantığı.</li>
-                    </ul>
-                    <a href="https://www.tinkercad.com/3d-design" target="_blank" class="link-btn">🔗 Tinkercad'e Git</a>
-                </div>
-            </details>
-
-            <details>
-                <summary>🖨️ 3D Yazıcı & İleri Teknikler</summary>
-                <div class="content">
-                    <ul>
-                        <li><b>Slicing (Dilimleme):</b> Cura ayarları ve stratejileri.</li>
-                        <li><b>Bakım:</b> Tıkanma, katman kayması çözümleri.</li>
-                        <li><b>İleri Seviye:</b> Fusion 360 ve Blender ile parametrik tasarım.</li>
-                    </ul>
-                </div>
-            </details>
+    <section id="aktif-dersler" class="container my-5">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold">Şu An Devam Eden Gruplar</h2>
+            <p class="text-muted">Aktif olarak işlenen derslerimiz ve zaman çizelgesi.</p>
         </div>
 
-        <div id="robot" class="module-card mod-robot">
-            <h2 class="module-title" style="color: var(--accent-robot);">
-                🤖 Robotik ve Elektronik
-            </h2>
-            
-            <details>
-                <summary>⚡ Arduino & Tinkercad Circuits</summary>
-                <div class="content">
-                    <p>Kodlama mantığını somutlaştıran platform.</p>
-                    <ul>
-                        <li><b>Simülasyon:</b> Malzeme olmadan Tinkercad Circuits ile devre kurma.</li>
-                        <li><b>Fiziksel:</b> If/else mantığını LED yakarak öğretme.</li>
-                        <li><b>Kodlama:</b> C++ ve mBlock (Blok tabanlı) desteği.</li>
-                    </ul>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card time-card border-sabah h-100 shadow-sm">
+                    <div class="card-body text-center">
+                        <div class="display-6 mb-3 text-warning"><i class="fa-regular fa-sun"></i></div>
+                        <h3 class="card-title">Sabah Grubu</h3>
+                        <span class="badge badge-live mb-3">CANLI / DEVAM EDİYOR</span>
+                        <h4 class="fw-bold text-dark">C# Programlama</h4>
+                        <p class="card-text text-muted">Unity için temel C# eğitimi ve algoritma mantığı.</p>
+                        <button class="btn btn-outline-warning w-100">Ders Detayları</button>
+                    </div>
                 </div>
-            </details>
+            </div>
 
-            <details>
-                <summary>🚜 VEX Robotics (VR & IQ)</summary>
-                <div class="content">
-                    <ul>
-                        <li><b>VEXcode VR:</b> Tarayıcı tabanlı robot simülasyonu. Kurulum yok.</li>
-                        <li><b>VEX IQ:</b> Sensörlü (Mesafe, renk, jiroskop) fiziksel robot montajı.</li>
-                    </ul>
+            <div class="col-md-4">
+                <div class="card time-card border-oglen h-100 shadow-sm">
+                    <div class="card-body text-center">
+                        <div class="display-6 mb-3 text-info"><i class="fa-solid fa-cloud-sun"></i></div>
+                        <h3 class="card-title">Öğlen Grubu</h3>
+                        <span class="badge badge-live mb-3">CANLI / DEVAM EDİYOR</span>
+                        <h4 class="fw-bold text-dark">Unity ile Oyun Tasarımı-2</h4>
+                        <p class="card-text text-muted">İleri seviye oyun mekanikleri ve sahne tasarımları.</p>
+                        <button class="btn btn-outline-info w-100">Ders Detayları</button>
+                    </div>
                 </div>
-            </details>
+            </div>
 
-            <details>
-                <summary>🏠 IoT ve Akıllı Sistemler</summary>
-                <div class="content">
-                    <ul>
-                        <li>Akıllı ev sistemleri mantığı.</li>
-                        <li>Wi-Fi modülleri ve Raspberry Pi kullanımı.</li>
-                        <li>Temel lehimleme atölyesi.</li>
-                    </ul>
+            <div class="col-md-4">
+                <div class="card time-card border-aksam h-100 shadow-sm">
+                    <div class="card-body text-center">
+                        <div class="display-6 mb-3 text-primary"><i class="fa-solid fa-moon"></i></div>
+                        <h3 class="card-title">Akşam Grubu</h3>
+                        <span class="badge badge-live mb-3">CANLI / DEVAM EDİYOR</span>
+                        <h4 class="fw-bold text-dark">Tersine Mühendislik-2</h4>
+                        <p class="card-text text-muted">3D Tarama, Mesh düzenleme ve ileri seviye modelleme.</p>
+                        <button class="btn btn-outline-primary w-100">Ders Detayları</button>
+                    </div>
                 </div>
-            </details>
+            </div>
         </div>
+    </section>
 
-        <div id="yazilim" class="module-card mod-code">
-            <h2 class="module-title" style="color: var(--accent-code);">
-                💻 Yazılım Geliştirme
-            </h2>
+    <section id="tum-dersler" class="py-5 bg-light">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold">Eğitim Kataloğu</h2>
+                <p>Sınıfımızda verilen tüm derslerin içerikleri ve kazanımları.</p>
+            </div>
 
-            <details>
-                <summary>🐍 Python Projeleri</summary>
-                <div class="content">
-                    <ul>
-                        <li><b>Turtle:</b> Grafik çizimleri ile algoritma.</li>
-                        <li><b>Tkinter:</b> Arayüz (GUI) tasarımı (Buton, Label).</li>
-                        <li><b>Görüntü İşleme:</b> Kamera verisiyle etkileşim.</li>
-                    </ul>
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                
+                <div class="col">
+                    <div class="card course-card">
+                        <div class="course-img-placeholder"><i class="fa-solid fa-file-excel fa-3x"></i></div>
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold">Bilgisayar İşletmenliği</h5>
+                            <p class="card-text small">Word, Excel ve PowerPoint ile profesyonel belge ve sunum hazırlama.</p>
+                        </div>
+                    </div>
                 </div>
-            </details>
 
-            <details>
-                <summary>📱 App Inventor (Mobil)</summary>
-                <div class="content">
-                    <p>MIT App Inventor ile blok tabanlı mobil uygulama geliştirme.</p>
-                    <ul>
-                        <li>Döviz çevirici, oyunlar ve hesap makineleri.</li>
-                        <li>Tasarım odaklı düşünme becerisi.</li>
-                    </ul>
+                <div class="col">
+                    <div class="card course-card">
+                        <div class="course-img-placeholder"><i class="fa-solid fa-table fa-3x"></i></div>
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold">Excel & Makrolar</h5>
+                            <p class="card-text small">Temel formüllerden VBA ile otomasyon ve veri analizine kadar kapsamlı eğitim.</p>
+                        </div>
+                    </div>
                 </div>
-            </details>
 
-            <details>
-                <summary>🎮 Oyun Geliştirme (Unity & MakeCode)</summary>
-                <div class="content">
-                    <ul>
-                        <li><b>MakeCode Arcade:</b> 2D retro oyun tasarımı.</li>
-                        <li><b>Unity:</b> Kodsuz oyun tasarımı ve "Karanlık İstasyon" bilimkurgu projesi.</li>
-                    </ul>
+                <div class="col">
+                    <div class="card course-card">
+                        <div class="course-img-placeholder"><i class="fa-solid fa-cubes fa-3x"></i></div>
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold">Tinkercad & Drone Tasarımı</h5>
+                            <p class="card-text small">Drone gövdesi tasarımı, STL oluşturma ve 3D baskıya hazırlık.</p>
+                        </div>
+                    </div>
                 </div>
-            </details>
+
+                <div class="col">
+                    <div class="card course-card">
+                        <div class="course-img-placeholder"><i class="fa-solid fa-cube fa-3x"></i></div>
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold">Blender 3D Modelleme</h5>
+                            <p class="card-text small">Karakter heykelleme, organik modelleme ve render alma teknikleri.</p>
+                        </div>
+                    </div>
+                </div>
+
+                 <div class="col">
+                    <div class="card course-card">
+                        <div class="course-img-placeholder"><i class="fa-solid fa-scanner-gun fa-3x"></i> </div>
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold">Tersine Mühendislik 1 & 2</h5>
+                            <p class="card-text small">3D Tarama, Geomagic/Meshmixer kullanımı ve bozuk yüzey onarımı.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card course-card">
+                        <div class="course-img-placeholder"><i class="fa-solid fa-pen-ruler fa-3x"></i></div>
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold">Çiz, Kes, Yarat (CNC)</h5>
+                            <p class="card-text small">Inkscape ve Illustrator ile vektörel çizim ve lazer kesim uygulamaları.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card course-card">
+                        <div class="course-img-placeholder"><i class="fa-solid fa-paintbrush fa-3x"></i></div>
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold">Figür Boyama Atölyesi</h5>
+                            <p class="card-text small">3D baskı sonrası zımparalama, astarlama ve artistik boyama teknikleri.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card course-card">
+                        <div class="course-img-placeholder"><i class="fa-brands fa-python fa-3x"></i></div>
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold">Python Programlama</h5>
+                            <p class="card-text small">Temel algoritma, veri analizi ve proje geliştirme uygulamaları.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card course-card">
+                        <div class="course-img-placeholder"><i class="fa-brands fa-unity fa-3x"></i></div>
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold">Unity ile 3D Oyun Tasarımı</h5>
+                            <p class="card-text small">Terrain tasarımı, fizik motoru ve C# ile oyun mekanikleri.</p>
+                        </div>
+                    </div>
+                </div>
+
+                 <div class="col">
+                    <div class="card course-card">
+                        <div class="course-img-placeholder"><i class="fa-brands fa-html5 fa-3x"></i></div>
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold">Web Tasarım (HTML/CSS/JS)</h5>
+                            <p class="card-text small">Responsive tasarım, flexbox ve dinamik arayüz geliştirme.</p>
+                        </div>
+                    </div>
+                </div>
+
+                 <div class="col">
+                    <div class="card course-card">
+                        <div class="course-img-placeholder"><i class="fa-solid fa-microchip fa-3x"></i></div>
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold">Arduino & Akıllı Ev</h5>
+                            <p class="card-text small">Sensör kullanımı, IoT uygulamaları ve Blynk App entegrasyonu.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
+    </section>
 
-        <div id="hackoutlon" class="module-card" style="border-color: #ffd700; background: linear-gradient(to bottom right, #1a1a20, #25251a);">
-            <h2 class="module-title" style="color: #ffd700;">
-                🏆 Hackoutlon & Mentörlük
-                <span class="tag">Özel Etkinlik</span>
-            </h2>
-            <p style="color: #aaa;">Kodlama ve Yaratıcılık Maratonu Yönetimi.</p>
-
-            <details open>
-                <summary style="color: #ffd700;">1. Hackoutlon Nedir?</summary>
-                <div class="content">
-                    <p>Öğrencilerin belirli sürede yenilikçi projeler geliştirdiği maraton.</p>
-                    <ul>
-                        <li>Kodlama, tasarım ve problem çözme bir arada.</li>
-                        <li>Takım çalışması ve kriz yönetimi.</li>
-                    </ul>
-                </div>
-            </details>
-
-            <details>
-                <summary>2. Hazırlık & Süreç</summary>
-                <div class="content">
-                    <ul>
-                        <li><b>Hazırlık:</b> Beyin fırtınası, ekip kurma, tema belirleme.</li>
-                        <li><b>Geliştirme:</b> Yazılım veya donanım prototip üretimi.</li>
-                        <li><b>Sunum:</b> "Pitching" teknikleri ile jüriye sunum.</li>
-                    </ul>
-                </div>
-            </details>
-
-            <details>
-                <summary>🎓 Bilişim Mentörlüğü</summary>
-                <div class="content">
-                    <ul>
-                        <li>Yarışma koçluğu ve stratejik hazırlık.</li>
-                        <li>Zaman yönetimi ve motivasyon artırma teknikleri.</li>
-                    </ul>
-                </div>
-            </details>
+    <footer class="bg-dark text-white text-center py-4">
+        <div class="container">
+            <p class="mb-0">&copy; 2026 Bilişim Sınıfı Eğitim Portalı. Tüm Hakları Saklıdır.</p>
         </div>
-
-        <div id="ileri" class="module-card mod-ai">
-            <h2 class="module-title" style="color: var(--accent-ai);">
-                🚀 İleri Teknolojiler (AI/AR/VR)
-            </h2>
-
-            <details>
-                <summary>🧠 Yapay Zeka & BCI</summary>
-                <div class="content">
-                    <ul>
-                        <li><b>Teachable Machine:</b> Google ile model eğitme (Görsel/Ses).</li>
-                        <li><b>Neurosky:</b> Beyin dalgaları ile Unity oyunu kontrolü (BCI).</li>
-                        <li><b>JS AI:</b> TensorFlow.js ile tarayıcıda görsel tanıma.</li>
-                    </ul>
-                </div>
-            </details>
-
-            <details>
-                <summary>👓 AR & VR Uygulamaları</summary>
-                <div class="content">
-                    <ul>
-                        <li><b>AR (Artırılmış Gerçeklik):</b> Ders kitaplarını canlandırma, sanal sergiler.</li>
-                        <li><b>VR (Sanal Gerçeklik):</b> Sanal müze gezileri, laboratuvar simülasyonları.</li>
-                    </ul>
-                </div>
-            </details>
-        </div>
-
-    </div>
-
-    <footer>
-        <p>Bilişim Öğretmenleri Eğitmen Eğitimi Materyalleri<br>
-        <span style="opacity: 0.5;">Powered by GitHub Pages & Maker Spirit</span></p>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
