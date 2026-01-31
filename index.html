@@ -126,7 +126,7 @@
 
         .card-badge {
             padding: 8px 20px; border-radius: 30px; font-weight: 800; font-size: 0.8rem; letter-spacing: 1px;
-            margin-bottom: 25px; z-index: 5; /* Z-index artırıldı */
+            margin-bottom: 25px; z-index: 5;
             position: relative; display: inline-block;
             background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
             transition: all 0.3s;
@@ -141,7 +141,7 @@
         @keyframes floatIcon { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
         @keyframes spinSlow { 100% { transform: rotate(360deg); } }
 
-        /* --- MOBİL İÇİN ÖZEL TIKLA-AÇ (ACCORDION) SİSTEMİ --- */
+        /* --- MOBİL İÇİN DÜZELTİLMİŞ YAPI (v1.17.0) --- */
         @media (max-width: 768px) {
             .hero-title { font-size: 2rem; }
             
@@ -150,72 +150,66 @@
             }
 
             .time-card {
+                /* DÜZELTME 1: Yükseklik artırıldı, içerik kesilmez */
                 min-height: auto;
-                height: 120px; /* KAPALI HAL */
+                max-height: 180px; /* Kapalı yükseklik artırıldı */
                 padding: 1.5rem;
-                justify-content: flex-start;
+                
+                /* DÜZELTME 2: Tam Ortalama */
+                justify-content: center; 
+                align-items: center;
+                
                 cursor: pointer;
-                transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                transition: max-height 0.5s ease-in-out, background 0.3s;
             }
 
-            /* Açık Kart */
+            /* AÇIK KART */
             .time-card.expanded {
-                height: 500px; /* AÇIK HAL */
-                justify-content: center;
+                max-height: 600px; /* Genişleyince sığacak kadar alan */
                 background: rgba(20, 20, 30, 0.95);
                 border-color: rgba(255,255,255,0.4);
             }
 
-            .icon-atmos { font-size: 3rem; margin-bottom: 10px; transition: 0.3s; }
-            .card-badge { margin-bottom: 0; transition: 0.3s; }
-
-            /* AÇIK HALDE BADGE GÖRÜNÜRLÜĞÜ (FIXED) */
-            .time-card.expanded .icon-atmos { margin-bottom: 1.5rem; transform: scale(0.8); }
+            /* İkon ve Badge Ayarları */
+            .icon-atmos { font-size: 3.5rem; margin-bottom: 15px; transition: 0.3s; }
             
-            /* ÖNEMLİ DÜZELTME: Expanded olunca Badge kesinlikle görünür kalsın */
-            .time-card.expanded .card-badge { 
-                display: inline-block !important; 
+            /* DÜZELTME 3: Badge her zaman görünür */
+            .card-badge { 
+                margin-bottom: 0; 
                 opacity: 1 !important;
-                margin-bottom: 25px; 
-                background: rgba(255,255,255,0.15); /* Biraz daha belirgin olsun */
+                display: inline-block !important;
             }
+
+            /* Açıkken Animasyon */
+            .time-card.expanded .icon-atmos { transform: scale(0.8); margin-bottom: 10px; }
+            .time-card.expanded .card-badge { margin-bottom: 25px; }
 
             /* Detaylar (Başlık, Açıklama) */
             .card-details {
                 opacity: 0;
+                max-height: 0;
+                overflow: hidden;
                 transform: translateY(20px);
-                pointer-events: none;
-                position: absolute;
-                top: 50%; left: 50%;
-                transform: translate(-50%, -40%);
-                width: 90%;
-                transition: 0.3s ease 0s;
+                transition: 0.3s ease;
             }
 
             .time-card.expanded .card-details {
                 opacity: 1;
-                pointer-events: all;
-                position: relative;
-                top: auto; left: auto;
-                transform: none;
+                max-height: 500px; /* İçerik için alan */
+                transform: translateY(0);
                 transition: 0.5s ease 0.2s;
             }
             
             .tap-hint {
                 font-size: 0.7rem; color: rgba(255,255,255,0.4);
-                margin-top: 10px; display: block;
+                margin-top: 15px; display: block;
                 animation: pulse 1.5s infinite;
             }
             .time-card.expanded .tap-hint { display: none; }
         }
 
-        /* Modal Scroll Fix */
-        .modal-body-scroll {
-            max-height: 60vh;
-            overflow-y: auto;
-        }
-
-        /* Diğer Genel Stiller */
+        /* Modal & Genel */
+        .modal-body-scroll { max-height: 60vh; overflow-y: auto; }
         .mega-btn-container { padding: 60px 0; }
         .mega-btn {
             background: transparent; border: 2px solid #0aff60; color: #0aff60;
@@ -224,15 +218,12 @@
             text-decoration: none; display: inline-flex; align-items: center;
         }
         .mega-btn:hover { background: #0aff60; color: #000; box-shadow: 0 0 40px rgba(10, 255, 96, 0.6); transform: translateY(-5px); }
-
         .about-section { background: linear-gradient(to top, #000, rgba(20,20,30,0.5)); padding: 80px 0; margin-top: 40px; border-top: 1px solid rgba(255,255,255,0.05); }
         .info-box { background: rgba(255,255,255,0.03); border-radius: 20px; padding: 40px; border-left: 5px solid #00f3ff; }
-
         .table-dark { background: transparent; }
         .table-dark th { color: #0aff60; }
         .badge-ver { font-family: monospace; font-size: 0.8rem; background: rgba(255,255,255,0.1); color: #fff; padding: 2px 6px; border-radius: 4px; }
         .badge-new { background: #0aff60; color: #000; font-weight: bold; font-size: 0.7rem; padding: 2px 5px; border-radius: 3px; margin-left: 5px; }
-
         .modal-content { background: #0a0a0a; border: 1px solid rgba(255,255,255,0.1); }
         .modal-header, .modal-footer { border-color: rgba(255,255,255,0.1); }
         .catalog-item { background: rgba(255,255,255,0.03); border-radius: 12px; padding: 20px; border-left: 4px solid #444; height: 100%; transition: 0.3s; }
@@ -244,7 +235,7 @@
 <body>
 
     <div class="version-container">
-        <div class="version-tag">v1.16.0</div>
+        <div class="version-tag">v1.17.0</div>
         <div class="changelog-btn" data-bs-toggle="modal" data-bs-target="#changelogModal" title="Değişiklik Geçmişi">
             <i class="fa-solid fa-info"></i>
         </div>
@@ -361,51 +352,35 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td><span class="badge-ver">v1.16.0</span><span class="badge-new">SON</span></td>
+                             <tr>
+                                <td><span class="badge-ver">v1.17.0</span><span class="badge-new">SON</span></td>
                                 <td>
                                     <ul class="list-unstyled mb-0">
-                                        <li>• <strong>Mobile Fix:</strong> Kart açıldığında 'Grup İsmi' kaybolma sorunu çözüldü (Z-index/Opacity).</li>
-                                        <li>• <strong>Data:</strong> Geçmiş versiyonlar (v1.0-v1.14) sisteme işlendi.</li>
-                                        <li>• <strong>UI:</strong> Modal penceresine scroll özelliği eklendi.</li>
+                                        <li>• <strong>Mobile Layout Fix:</strong> Kart kapalıyken yazı kesilme sorunu çözüldü (Yükseklik artırıldı, dikey ortalandı).</li>
+                                        <li>• <strong>Visibility:</strong> Grup isimleri (Badge) her zaman görünür yapıldı.</li>
+                                        <li>• <strong>Animation:</strong> Pürüzsüz açılma için `max-height` animasyonu eklendi.</li>
                                     </ul>
                                 </td>
                             </tr>
                             <tr>
+                                <td><span class="badge-ver">v1.16.0</span></td>
+                                <td>• Mobil kart görünürlük düzeltmesi.<br>• Tam changelog eklendi.</td>
+                            </tr>
+                            <tr>
                                 <td><span class="badge-ver">v1.15.0</span></td>
-                                <td>• Mobil Accordion (Tıkla-Aç) sistemi.<br>• Versiyon etiketi aşağı taşındı.<br>• Changelog modülü eklendi.</td>
+                                <td>• Mobil Accordion (Tıkla-Aç) sistemi.<br>• Versiyon etiketi konumlandırma.</td>
                             </tr>
                             <tr>
                                 <td><span class="badge-ver">v1.14.0</span></td>
-                                <td>• Kod temizliği (Cite silindi).<br>• Mobil Snap Scroll eklendi.<br>• Atmosferik kartlar optimize edildi.</td>
+                                <td>• Kod temizliği (Cite silindi).<br>• Mobil Snap Scroll.</td>
                             </tr>
                             <tr>
                                 <td><span class="badge-ver">v1.13.0</span></td>
-                                <td>• Neon tabela kaldırıldı.<br>• Gündoğumu/Gece temalı kartlara geçildi.</td>
-                            </tr>
-                            <tr>
-                                <td><span class="badge-ver">v1.12.0</span></td>
-                                <td>• Canlı Yayın nabız (pulse) efekti.<br>• Kapsül başlık tasarımı.</td>
-                            </tr>
-                            <tr>
-                                <td><span class="badge-ver">v1.10.0</span></td>
-                                <td>• Neon Tabela konsept denemesi.<br>• "Sabah/Öğlen/Akşam" renk kodlaması.</td>
-                            </tr>
-                            <tr>
-                                <td><span class="badge-ver">v1.8.0</span></td>
-                                <td>• Menü yapısı değişti (Canlı Dersler öncelikli).<br>• Hareketli arka plan entegrasyonu.</td>
-                            </tr>
-                            <tr>
-                                <td><span class="badge-ver">v1.5.0</span></td>
-                                <td>• "Resmiyet" güncellemesi.<br>• Orijinal marka logoları (Arduino, Blender vb.) eklendi.</td>
-                            </tr>
-                            <tr>
-                                <td><span class="badge-ver">v1.2.0</span></td>
-                                <td>• Cyberpunk renk paleti denemesi.<br>• Hover efektleri (Sarı/Mavi/Mor).</td>
+                                <td>• Gündoğumu/Gece temalı kartlar.</td>
                             </tr>
                             <tr>
                                 <td><span class="badge-ver">v1.0.0</span></td>
-                                <td>• Proje Başlangıcı.<br>• Temel layout ve içerik yerleşimi.</td>
+                                <td>• Proje Başlangıcı.</td>
                             </tr>
                         </tbody>
                     </table>
@@ -432,22 +407,18 @@
                         <div class="col"><div class="catalog-item"><i class="fa-solid fa-code cat-icon text-white"></i><div class="cat-title">C# (UNITY İÇİN)</div><p class="cat-desc">Oyun geliştirme temelleri, koşullu ifadeler ve döngüler.</p></div></div>
                         <div class="col"><div class="catalog-item" style="border-color: var(--brand-android);"><i class="fa-brands fa-android cat-icon" style="color:var(--brand-android)"></i><div class="cat-title">MOBİL UYGULAMA (APP)</div><p class="cat-desc">App Inventor ile Android uygulama ve TinyDB kullanımı.</p></div></div>
                         <div class="col"><div class="catalog-item" style="border-color: #00599C;"><i class="fa-solid fa-terminal cat-icon" style="color:#00599C"></i><div class="cat-title">C++ PROGRAMLAMA</div><p class="cat-desc">Temel programlama, döngüler, diziler ve fonksiyonlar.</p></div></div>
-                        
                         <div class="col"><div class="catalog-item" style="border-color: var(--brand-html);"><i class="fa-brands fa-html5 cat-icon" style="color:var(--brand-html)"></i><div class="cat-title">WEB TASARIMI (HTML/CSS)</div><p class="cat-desc">Semantik HTML, CSS Box Model ve responsive portföy.</p></div></div>
                         <div class="col"><div class="catalog-item" style="border-color: #F7DF1E;"><i class="fa-brands fa-js cat-icon" style="color:#F7DF1E"></i><div class="cat-title">JAVASCRIPT ARAYÜZ</div><p class="cat-desc">DOM manipülasyonu, olay yönetimi ve dinamik sayfalar.</p></div></div>
-
                         <div class="col"><div class="catalog-item" style="border-color: var(--brand-blender);"><i class="fa-solid fa-cube cat-icon" style="color:var(--brand-blender)"></i><div class="cat-title">BLENDER 3D MODELLEME</div><p class="cat-desc">Karakter heykelleme, organik modelleme ve baskıya hazırlık.</p></div></div>
                         <div class="col"><div class="catalog-item" style="border-color: var(--brand-fusion);"><i class="fa-solid fa-layer-group cat-icon" style="color:var(--brand-fusion)"></i><div class="cat-title">KATI MODELLEME (FUSION)</div><p class="cat-desc">Parametrik tasarım, montaj, analiz ve teknik çizim.</p></div></div>
                         <div class="col"><div class="catalog-item" style="border-color: #128FC8;"><i class="fa-solid fa-cubes-stacked cat-icon" style="color:#128FC8"></i><div class="cat-title">TINKERCAD (DRONE)</div><p class="cat-desc">Drone gövde tasarımı, STL oluşturma ve optimizasyon.</p></div></div>
                         <div class="col"><div class="catalog-item" style="border-color: #ff0055;"><i class="fa-solid fa-pen-ruler cat-icon" style="color:#ff0055"></i><div class="cat-title">3D PROTOTİPLEME</div><p class="cat-desc">3D Kalem ve el aletleriyle mimari model ve prototip.</p></div></div>
                         <div class="col"><div class="catalog-item" style="border-color: #ff0055;"><i class="fa-solid fa-paintbrush cat-icon" style="color:#ff0055"></i><div class="cat-title">FİGÜR BOYAMA</div><p class="cat-desc">Zımparalama, astarlama, gölgelendirme ve efektler.</p></div></div>
                         <div class="col"><div class="catalog-item" style="border-color: #ff0055;"><i class="fa-solid fa-scissors cat-icon" style="color:#ff0055"></i><div class="cat-title">ÇİZ, KES, YARAT (CNC)</div><p class="cat-desc">Vektörel çizim, lazer kesim ve malzeme seçimi.</p></div></div>
-                        
                         <div class="col"><div class="catalog-item" style="border-color: #00f3ff;"><i class="fa-solid fa-bullseye cat-icon" style="color:#00f3ff"></i><div class="cat-title">TERSİNE MÜHENDİSLİK-1</div><p class="cat-desc">3D Tarama, mesh düzenleme, optimizasyon ve onarım.</p></div></div>
                         <div class="col"><div class="catalog-item" style="border-color: #bc13fe;"><i class="fa-solid fa-wand-magic-sparkles cat-icon" style="color:#bc13fe"></i><div class="cat-title">TERSİNE MÜHENDİSLİK-2</div><p class="cat-desc">Blender ile tarama aktarımı, sculpting ve organik model.</p></div></div>
                         <div class="col"><div class="catalog-item" style="border-color: var(--brand-arduino);"><i class="fa-solid fa-microchip cat-icon" style="color:var(--brand-arduino)"></i><div class="cat-title">ARDUINO ROBOTİK</div><p class="cat-desc">LED, potansiyometre, sensörler ve robotik sistemler.</p></div></div>
                         <div class="col"><div class="catalog-item" style="border-color: var(--brand-arduino);"><i class="fa-solid fa-house-signal cat-icon" style="color:var(--brand-arduino)"></i><div class="cat-title">AKILLI EV (IOT)</div><p class="cat-desc">Arduino, Blynk App, Wi-Fi ve sensör entegrasyonu.</p></div></div>
-                        
                         <div class="col"><div class="catalog-item" style="border-color: #217346;"><i class="fa-solid fa-laptop-file cat-icon" style="color:#217346"></i><div class="cat-title">BİLGİSAYAR İŞLETMENLİĞİ</div><p class="cat-desc">Word, Excel, PowerPoint ile belge ve sunum hazırlama.</p></div></div>
                         <div class="col"><div class="catalog-item" style="border-color: #217346;"><i class="fa-solid fa-file-excel cat-icon" style="color:#217346"></i><div class="cat-title">EXCEL TEMEL</div><p class="cat-desc">Veri analizi, biçimlendirme, formüller ve tablolar.</p></div></div>
                         <div class="col"><div class="catalog-item" style="border-color: #217346;"><i class="fa-solid fa-robot cat-icon" style="color:#217346"></i><div class="cat-title">EXCEL MAKROLAR</div><p class="cat-desc">VBA ile makro kaydetme, otomasyon ve döngüler.</p></div></div>
@@ -473,7 +444,7 @@
                 if (card.classList.contains('expanded')) {
                     card.classList.remove('expanded');
                 } else {
-                    // Diğer açık kartları kapat (İsteğe bağlı, daha temiz görünüm için)
+                    // Diğer açık kartları kapat
                     document.querySelectorAll('.time-card').forEach(c => c.classList.remove('expanded'));
                     // Tıklananı aç
                     card.classList.add('expanded');
