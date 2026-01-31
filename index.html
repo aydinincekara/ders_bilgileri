@@ -36,6 +36,22 @@
             letter-spacing: 0.5px;
         }
 
+        /* --- VERSİYON ETİKETİ (YENİ) --- */
+        .version-tag {
+            position: fixed;
+            top: 65px; /* Navbar'ın hemen altında */
+            right: 15px;
+            font-family: monospace;
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.3);
+            background: rgba(0, 0, 0, 0.5);
+            padding: 2px 6px;
+            border-radius: 4px;
+            z-index: 9999;
+            pointer-events: none; /* Tıklamayı engelle */
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
         /* Navbar */
         .navbar {
             background: rgba(5, 5, 5, 0.9);
@@ -148,50 +164,40 @@
         .cat-desc { font-size: 0.85rem; color: #94a3b8; line-height: 1.4; }
 
         /* -----------------------------------------------------------
-           MOBİL SNAP SCROLL FIX (DÜZELTİLEN KISIM)
+           MOBİL UYUM AYARLARI
            ----------------------------------------------------------- */
         @media (max-width: 768px) {
+            .version-tag { top: 60px; right: 10px; font-size: 0.6rem; } /* Versiyon etiketi mobilde küçük */
             .hero-title { font-size: 2rem; }
             
             .mobile-scroll {
                 display: flex;
                 flex-wrap: nowrap;
                 overflow-x: auto;
-                gap: 15px; /* Kartlar arası boşluk */
-                
-                /* SAĞ VE SOLA EŞİT BOŞLUK (PADDING) */
-                /* Kart %85 genişlikteyse, kenarlarda %7.5 boşluk kalmalı ki ortalansın */
-                padding: 10px 7.5%; 
-                
-                /* ÖNEMLİ: Listeyi en soldan başlat, center değil */
-                justify-content: flex-start !important; 
-                
-                scroll-snap-type: x mandatory; /* Manyetik kilitlenme */
-                -webkit-overflow-scrolling: touch; /* iOS için akıcı kaydırma */
-                
-                /* Scroll çubuğunu gizle */
-                scrollbar-width: none; 
-                -ms-overflow-style: none;
+                gap: 15px;
+                padding: 10px 7.5%; /* Eşit kenar boşlukları */
+                justify-content: flex-start !important; /* LİSTEYİ BAŞA ÇEK */
+                scroll-snap-type: x mandatory;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
             }
             .mobile-scroll::-webkit-scrollbar { display: none; }
 
             .mobile-scroll .col-md-4 {
-                flex: 0 0 85%; /* Kart Genişliği: Ekranın %85'i */
+                flex: 0 0 85%;
                 max-width: 85%;
-                scroll-snap-align: center; /* Kartın merkezi ekranın merkezine kilitlenir */
-                scroll-snap-stop: always; /* ÖNEMLİ: Hızlı kaydırmayı engeller, tek tek durdurur */
+                scroll-snap-align: center;
+                scroll-snap-stop: always;
             }
 
-            /* Kartın içini biraz küçült */
             .time-card { min-height: 450px; padding: 1.5rem; }
-            .icon-morning, .icon-noon, .icon-evening { font-size: 3rem; margin-bottom: 1rem; }
-            .tech-title { font-size: 1.3rem; }
-            
             .mega-btn { width: 90%; justify-content: center; font-size: 0.9rem; }
         }
     </style>
 </head>
 <body>
+
+    <div class="version-tag">v.14.0</div>
 
     <nav class="navbar fixed-top">
         <div class="container justify-content-center">
