@@ -11,12 +11,6 @@
     <style>
         :root {
             --bg-dark: #0a0e17;
-            --card-bg: rgba(30, 41, 59, 0.7);
-            --neon-blue: #00f3ff;
-            --neon-purple: #bc13fe;
-            --neon-green: #0aff60;
-            --neon-pink: #ff0055;
-            
             /* Marka Renkleri */
             --brand-python: #FFD43B;
             --brand-arduino: #00979D;
@@ -32,7 +26,6 @@
             background-color: var(--bg-dark);
             color: #fff;
             overflow-x: hidden;
-            /* Hareketli Arka Plan */
             background: linear-gradient(-45deg, #0f172a, #1e1b4b, #0f172a, #022c22);
             background-size: 400% 400%;
             animation: gradientBG 15s ease infinite;
@@ -65,93 +58,139 @@
         }
         
         .hero-title span {
-            background: linear-gradient(to right, var(--neon-blue), var(--neon-purple));
+            background: linear-gradient(to right, #00f3ff, #bc13fe);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        /* --- YENİ GRUP BAŞLIKLARI (LIVE PULSE EFFECT) --- */
-        .group-badge {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 10px 25px;
-            border-radius: 50px;
-            font-weight: 800;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-            margin-bottom: 25px;
-            position: relative;
-            /* "Ripple" animasyonu için */
-            animation: pulse-border 2s infinite;
-        }
-
-        /* Yanıp Sönen Canlı Nokta */
-        .live-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            display: inline-block;
-            margin-right: 10px;
-            animation: blink 1.5s infinite;
-        }
-
-        @keyframes blink {
-            0% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.4; transform: scale(0.8); }
-            100% { opacity: 1; transform: scale(1); }
-        }
-
-        /* RENK VARYASYONLARI */
+        /* --- ATMOSFERİK KART TASARIMLARI --- */
         
-        /* Sabah (Sarı) */
-        .badge-morning {
-            background: rgba(255, 215, 0, 0.1);
-            color: #FFD700;
-            border: 1px solid rgba(255, 215, 0, 0.5);
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
-        }
-        .badge-morning .live-dot { background-color: #FFD700; box-shadow: 0 0 10px #FFD700; }
-
-        /* Öğlen (Mavi) */
-        .badge-noon {
-            background: rgba(0, 243, 255, 0.1);
-            color: #00f3ff;
-            border: 1px solid rgba(0, 243, 255, 0.5);
-            box-shadow: 0 0 15px rgba(0, 243, 255, 0.2);
-        }
-        .badge-noon .live-dot { background-color: #00f3ff; box-shadow: 0 0 10px #00f3ff; }
-
-        /* Akşam (Mor/Pembe) */
-        .badge-evening {
-            background: rgba(188, 19, 254, 0.1);
-            color: #bc13fe;
-            border: 1px solid rgba(188, 19, 254, 0.5);
-            box-shadow: 0 0 15px rgba(188, 19, 254, 0.2);
-        }
-        .badge-evening .live-dot { background-color: #bc13fe; box-shadow: 0 0 10px #bc13fe; }
-
-        /* Kart Tasarımı */
-        .active-card {
-            background: var(--card-bg);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 2.5rem 1.5rem;
+        .time-card {
+            border-radius: 24px;
+            padding: 2rem;
             text-align: center;
-            transition: 0.3s;
+            transition: all 0.4s ease;
             position: relative;
             overflow: hidden;
             height: 100%;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(20, 20, 30, 0.6); /* Yarı saydam zemin */
+            backdrop-filter: blur(10px);
         }
-        .active-card:hover { transform: translateY(-5px); background: rgba(30, 41, 59, 0.9); border-color: rgba(255,255,255,0.3); }
+
+        .time-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        /* 1. SABAH KARTI (GÜNDOĞUMU EFEKTİ) */
+        .card-morning {
+            border-bottom: 4px solid #FFD700; /* Altın Sarısı Taban */
+        }
+        .card-morning::before {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; width: 100%; height: 60%;
+            background: linear-gradient(to top, rgba(255, 215, 0, 0.25), transparent);
+            z-index: 0;
+            transition: 0.5s;
+        }
+        .card-morning:hover::before { height: 80%; opacity: 1; }
+        
+        .icon-morning {
+            font-size: 4rem;
+            color: #FFD700;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+            animation: riseUp 3s infinite alternate ease-in-out;
+            margin-bottom: 1rem;
+            position: relative; z-index: 1;
+        }
+        @keyframes riseUp { from { transform: translateY(5px); opacity: 0.8; } to { transform: translateY(-5px); opacity: 1; } }
+
+        /* 2. ÖĞLEN KARTI (MAVİ GÖKYÜZÜ EFEKTİ) */
+        .card-noon {
+            border-top: 4px solid #00f3ff; /* Camgöbeği Tavan */
+        }
+        .card-noon::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 60%;
+            background: linear-gradient(to bottom, rgba(0, 243, 255, 0.2), transparent);
+            z-index: 0;
+            transition: 0.5s;
+        }
+        .card-noon:hover::before { height: 90%; }
+
+        .icon-noon {
+            font-size: 4rem;
+            color: #00f3ff;
+            filter: drop-shadow(0 0 15px rgba(0, 243, 255, 0.5));
+            animation: shineRotate 10s infinite linear;
+            margin-bottom: 1rem;
+            position: relative; z-index: 1;
+        }
+        @keyframes shineRotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        /* 3. AKŞAM KARTI (GECE/KARANLIK EFEKTİ) */
+        .card-evening {
+            background: linear-gradient(160deg, #0b0f19 0%, #240b36 100%);
+            border: 1px solid #6a0dad;
+        }
+        /* Yıldız Efekti (Noktalar) */
+        .card-evening::before {
+            content: '.';
+            color: transparent;
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: 
+                radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 3px),
+                radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 2px),
+                radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 3px);
+            background-size: 550px 550px, 350px 350px, 250px 250px;
+            background-position: 0 0, 40px 60px, 130px 270px;
+            opacity: 0.3;
+            z-index: 0;
+        }
+        
+        .icon-evening {
+            font-size: 4rem;
+            color: #d8b4fe; /* Açık Mor */
+            text-shadow: 0 0 15px #7c3aed;
+            margin-bottom: 1rem;
+            position: relative; z-index: 1;
+            transform: rotate(-15deg);
+            transition: 0.5s;
+        }
+        .card-evening:hover .icon-evening { transform: rotate(0deg) scale(1.1); color: #fff; }
+
+
+        /* İçerik Stilleri */
+        .card-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 800;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+            text-transform: uppercase;
+        }
+        
+        .badge-morning-style { background: rgba(255, 215, 0, 0.15); color: #FFD700; border: 1px solid rgba(255, 215, 0, 0.4); }
+        .badge-noon-style { background: rgba(0, 243, 255, 0.15); color: #00f3ff; border: 1px solid rgba(0, 243, 255, 0.4); }
+        .badge-evening-style { background: rgba(188, 19, 254, 0.15); color: #d8b4fe; border: 1px solid rgba(188, 19, 254, 0.4); }
+
+        .card-content h4 { font-weight: 800; margin-bottom: 0.5rem; position: relative; z-index: 1; }
+        .card-content p { color: #ccc; font-size: 0.9rem; position: relative; z-index: 1; }
 
         /* Buton ve Hakkında Bölümü */
         .mega-btn-container { padding: 60px 0; }
         .mega-btn {
             background: rgba(10, 255, 96, 0.05);
-            border: 2px solid var(--neon-green);
-            color: var(--neon-green);
+            border: 2px solid #0aff60;
+            color: #0aff60;
             padding: 20px 50px;
             font-size: 1.3rem;
             font-weight: 800;
@@ -163,7 +202,7 @@
             cursor: pointer;
             box-shadow: 0 0 20px rgba(10, 255, 96, 0.2);
         }
-        .mega-btn:hover { background: var(--neon-green); color: #000; box-shadow: 0 0 50px rgba(10, 255, 96, 0.8); transform: translateY(-5px); }
+        .mega-btn:hover { background: #0aff60; color: #000; box-shadow: 0 0 50px rgba(10, 255, 96, 0.8); transform: translateY(-5px); }
 
         .about-section {
             background: linear-gradient(to top, #020617, transparent);
@@ -173,13 +212,13 @@
         }
         .info-card {
             background: rgba(255, 255, 255, 0.03);
-            border-left: 5px solid var(--neon-blue);
+            border-left: 5px solid #00f3ff;
             border-radius: 15px;
             padding: 3rem;
         }
 
         /* Modal & Katalog */
-        .modal-content { background-color: #0f172a; border: 1px solid var(--neon-blue); box-shadow: 0 0 50px rgba(0, 243, 255, 0.2); }
+        .modal-content { background-color: #0f172a; border: 1px solid #00f3ff; box-shadow: 0 0 50px rgba(0, 243, 255, 0.2); }
         .modal-header { border-bottom: 1px solid rgba(255,255,255,0.1); }
         .modal-footer { border-top: 1px solid rgba(255,255,255,0.1); }
         .btn-close { filter: invert(1); }
@@ -206,7 +245,7 @@
         .br-html { border-color: var(--brand-html); color: var(--brand-html); }
         .br-blender { border-color: var(--brand-blender); color: var(--brand-blender); }
         .br-fusion { border-color: var(--brand-fusion); color: var(--brand-fusion); }
-        .br-pink { border-color: var(--neon-pink); color: var(--neon-pink); }
+        .br-pink { border-color: #ff0055; color: #ff0055; }
         .br-green { border-color: var(--brand-android); color: var(--brand-android); }
 
     </style>
@@ -216,7 +255,7 @@
     <nav class="navbar fixed-top">
         <div class="container d-flex align-items-center">
             <div class="d-flex align-items-center">
-                <i class="fa-solid fa-laptop-code fa-2x me-3" style="color: var(--neon-blue);"></i>
+                <i class="fa-solid fa-laptop-code fa-2x me-3" style="color: #00f3ff;"></i>
                 <div class="brand-logo-text text-start">
                     <div class="fw-bold fs-5">KÜÇÜKÇEKMECE BELEDİYESİ</div>
                     <div class="small text-secondary fw-bold" style="letter-spacing: 2px;">GENÇLİK MERKEZİ BİLİŞİM SINIFI</div>
@@ -233,42 +272,48 @@
     <section class="container mb-5">
         <div class="row g-4 justify-content-center">
             <div class="col-12 text-center mb-4">
-                <h3 class="fw-bold text-white"><i class="fa-solid fa-tower-broadcast me-2 text-danger fa-beat-fade"></i>ŞU AN CANLI YAYINDA</h3>
+                <h3 class="fw-bold text-white"><i class="fa-solid fa-signal me-2 text-danger fa-fade"></i>ŞU AN CANLI YAYINDA</h3>
             </div>
 
             <div class="col-md-4">
-                <div class="active-card">
-                    <div class="group-badge badge-morning">
-                        <span class="live-dot"></span> SABAH GRUBU
-                    </div>
+                <div class="time-card card-morning">
+                    <div class="icon-morning"><i class="fa-regular fa-sun"></i></div>
                     
-                    <div class="mb-3 text-warning"><i class="fa-solid fa-code fa-4x fa-fade" style="--fa-animation-duration: 3s;"></i></div>
-                    <h4 class="fw-bold">C# PROGRAMLAMA</h4>
-                    <p class="text-white-50">Unity ve Windows tabanlı yazılım geliştirme temelleri.</p>
+                    <span class="card-badge badge-morning-style">SABAH GRUBU</span>
+                    
+                    <div class="card-content">
+                        <div class="mb-2 text-warning fs-1"><i class="fa-solid fa-code"></i></div>
+                        <h4>C# PROGRAMLAMA</h4>
+                        <p>Unity ve Windows tabanlı yazılım geliştirme temelleri.</p>
+                    </div>
                 </div>
             </div>
 
             <div class="col-md-4">
-                <div class="active-card">
-                    <div class="group-badge badge-noon">
-                        <span class="live-dot"></span> ÖĞLEN GRUBU
-                    </div>
+                <div class="time-card card-noon">
+                    <div class="icon-noon"><i class="fa-solid fa-cloud-sun"></i></div>
 
-                    <div class="mb-3 text-info"><i class="fa-brands fa-unity fa-4x fa-fade" style="--fa-animation-duration: 3s;"></i></div>
-                    <h4 class="fw-bold">UNITY OYUN TASARIMI</h4>
-                    <p class="text-white-50">Oyun mekanikleri, sahne tasarımı ve fizik motoru.</p>
+                    <span class="card-badge badge-noon-style">ÖĞLEN GRUBU</span>
+                    
+                    <div class="card-content">
+                        <div class="mb-2 text-info fs-1"><i class="fa-brands fa-unity"></i></div>
+                        <h4>UNITY OYUN TASARIMI</h4>
+                        <p>Oyun mekanikleri, sahne tasarımı ve fizik motoru.</p>
+                    </div>
                 </div>
             </div>
 
             <div class="col-md-4">
-                <div class="active-card">
-                    <div class="group-badge badge-evening">
-                        <span class="live-dot"></span> AKŞAM GRUBU
-                    </div>
+                <div class="time-card card-evening">
+                    <div class="icon-evening"><i class="fa-solid fa-moon"></i></div>
 
-                    <div class="mb-3" style="color: var(--neon-purple);"><i class="fa-solid fa-wand-magic-sparkles fa-4x fa-fade" style="--fa-animation-duration: 3s;"></i></div>
-                    <h4 class="fw-bold">TERSİNE MÜHENDİSLİK</h4>
-                    <p class="text-white-50">3D Tarama, model onarımı ve dijitalleştirme süreçleri.</p>
+                    <span class="card-badge badge-evening-style">AKŞAM GRUBU</span>
+                    
+                    <div class="card-content">
+                        <div class="mb-2 fs-1" style="color: #d8b4fe;"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                        <h4>TERSİNE MÜHENDİSLİK</h4>
+                        <p>3D Tarama, model onarımı ve dijitalleştirme süreçleri.</p>
+                    </div>
                 </div>
             </div>
         </div>
