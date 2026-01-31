@@ -3,489 +3,452 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Küçükçekmece Belediyesi Gençlik Merkezi Bilişim Sınıfı</title>
+    <title>K.Çekmece Bilişim | Geleceği Kodla</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;800;900&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Exo+2:wght@300;500;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --official-bg: #0f172a; /* Resmi koyu lacivert */
-            --card-bg: #1e293b;
-            --border-color: #334155;
-            
-            /* MARKALARIN ORİJİNAL RENK KODLARI */
-            --brand-arduino: #00979D;
+            --bg-dark: #0a0e17;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --neon-blue: #00f3ff;
+            --neon-purple: #bc13fe;
+            --neon-green: #0aff60;
             --brand-python: #FFD43B;
-            --brand-unity: #ffffff; /* Dark modda beyaz */
-            --brand-blender: #F5792A;
-            --brand-fusion: #F05F22;
-            --brand-excel: #217346;
+            --brand-arduino: #00979D;
             --brand-android: #3DDC84;
             --brand-java: #5382a1;
-            --brand-cpp: #00599C;
             --brand-html: #E34F26;
-            --brand-js: #F7DF1E;
-            --brand-tinkercad: #128FC8;
+            --brand-blender: #F5792A;
         }
 
         body {
-            font-family: 'Roboto', sans-serif;
-            background-color: var(--official-bg);
-            background-image: linear-gradient(180deg, #0f172a 0%, #020617 100%);
-            color: #f8fafc;
+            font-family: 'Exo 2', sans-serif;
+            background-color: var(--bg-dark);
+            color: #fff;
+            overflow-x: hidden;
+            /* Hareketli Arka Plan */
+            background: linear-gradient(-45deg, #0f172a, #1e1b4b, #0f172a, #022c22);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
         }
 
-        h1, h2, h3, h4, h5, .brand-font {
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        h1, h2, h3, h5, .brand-title {
             font-family: 'Montserrat', sans-serif;
             text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        /* --- NAVBAR & HEADER --- */
+        /* Navbar */
         .navbar {
-            background: rgba(15, 23, 42, 0.95);
-            border-bottom: 1px solid var(--border-color);
-            padding: 1rem 0;
-        }
-        
-        .municipality-title {
-            font-weight: 800;
-            font-size: 1.1rem;
-            letter-spacing: 0.5px;
-            color: #fff;
-        }
-        
-        .sub-title {
-            color: #94a3b8;
-            font-size: 0.9rem;
-            font-weight: 500;
+            background: rgba(10, 14, 23, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        /* --- HERO --- */
+        .brand-logo-text {
+            line-height: 1.2;
+        }
+
+        /* Hero Section */
         .hero-section {
-            padding: 80px 0 60px;
+            padding: 100px 0 50px;
             text-align: center;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        /* --- AKTİF DERSLER (ORTALI) --- */
-        .active-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 2rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center; /* İkonları Ortala */
-            text-align: center; /* Yazıları Ortala */
-            height: 100%;
-            transition: 0.3s;
-        }
-        
-        .active-card:hover {
-            border-color: #3b82f6;
-            background: #253045;
-        }
-
-        .active-icon {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .status-badge {
-            font-size: 0.75rem;
-            font-weight: 700;
-            padding: 5px 15px;
-            border-radius: 50px;
-            margin-bottom: 15px;
-            display: inline-block;
-        }
-
-        /* --- EĞİTİM KATALOĞU KARTLARI --- */
-        .course-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-left: 5px solid transparent; /* Sol çizgi efekti */
-            border-radius: 8px;
-            padding: 1.5rem;
-            height: 100%;
-            transition: all 0.2s ease-in-out;
             position: relative;
         }
-
-        .course-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            background: #232f42;
+        
+        .hero-title span {
+            background: linear-gradient(to right, var(--neon-blue), var(--neon-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        .course-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 1rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
+        /* Bilgilendirme Kartı (About) */
+        .info-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-left: 5px solid var(--neon-blue);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 0 30px rgba(0, 243, 255, 0.1);
+            animation: float 6s ease-in-out infinite;
         }
 
-        .brand-icon {
-            font-size: 2.5rem;
-            margin-right: 15px;
-            width: 50px;
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Aktif Ders Kartları */
+        .active-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
             text-align: center;
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+            height: 100%;
         }
 
-        .course-title {
+        .active-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(188, 19, 254, 0.4);
+            border-color: var(--neon-purple);
+        }
+
+        .active-card::before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
+            opacity: 0;
+            transition: 0.5s;
+        }
+        .active-card:hover::before { opacity: 1; }
+
+        .time-badge {
+            font-size: 0.8rem;
+            font-weight: 800;
+            padding: 5px 15px;
+            border-radius: 50px;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        /* Dev Buton (Modal Trigger) */
+        .mega-btn {
+            background: transparent;
+            border: 2px solid var(--neon-green);
+            color: var(--neon-green);
+            padding: 15px 40px;
+            font-size: 1.2rem;
             font-weight: 700;
-            font-size: 1rem;
-            line-height: 1.3;
-            margin: 0;
-            color: #fff;
+            border-radius: 50px;
+            transition: 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            margin-top: 2rem;
+            text-decoration: none;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(10, 255, 96, 0.3);
         }
 
-        .course-desc {
-            font-size: 0.85rem;
-            color: #cbd5e1;
-            line-height: 1.6;
+        .mega-btn:hover {
+            background: var(--neon-green);
+            color: #000;
+            box-shadow: 0 0 40px rgba(10, 255, 96, 0.8);
         }
 
-        /* --- MARKA ÖZELLEŞTİRMELERİ (SOL ÇİZGİ VE İKON RENGİ) --- */
+        /* MODAL TASARIMI */
+        .modal-content {
+            background-color: #0f172a;
+            border: 1px solid var(--neon-blue);
+            box-shadow: 0 0 50px rgba(0, 243, 255, 0.2);
+        }
+        .modal-header { border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .modal-footer { border-top: 1px solid rgba(255,255,255,0.1); }
+        .btn-close { filter: invert(1); }
+
+        /* Katalog Kartları */
+        .catalog-item {
+            background: rgba(255,255,255,0.03);
+            border-radius: 10px;
+            padding: 15px;
+            border-left: 4px solid #555;
+            transition: 0.2s;
+            height: 100%;
+        }
+        .catalog-item:hover { background: rgba(255,255,255,0.08); }
         
-        /* Arduino */
-        .brand-arduino { border-left-color: var(--brand-arduino); }
-        .brand-arduino .brand-icon { color: var(--brand-arduino); }
+        .cat-icon { font-size: 2rem; margin-bottom: 10px; display: block; }
+        .cat-title { font-weight: 700; font-size: 1rem; color: #fff; margin-bottom: 5px; }
+        .cat-desc { font-size: 0.8rem; color: #aaa; margin: 0; }
 
-        /* Python */
-        .brand-python { border-left-color: var(--brand-python); }
-        .brand-python .brand-icon { color: var(--brand-python); }
-
-        /* Unity */
-        .brand-unity { border-left-color: #fff; }
-        .brand-unity .brand-icon { color: #fff; }
-
-        /* Blender */
-        .brand-blender { border-left-color: var(--brand-blender); }
-        .brand-blender .brand-icon { color: var(--brand-blender); }
-
-        /* Fusion/Katı Model */
-        .brand-fusion { border-left-color: var(--brand-fusion); }
-        .brand-fusion .brand-icon { color: var(--brand-fusion); }
-
-        /* Excel/Ofis */
-        .brand-excel { border-left-color: var(--brand-excel); }
-        .brand-excel .brand-icon { color: var(--brand-excel); }
-
-        /* Android */
-        .brand-android { border-left-color: var(--brand-android); }
-        .brand-android .brand-icon { color: var(--brand-android); }
-
-        /* Java */
-        .brand-java { border-left-color: var(--brand-java); }
-        .brand-java .brand-icon { color: var(--brand-java); }
-
-        /* C++ */
-        .brand-cpp { border-left-color: var(--brand-cpp); }
-        .brand-cpp .brand-icon { color: var(--brand-cpp); }
-
-        /* HTML/Web */
-        .brand-html { border-left-color: var(--brand-html); }
-        .brand-html .brand-icon { color: var(--brand-html); }
-
-        /* JS */
-        .brand-js { border-left-color: var(--brand-js); }
-        .brand-js .brand-icon { color: var(--brand-js); }
-        
-        /* Tinkercad/3D */
-        .brand-tinkercad { border-left-color: var(--brand-tinkercad); }
-        .brand-tinkercad .brand-icon { color: var(--brand-tinkercad); }
-
-        /* Footer */
-        footer {
-            border-top: 1px solid var(--border-color);
-            background: #020617;
-            padding: 2rem 0;
-            margin-top: 4rem;
-        }
+        /* Marka Renkleri (Sol Çizgi ve İkon) */
+        .br-arduino { border-color: var(--brand-arduino); color: var(--brand-arduino); }
+        .br-python { border-color: var(--brand-python); color: var(--brand-python); }
+        .br-unity { border-color: #fff; color: #fff; }
+        .br-java { border-color: var(--brand-java); color: var(--brand-java); }
+        .br-android { border-color: var(--brand-android); color: var(--brand-android); }
+        .br-html { border-color: var(--brand-html); color: var(--brand-html); }
+        .br-blender { border-color: var(--brand-blender); color: var(--brand-blender); }
 
     </style>
 </head>
 <body>
 
     <nav class="navbar fixed-top">
-        <div class="container d-flex flex-column align-items-center text-center">
-            <div class="d-flex align-items-center mb-1">
-                <i class="fa-solid fa-building-columns fa-2x me-3 text-white"></i>
-                <div class="text-start">
-                    <div class="municipality-title">KÜÇÜKÇEKMECE BELEDİYESİ</div>
-                    <div class="sub-title">GENÇLİK MERKEZİ BİLİŞİM SINIFI</div>
+        <div class="container d-flex align-items-center">
+            <div class="d-flex align-items-center">
+                <i class="fa-solid fa-laptop-code fa-2x me-3" style="color: var(--neon-blue);"></i>
+                <div class="brand-logo-text text-start">
+                    <div class="fw-bold fs-5">KÜÇÜKÇEKMECE BELEDİYESİ</div>
+                    <div class="small text-secondary fw-bold" style="letter-spacing: 2px;">GENÇLİK MERKEZİ BİLİŞİM SINIFI</div>
                 </div>
             </div>
         </div>
     </nav>
 
     <section class="hero-section container mt-5">
-        <h1 class="display-5 fw-bold mb-3 text-white">EĞİTİM MÜFREDATI</h1>
-        <p class="lead text-secondary mx-auto" style="max-width: 800px;">
-            Kurumumuz bünyesinde verilen teknik ve tasarım eğitimlerinin güncel listesi aşağıdadır.
-        </p>
-    </section>
-
-    <section class="container mb-5">
-        <h3 class="fw-bold mb-4 text-white border-bottom pb-2 border-secondary" style="font-size: 1.25rem;">
-            <i class="fa-solid fa-clock me-2 text-warning"></i>DEVAM EDEN PROGRAMLAR
-        </h3>
         
-        <div class="row g-4">
+        <h1 class="hero-title display-4 fw-black mb-4">GELECEĞİ <span>TASARLA</span></h1>
+
+        <div class="info-card text-start">
+            <h4 class="text-white fw-bold mb-3"><i class="fa-solid fa-circle-info me-2 text-info"></i>BİLİŞİM SINIFI HAKKINDA</h4>
+            <p class="mb-0 text-light" style="line-height: 1.7; opacity: 0.9;">
+                Küçükçekmece Belediyesi Gençlik Merkezi Bilişim Sınıfı, gençleri 21. yüzyılın yetkinlikleriyle donatmak için tasarlanmış bir teknoloji üssüdür. 
+                Amacımız; sadece teknolojiyi tüketen değil, <strong>üreten, kodlayan ve tasarlayan</strong> bir nesil yetiştirmektir. 
+                Robotik kodlamadan 3D tasarıma, yapay zeka temelli Python eğitiminden mobil uygulama geliştirmeye kadar geniş bir yelpazede, 
+                tamamen ücretsiz ve profesyonel eğitimler sunuyoruz. Burası hayallerinizin dijital gerçekliğe dönüştüğü yerdir.
+            </p>
+        </div>
+
+        <div class="row g-4 mb-5">
+            <div class="col-12 text-start mb-2">
+                <h3 class="fw-bold"><i class="fa-solid fa-tower-broadcast me-2 text-danger fa-beat"></i>ŞU AN CANLI / DEVAM EDENLER</h3>
+            </div>
+
             <div class="col-md-4">
                 <div class="active-card">
-                    <span class="status-badge bg-warning text-dark">SABAH GRUBU</span>
-                    <div class="active-icon text-warning"><i class="fa-solid fa-code"></i></div>
-                    <h5 class="fw-bold mb-2">C# PROGRAMLAMA</h5>
-                    <p class="text-muted small mb-0">Unity Oyun Motoru İçin Temel Algoritma</p>
+                    <span class="time-badge bg-warning text-dark"><i class="fa-regular fa-sun me-1"></i>SABAH GRUBU</span>
+                    <div class="mb-3 text-warning"><i class="fa-solid fa-code fa-3x"></i></div>
+                    <h4 class="fw-bold">C# PROGRAMLAMA</h4>
+                    <p class="text-white-50 small">Unity ve Windows tabanlı yazılım geliştirme temelleri.</p>
                 </div>
             </div>
+
             <div class="col-md-4">
                 <div class="active-card">
-                    <span class="status-badge bg-info text-dark">ÖĞLEN GRUBU</span>
-                    <div class="active-icon text-info"><i class="fa-brands fa-unity"></i></div>
-                    <h5 class="fw-bold mb-2">UNITY OYUN TASARIMI</h5>
-                    <p class="text-muted small mb-0">Sahne Tasarımı ve Oyun Mekanikleri</p>
+                    <span class="time-badge bg-info text-dark"><i class="fa-solid fa-cloud-sun me-1"></i>ÖĞLEN GRUBU</span>
+                    <div class="mb-3 text-info"><i class="fa-brands fa-unity fa-3x"></i></div>
+                    <h4 class="fw-bold">UNITY OYUN TASARIMI</h4>
+                    <p class="text-white-50 small">Oyun mekanikleri, sahne tasarımı ve fizik motoru.</p>
                 </div>
             </div>
+
             <div class="col-md-4">
                 <div class="active-card">
-                    <span class="status-badge bg-primary text-white">AKŞAM GRUBU</span>
-                    <div class="active-icon text-primary"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
-                    <h5 class="fw-bold mb-2">TERSİNE MÜHENDİSLİK</h5>
-                    <p class="text-muted small mb-0">3D Tarama ve Modelleme</p>
+                    <span class="time-badge text-white" style="background-color: var(--neon-purple);"><i class="fa-solid fa-moon me-1"></i>AKŞAM GRUBU</span>
+                    <div class="mb-3" style="color: var(--neon-purple);"><i class="fa-solid fa-wand-magic-sparkles fa-3x"></i></div>
+                    <h4 class="fw-bold">TERSİNE MÜHENDİSLİK</h4>
+                    <p class="text-white-50 small">3D Tarama, model onarımı ve dijitalleştirme süreçleri.</p>
                 </div>
             </div>
         </div>
-    </section>
 
-    <section class="container pb-5">
-        <h3 class="fw-bold mb-4 text-white border-bottom pb-2 border-secondary" style="font-size: 1.25rem;">
-            <i class="fa-solid fa-list me-2 text-white"></i>GENEL MÜFREDAT VE DERS İÇERİKLERİ
-        </h3>
-        
-        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-
-            <div class="col">
-                <div class="course-card brand-arduino">
-                    <div class="course-header">
-                        <div class="brand-icon"><i class="fa-solid fa-infinity"></i></div>
-                        <h5 class="course-title">ARDUINO İLE ROBOTİK PROGRAMLAMA</h5>
-                    </div>
-                    <p class="course-desc">Arduino kartı ve IDE ile temel programlama. LED kontrolü, potansiyometre, sensörler ve robotik sistem tasarımı.</p>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="course-card brand-blender">
-                    <div class="course-header">
-                        <div class="brand-icon"><i class="fa-solid fa-cube"></i></div>
-                        <h5 class="course-title">BLENDER İLE 3D TEMEL MODELLEME</h5>
-                    </div>
-                    <p class="course-desc">Blender arayüzü ve modelleme teknikleri. Karakter heykelleme, organik modelleme ve 3D baskıya hazırlık.</p>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="course-card brand-fusion">
-                    <div class="course-header">
-                        <div class="brand-icon"><i class="fa-solid fa-layer-group"></i></div>
-                        <h5 class="course-title">KATI MODELLEME VE ÜRÜN GELİŞTİRME</h5>
-                    </div>
-                    <p class="course-desc">Fusion 360 ile parametrik tasarım, montaj, teknik çizim ve analiz süreçleri. Endüstriyel ürün tasarımı.</p>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="course-card brand-python">
-                    <div class="course-header">
-                        <div class="brand-icon"><i class="fa-brands fa-python"></i></div>
-                        <h5 class="course-title">PYTHON PROGRAMLAMA 1. SEVİYE</h5>
-                    </div>
-                    <p class="course-desc">Temel programlama, koşullu ifadeler, döngüler, listeler ve fonksiyonlar ile proje geliştirme.</p>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="course-card brand-unity">
-                    <div class="course-header">
-                        <div class="brand-icon"><i class="fa-brands fa-unity"></i></div>
-                        <h5 class="course-title">UNITY İLE 3D OYUN TASARIMI</h5>
-                    </div>
-                    <p class="course-desc">Unity arayüzü, fizik motoru, terrain tasarımı, animasyon ve UI ile 3D oyun geliştirme.</p>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="course-card brand-java">
-                    <div class="course-header">
-                        <div class="brand-icon"><i class="fa-brands fa-java"></i></div>
-                        <h5 class="course-title">JAVA PROGRAMLAMA 1. SEVİYE</h5>
-                    </div>
-                    <p class="course-desc">Java ortamında nesne tabanlı programlama temelleri, diziler, metotlar ve algoritma geliştirme.</p>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="course-card brand-unity">
-                    <div class="course-header">
-                        <div class="brand-icon"><i class="fa-solid fa-code"></i></div>
-                        <h5 class="course-title">C# (UNITY İÇİN) PROGRAMLAMA</h5>
-                    </div>
-                    <p class="course-desc">Unity oyun motoru için C# temelleri. Değişkenler, döngüler, listeler ve input sistemleri.</p>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="course-card brand-android">
-                    <div class="course-header">
-                        <div class="brand-icon"><i class="fa-brands fa-android"></i></div>
-                        <h5 class="course-title">APP INVENTOR İLE MOBİL UYGULAMA</h5>
-                    </div>
-                    <p class="course-desc">MIT App Inventor ile blok tabanlı Android uygulama geliştirme. Sensörler, TinyDB ve veri yönetimi.</p>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="course-card brand-html">
-                    <div class="course-header">
-                        <div class="brand-icon"><i class="fa-brands fa-html5"></i></div>
-                        <h5 class="course-title">HTML/CSS İLE WEB TASARIMI</h5>
-                    </div>
-                    <p class="course-desc">Semantik HTML, CSS Box Model, Flexbox ve Responsive tasarım ile kişisel portföy sitesi yapımı.</p>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="course-card brand-js">
-                    <div class="course-header">
-                        <div class="brand-icon"><i class="fa-brands fa-js"></i></div>
-                        <h5 class="course-title">JAVASCRIPT İLE WEB ARAYÜZ</h5>
-                    </div>
-                    <p class="course-desc">Dinamik web sayfaları, DOM manipülasyonu, olay yönetimi ve etkileşimli hesap makinesi tasarımı.</p>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="course-card brand-cpp">
-                    <div class="course-header">
-                        <div class="brand-icon"><i class="fa-solid fa-terminal"></i></div>
-                        <h5 class="course-title">C++ PROGRAMLAMA 1. SEVİYE</h5>
-                    </div>
-                    <p class="course-desc">C++ ile temel programlama, bellek yönetimi, döngüler ve fonksiyonlar ile algoritma kurma.</p>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="course-card brand-tinkercad">
-                    <div class="course-header">
-                        <div class="brand-icon"><i class="fa-solid fa-cubes-stacked"></i></div>
-                        <h5 class="course-title">TINKERCAD İLE 3D TASARIM (DRONE)</h5>
-                    </div>
-                    <p class="course-desc">Tinkercad arayüzü ile 3D modelleme, drone gövdesi tasarımı, STL oluşturma ve baskı optimizasyonu.</p>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="course-card brand-excel">
-                    <div class="course-header">
-                        <div class="brand-icon"><i class="fa-solid fa-file-excel"></i></div>
-                        <h5 class="course-title">EXCEL 2019 TEMEL KULLANIMI</h5>
-                    </div>
-                    <p class="course-desc">Veri girişi, biçimlendirme, formüller (TOPLA, ORTALAMA) ve tablo oluşturma teknikleri.</p>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="course-card brand-excel">
-                    <div class="course-header">
-                        <div class="brand-icon"><i class="fa-solid fa-robot"></i></div>
-                        <h5 class="course-title">EXCEL MAKROLARA GİRİŞ (VBA)</h5>
-                    </div>
-                    <p class="course-desc">VBA editörü ile makro kaydetme, değişkenler, döngüler ve otomatik veri işleme projeleri.</p>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="course-card brand-excel">
-                    <div class="course-header">
-                        <div class="brand-icon"><i class="fa-solid fa-laptop-file"></i></div>
-                        <h5 class="course-title">BİLGİSAYAR İŞLETMENLİĞİ</h5>
-                    </div>
-                    <p class="course-desc">Word, Excel ve PowerPoint ile profesyonel belge oluşturma, sunum hazırlama ve veri analizi.</p>
-                </div>
-            </div>
-
-             <div class="col">
-                <div class="course-card brand-fusion">
-                    <div class="course-header">
-                        <div class="brand-icon"><i class="fa-solid fa-bullseye"></i></div>
-                        <h5 class="course-title">TERSİNE MÜHENDİSLİK-1</h5>
-                    </div>
-                    <p class="course-desc">3D Tarama cihazları ile veri toplama, Mesh düzenleme (Meshmixer) ve STL onarımı.</p>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="course-card brand-blender">
-                    <div class="course-header">
-                        <div class="brand-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
-                        <h5 class="course-title">TERSİNE MÜHENDİSLİK-2</h5>
-                    </div>
-                    <p class="course-desc">İleri seviye tarama verisi işleme, Blender ile organik düzenleme ve baskıya hazırlık.</p>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="course-card brand-html">
-                    <div class="course-header">
-                        <div class="brand-icon"><i class="fa-solid fa-scissors"></i></div>
-                        <h5 class="course-title">ÇİZ, KES, YARAT CNC</h5>
-                    </div>
-                    <p class="course-desc">Vektörel çizim (Inkscape, Illustrator), lazer kesim mantığı ve malzeme işleme projeleri.</p>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="course-card brand-blender">
-                    <div class="course-header">
-                        <div class="brand-icon"><i class="fa-solid fa-paintbrush"></i></div>
-                        <h5 class="course-title">FİGÜR BOYAMA ATÖLYESİ</h5>
-                    </div>
-                    <p class="course-desc">3D baskı sonrası yüzey işlem, astarlama, zımparalama ve profesyonel boyama teknikleri.</p>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="course-card brand-tinkercad">
-                    <div class="course-header">
-                        <div class="brand-icon"><i class="fa-solid fa-pen-ruler"></i></div>
-                        <h5 class="course-title">3D PROTOTİPLEME VE MİMARİ</h5>
-                    </div>
-                    <p class="course-desc">3D Kalem ve el aletleri ile mimari modelleme, geometrik tasarımlar ve hızlı prototip üretimi.</p>
-                </div>
-            </div>
-
-             <div class="col">
-                <div class="course-card brand-arduino">
-                    <div class="course-header">
-                        <div class="brand-icon"><i class="fa-solid fa-house-signal"></i></div>
-                        <h5 class="course-title">AKILLI EV SİSTEMLERİ (IOT)</h5>
-                    </div>
-                    <p class="course-desc">Arduino ve Blynk App ile IoT uygulamaları. Wi-Fi bağlantısı ve uzaktan kontrol sistemleri.</p>
-                </div>
-            </div>
-
+        <div class="text-center pb-5">
+            <p class="text-muted mb-3">Diğer tüm eğitimleri görmek için kataloğu açın</p>
+            <button class="mega-btn" data-bs-toggle="modal" data-bs-target="#katalogModal">
+                <i class="fa-solid fa-layer-group me-2"></i>TÜM MÜFREDATI GÖRÜNTÜLE
+            </button>
         </div>
+
     </section>
 
-    <footer class="text-center">
+    <div class="modal fade" id="katalogModal" tabindex="-1" aria-labelledby="katalogLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold text-white" id="katalogLabel"><i class="fa-solid fa-book-open me-2 text-info"></i>2025-2026 EĞİTİM KATALOĞU</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
+                        
+                        <div class="col">
+                            <div class="catalog-item br-python">
+                                <i class="fa-brands fa-python cat-icon"></i>
+                                <div class="cat-title">PYTHON PROGRAMLAMA</div>
+                                <p class="cat-desc">Yapay zeka ve veri bilimi temelli kodlama eğitimi.</p>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="catalog-item br-unity">
+                                <i class="fa-brands fa-unity cat-icon"></i>
+                                <div class="cat-title">UNITY İLE 3D OYUN TASARIMI</div>
+                                <p class="cat-desc">Fizik motoru ve C# ile profesyonel oyun geliştirme.</p>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="catalog-item br-java">
+                                <i class="fa-brands fa-java cat-icon"></i>
+                                <div class="cat-title">JAVA PROGRAMLAMA</div>
+                                <p class="cat-desc">Nesne tabanlı programlama ve algoritma mantığı.</p>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="catalog-item br-unity">
+                                <i class="fa-solid fa-code cat-icon"></i>
+                                <div class="cat-title">C# (UNITY İÇİN) PROGRAMLAMA</div>
+                                <p class="cat-desc">Oyun motoru tabanlı kodlama ve script yazımı.</p>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="catalog-item br-android">
+                                <i class="fa-brands fa-android cat-icon"></i>
+                                <div class="cat-title">APP INVENTOR İLE MOBİL UYGULAMA</div>
+                                <p class="cat-desc">Blok tabanlı sistemle Android uygulamaları geliştirme.</p>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="catalog-item" style="border-color: #00599C; color: #00599C;">
+                                <i class="fa-solid fa-terminal cat-icon"></i>
+                                <div class="cat-title">C++ PROGRAMLAMA</div>
+                                <p class="cat-desc">Yüksek performanslı yazılım ve bellek yönetimi.</p>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="catalog-item br-html">
+                                <i class="fa-brands fa-html5 cat-icon"></i>
+                                <div class="cat-title">HTML/CSS İLE WEB TASARIMI</div>
+                                <p class="cat-desc">Modern, responsive ve şık web siteleri tasarlama.</p>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="catalog-item" style="border-color: #F7DF1E; color: #F7DF1E;">
+                                <i class="fa-brands fa-js cat-icon"></i>
+                                <div class="cat-title">JAVASCRIPT ARAYÜZ GELİŞTİRME</div>
+                                <p class="cat-desc">Web sitelerine etkileşim ve dinamizm kazandırma.</p>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="catalog-item" style="border-color: #00f3ff; color: #00f3ff;">
+                                <i class="fa-solid fa-bullseye cat-icon"></i>
+                                <div class="cat-title">TERSİNE MÜHENDİSLİK-1</div>
+                                <p class="cat-desc">3D Tarama, nokta bulutu işleme ve mesh onarımı.</p>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="catalog-item" style="border-color: #bc13fe; color: #bc13fe;">
+                                <i class="fa-solid fa-wand-magic-sparkles cat-icon"></i>
+                                <div class="cat-title">TERSİNE MÜHENDİSLİK-2</div>
+                                <p class="cat-desc">İleri düzey sculpting, Blender entegrasyonu ve modelleme.</p>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="catalog-item br-blender">
+                                <i class="fa-solid fa-cube cat-icon"></i>
+                                <div class="cat-title">BLENDER İLE 3D MODELLEME</div>
+                                <p class="cat-desc">Karakter tasarımı, animasyon ve render alma.</p>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="catalog-item" style="border-color: #128FC8; color: #128FC8;">
+                                <i class="fa-solid fa-cubes-stacked cat-icon"></i>
+                                <div class="cat-title">TINKERCAD İLE 3D TASARIM (DRONE)</div>
+                                <p class="cat-desc">Drone gövde tasarımı ve 3D baskıya hazırlık.</p>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="catalog-item" style="border-color: #F05F22; color: #F05F22;">
+                                <i class="fa-solid fa-layer-group cat-icon"></i>
+                                <div class="cat-title">KATI MODELLEME (FUSION 360)</div>
+                                <p class="cat-desc">Endüstriyel parça tasarımı, montaj ve teknik çizim.</p>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="catalog-item br-arduino">
+                                <i class="fa-solid fa-infinity cat-icon"></i>
+                                <div class="cat-title">ARDUINO İLE ROBOTİK</div>
+                                <p class="cat-desc">Elektronik devreler, sensörler ve otonom sistemler.</p>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="catalog-item br-arduino">
+                                <i class="fa-solid fa-house-signal cat-icon"></i>
+                                <div class="cat-title">AKILLI EV SİSTEMLERİ (IOT)</div>
+                                <p class="cat-desc">Nesnelerin interneti, Wi-Fi kontrol ve otomasyon.</p>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="catalog-item" style="border-color: #ff0055; color: #ff0055;">
+                                <i class="fa-solid fa-scissors cat-icon"></i>
+                                <div class="cat-title">ÇİZ, KES, YARAT (CNC)</div>
+                                <p class="cat-desc">Lazer kesim, vektörel çizim ve üretim teknikleri.</p>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="catalog-item" style="border-color: #ff0055; color: #ff0055;">
+                                <i class="fa-solid fa-paintbrush cat-icon"></i>
+                                <div class="cat-title">FİGÜR BOYAMA ATÖLYESİ</div>
+                                <p class="cat-desc">Model boyama, eskitme ve sanatsal son işlemler.</p>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="catalog-item" style="border-color: #F5792A; color: #F5792A;">
+                                <i class="fa-solid fa-pen-ruler cat-icon"></i>
+                                <div class="cat-title">3D PROTOTİPLEME</div>
+                                <p class="cat-desc">3D Kalem ve el aletleriyle hızlı model üretimi.</p>
+                            </div>
+                        </div>
+
+                         <div class="col">
+                            <div class="catalog-item" style="border-color: #217346; color: #217346;">
+                                <i class="fa-solid fa-laptop-file cat-icon"></i>
+                                <div class="cat-title">BİLGİSAYAR İŞLETMENLİĞİ</div>
+                                <p class="cat-desc">Word, Excel ve PowerPoint ile kurumsal yetkinlik.</p>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="catalog-item" style="border-color: #217346; color: #217346;">
+                                <i class="fa-solid fa-file-excel cat-icon"></i>
+                                <div class="cat-title">EXCEL TEMEL KULLANIMI</div>
+                                <p class="cat-desc">Veri analizi, tablolar ve formüller.</p>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="catalog-item" style="border-color: #217346; color: #217346;">
+                                <i class="fa-solid fa-robot cat-icon"></i>
+                                <div class="cat-title">EXCEL MAKROLAR (VBA)</div>
+                                <p class="cat-desc">Excel otomasyonu ve programlama.</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer border-0">
+                    <button type="button" class="btn btn-secondary w-100" data-bs-dismiss="modal">KAPAT</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="text-center py-4 border-top border-secondary mt-5" style="background: #020617;">
         <div class="container">
-            <h5 class="fw-bold text-white mb-2">KÜÇÜKÇEKMECE BELEDİYESİ</h5>
-            <p class="text-muted small mb-0">GENÇLİK MERKEZİ BİLİŞİM SINIFI &copy; 2026</p>
+            <p class="mb-0 text-white-50 small">&copy; 2026 KÜÇÜKÇEKMECE BELEDİYESİ GENÇLİK MERKEZİ</p>
         </div>
     </footer>
 
