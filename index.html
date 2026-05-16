@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="format-detection" content="telephone=no">
+
+    <title>Küçükçekmece Belediyesi AR Deneyimi</title>
+
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#12141f">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="media_klasoru/uygulama_ikonu.png">
+
+    <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
+
+    <style>
+        * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; }
+        html, body {
+            margin: 0; padding: 0; height: 100%; width: 100%; overflow: hidden;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0f111a; color: white;
+            -webkit-user-select: none; user-select: none;
+        }
+
+        /* AR aktifken arka plan saydam — kamera görüntüsü görünür */
+        html.ar-active, body.ar-active { background: transparent !important; }
+
+        .overlay {
+            position: fixed; inset: 0; z-index: 1000;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            padding: 20px;
+            padding-top: env(safe-area-inset-top, 20px);
+            padding-bottom: env(safe-area-inset-bottom, 20px);
+        }
+
+        /* ===== 1. YÜKLEME ===== */
+        #loading-screen { background: #12141f; }
+        .logo-box img { width: 160px; margin-bottom: 25px; filter: drop-shadow(0 0 10px rgba(255,255,255,0.2)); }
+        .kurum-adi { font-size: 1.4em; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; line-height: 1.3; text-align: center; margin-bottom: 8px; }
+        .uygulama-adi { font-weight: 300; letter-spacing: 3px; font-size: 0.95em; color: #a0a0a0; text-transform: uppercase; margin-bottom: 40px; }
+        .progress-wrapper { position: relative; width: 80px; height: 80px; display: flex; justify-content: center; align-items: center; }
+        .spinner { position: absolute; width: 100%; height: 100%; border: 3px solid rgba(255,255,255,0.1); border-top: 3px solid #0056b3; border-radius: 50%; animation: spin 1s linear infinite; }
+        #progress-text { font-weight: bold; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* ===== 2. KVKK ===== */
+        #consent-screen { background: rgba(15,17,26,0.98); display: none; }
+        .kvkk-card {
+            background: white; color: #333; padding: 25px;
+            border-radius: 16px; max-width: 460px; width: 100%;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+            max-height: calc(100vh - 80px); overflow-y: auto; -webkit-overflow-scrolling: touch;
+        }
+        .kvkk-card h2 { margin: 0 0 12px; font-size: 1.3em; color: #111; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+        .kvkk-card p { font-size: 0.92em; line-height: 1.55; color: #444; margin: 12px 0; }
+        .warning-box { background: #fff5f5; border-left: 4px solid #dc3545; padding: 12px; margin: 12px 0; font-size: 0.88em; color: #b02a37; font-weight: 600; border-radius: 4px; }
+        .consent-checkbox { display: flex; align-items: flex-start; margin: 18px 0; cursor: pointer; font-size: 0.9em; color: #333; }
+        .consent-checkbox input { margin-right: 10px; margin-top: 3px; min-width: 18px; min-height: 18px; }
+        .button-row { display: flex; gap: 10px; margin-top: 15px; }
+        .btn { flex: 1; padding: 14px; font-size: 1em; border: none; border-radius: 12px; cursor: pointer; font-weight: bold; font-family: inherit; }
+        .btn-primary { background: #0056b3; color: white; }
+        .btn-primary:disabled { background: #aaa; cursor: not-allowed; }
+        .btn-secondary { background: #f0f0f0; color: #555; }
+        .btn:active:not(:disabled) { opacity: 0.85; }
+
+        /* ===== 3. HATA ===== */
+        #error-screen { background: #0f111a; display: none; }
+        .error-card { background: #1a1d2b; padding: 30px; border-radius: 16px; max-width: 400px; width: 100%; text-align: center; }
+        .error-card .icon { font-size: 3em; margin-bottom: 15px; }
+        .error-card h2 { margin: 0 0 15px; }
+        .error-card p { color: #ccc; line-height: 1.5; font-size: 0.95em; }
+        .ios-hint { background: #2a2d3d; padding: 15px; border-radius: 10px; margin-top: 15px; font-size: 0.85em; color: #aaa; text-align: left; }
+
+        /* ===== 4. TARAMA İPUCU ===== */
+        #scanning-hint {
+            position: fixed; bottom: calc(90px + env(safe-area-inset-bottom, 0px));
+            left: 50%; transform: translateX(-50%);
+            z-index: 90;
+            background: rgba(0,0,0,0.55);
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            padding: 14px 20px; border-radius: 14px;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+            opacity: 0; pointer-events: none;
+            transition: opacity 0.4s, transform 0.4s;
+        }
+        body.ar-active #scanning-hint { opacity: 1; }
+        body.ar-active #scanning-hint.hidden { opacity: 0; transform: translateX(-50%) translateY(20px); }
+        .scan-hint-row { display: flex; align-items: center; gap: 10px; }
+        .scan-pulse { width: 28px; height: 28px; border-radius: 50%; background: rgba(0,110,230,0.9); position: relative; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 14px; }
+        .scan-pulse::before { content: ''; position: absolute; inset: 0; border-radius: 50%; border: 2px solid rgba(0,110,230,0.6); animation: pulse 1.6s ease-out infinite; }
+        @keyframes pulse { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(2.4); opacity: 0; } }
+        #scanning-hint p { margin: 0; font-size: 0.92em; }
+
+        /* ===== 4b. EŞLEŞME TOAST ===== */
+        #match-toast {
+            position: fixed; top: calc(20px + env(safe-area-inset-top, 0px));
+            left: 50%; transform: translateX(-50%) translateY(-100px);
+            z-index: 95;
+            background: rgba(20, 130, 80, 0.92);
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            padding: 12px 20px; border-radius: 30px;
+            display: flex; align-items: center; gap: 8px;
+            font-size: 0.95em; font-weight: 600; color: white;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+            opacity: 0; transition: transform 0.4s cubic-bezier(0.2, 0.9, 0.3, 1.2), opacity 0.3s;
+            pointer-events: none;
+        }
+        #match-toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+        #match-toast .check { font-size: 1.1em; }
+
+        /* ===== 5. SES BUTONU ===== */
+        #audio-btn {
+            position: fixed; bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+            left: 50%; transform: translateX(-50%);
+            z-index: 100; padding: 12px 18px; font-size: 14px; border-radius: 30px;
+            background: rgba(20,20,28,0.75); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.12);
+            font-weight: 600; cursor: pointer; color: white;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.5);
+            font-family: inherit; min-height: 44px;
+            display: none;
+        }
+        body.ar-active #audio-btn { display: block; }
+        #audio-btn:active { transform: translateX(-50%) scale(0.95); }
+
+        /* ===== 6. DEBUG (?debug=1) ===== */
+        #debug-info {
+            position: fixed; top: 60px; left: 8px; right: 8px;
+            max-height: 40vh; overflow-y: auto;
+            background: rgba(0,0,0,0.85); color: #0f0;
+            font: 10px/1.4 ui-monospace, 'SF Mono', Consolas, monospace;
+            padding: 8px 10px; border-radius: 8px; z-index: 200;
+            display: none; word-break: break-word; white-space: pre-wrap;
+        }
+
+        /* ===== 7. TAM EKRAN AR ===== */
+        a-scene {
+            width: 100vw !important; height: 100vh !important;
+            position: fixed !important; top: 0 !important; left: 0 !important;
+        }
+        a-scene canvas.a-canvas {
+            background: transparent !important;
+            width: 100vw !important; height: 100vh !important;
+            position: fixed !important; top: 0 !important; left: 0 !important;
+        }
+        /* Mind-AR'ın eklediği kamera videosu — tam ekran cover */
+        body > video, .mindar-ui-overlay,
+        .mindar-ui-overlay > video, .mindar-ui-overlay > canvas {
+            position: fixed !important;
+            top: 0 !important; left: 0 !important;
+            width: 100vw !important; height: 100vh !important;
+            object-fit: cover !important;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. Yükleme -->
+    <div id="loading-screen" class="overlay">
+        <div class="logo-box">
+            <img src="media_klasoru/kucukcekmece_logo.png" alt="Küçükçekmece Belediyesi">
+        </div>
+        <div class="kurum-adi">KÜÇÜKÇEKMECE BELEDİYESİ<br>GENÇLİK MERKEZİ</div>
+        <div class="uygulama-adi">Artırılmış Gerçeklik (AR)</div>
+        <div class="progress-wrapper">
+            <div class="spinner"></div>
+            <div id="progress-text">0%</div>
+        </div>
+    </div>
+
+    <!-- 2. KVKK -->
+    <div id="consent-screen" class="overlay" role="dialog" aria-modal="true">
+        <div class="kvkk-card">
+            <h2>Dijital Sergi Kullanım Onayı</h2>
+            <p>Değerli Ziyaretçimiz, bu Artırılmış Gerçeklik (AR) deneyimini yaşayabilmeniz için cihazınızın <strong>Kamera</strong> erişimine izin vermeniz zorunludur. Kamera görüntünüz yalnızca cihazınızda işlenir, sunucuya gönderilmez.</p>
+            <div class="warning-box">⚠️ Kamera izni verilmediği takdirde içerikler görüntülenemez.</div>
+            <p>Aşağıdaki kutucuğu işaretleyip "Deneyimi Başlat" butonuna tıklayarak kamera erişimine onay verdiğinizi ve kullanım koşullarını kabul ettiğinizi beyan etmiş olursunuz.</p>
+            <label class="consent-checkbox">
+                <input type="checkbox" id="consent-check">
+                <span>Kullanım koşullarını okudum, anladım ve kabul ediyorum.</span>
+            </label>
+            <div class="button-row">
+                <button id="decline-btn" class="btn btn-secondary">Reddet</button>
+                <button id="start-btn" class="btn btn-primary" disabled>Deneyimi Başlat</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. Hata -->
+    <div id="error-screen" class="overlay">
+        <div class="error-card">
+            <div class="icon">⚠️</div>
+            <h2 id="error-title">Bir Sorun Oluştu</h2>
+            <p id="error-message"></p>
+            <div id="error-ios-hint" class="ios-hint" style="display:none;">
+                <strong>iPhone/iPad için:</strong> Ayarlar → Safari → Kamera → "İzin Ver" seçin, sayfayı yenileyin.
+            </div>
+            <div id="error-android-hint" class="ios-hint" style="display:none;">
+                <strong>Android için:</strong> Adres çubuğundaki kilit/i simgesine dokunup Site Ayarları → Kamera → İzin Ver, sayfayı yenileyin.
+            </div>
+            <button class="btn btn-primary" style="margin-top:20px; width:100%;" onclick="location.reload()">Yeniden Dene</button>
+        </div>
+    </div>
+
+    <!-- 4. Tarama ipucu -->
+    <div id="scanning-hint">
+        <div class="scan-hint-row">
+            <div class="scan-pulse">📷</div>
+            <p>Kameranızı sergi görseline doğrultun</p>
+        </div>
+    </div>
+
+    <!-- 4b. Eşleşme toast -->
+    <div id="match-toast">
+        <span class="check">✓</span>
+        <span>Görsel algılandı</span>
+    </div>
+
+    <!-- 5. Ses butonu -->
+    <button id="audio-btn">🔇 Sesi Aç</button>
+
+    <!-- 6. Debug -->
+    <div id="debug-info"></div>
+
+
+    <!-- ============================================================
+         AR SAHNESİ - STATİK HTML (orijinal yapıya sadık)
+         ============================================================
+         Bu kısmı kendi videolarınla genişleteceksin. Üç adımı tutarlı tut:
+
+         1️⃣ <a-assets> içine yeni <video> ekle (id="vid5" gibi)
+         2️⃣ TARGET ENTITIES kısmına karşılığını ekle (targetIndex artır)
+         3️⃣ .mind dosyasına aynı sırada hedef görselini ekle
+
+         Yükseklik (height) hesabı: hedef görselinin yüksekliği / genişliği
+            16:9 yatay video → 9/16  = 0.57
+            9:16 dikey video → 16/9  = 1.78
+            1:1 kare         → 1.0
+         Bu oran, AR videosunun fiziksel hedefe TAM oturmasını sağlar.
+         ============================================================ -->
+
+    <a-scene mindar-image="imageTargetSrc: media_klasoru/targets.mind; autoStart: false; uiLoading: no; uiError: no; uiScanning: no; maxTrack: 1; filterMinCF: 0.0001; filterBeta: 0.001;"
+             renderer="colorManagement: true; alpha: true"
+             vr-mode-ui="enabled: false"
+             device-orientation-permission-ui="enabled: false">
+
+        <a-assets timeout="5000">
+            <video id="vid1"  src="media_klasoru/video1.mp4"  loop crossorigin="anonymous" playsinline webkit-playsinline muted></video>
+            <video id="vid2"  src="media_klasoru/video2.mp4"  loop crossorigin="anonymous" playsinline webkit-playsinline muted></video>
+            <video id="vid3"  src="media_klasoru/video3.mp4"  loop crossorigin="anonymous" playsinline webkit-playsinline muted></video>
+            <video id="vid4"  src="media_klasoru/video4.mp4"  loop crossorigin="anonymous" playsinline webkit-playsinline muted></video>
+            <video id="vid5"  src="media_klasoru/video5.mp4"  loop crossorigin="anonymous" playsinline webkit-playsinline muted></video>
+            <video id="vid6"  src="media_klasoru/video6.mp4"  loop crossorigin="anonymous" playsinline webkit-playsinline muted></video>
+            <video id="vid7"  src="media_klasoru/video7.mp4"  loop crossorigin="anonymous" playsinline webkit-playsinline muted></video>
+            <video id="vid8"  src="media_klasoru/video8.mp4"  loop crossorigin="anonymous" playsinline webkit-playsinline muted></video>
+            <video id="vid9"  src="media_klasoru/video9.mp4"  loop crossorigin="anonymous" playsinline webkit-playsinline muted></video>
+            <video id="vid10" src="media_klasoru/video10.mp4" loop crossorigin="anonymous" playsinline webkit-playsinline muted></video>
+            <video id="vid11" src="media_klasoru/video11.mp4" loop crossorigin="anonymous" playsinline webkit-playsinline muted></video>
+            <video id="vid12" src="media_klasoru/video12.mp4" loop crossorigin="anonymous" playsinline webkit-playsinline muted></video>
+            <video id="vid13" src="media_klasoru/video13.mp4" loop crossorigin="anonymous" playsinline webkit-playsinline muted></video>
+            <video id="vid14" src="media_klasoru/video14.mp4" loop crossorigin="anonymous" playsinline webkit-playsinline muted></video>
+        </a-assets>
+
+        <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+
+        <!-- height = hedef görselin yüksekliği ÷ genişliği
+             Her satırın yanındaki yorum: orijinal hedef görsel boyutu (genişlik × yükseklik)
+             Bu değerler kullanıcının ölçtüğü gerçek sergi görseli boyutlarına dayanır. -->
+        <a-entity mindar-image-target="targetIndex: 0"  class="ar-target" data-video="#vid1">
+            <a-video src="#vid1"  position="0 0 0" width="1" height="1.4"></a-video> <!-- 952 × 934 -->
+        </a-entity>
+        <a-entity mindar-image-target="targetIndex: 1"  class="ar-target" data-video="#vid2">
+            <a-video src="#vid2"  position="0 0 0" width="1" height="0.7142"></a-video> <!-- 2764 × 1536 -->
+        </a-entity>
+        <a-entity mindar-image-target="targetIndex: 2"  class="ar-target" data-video="#vid3">
+            <a-video src="#vid3"  position="0 0 0" width="1" height="0.7142"></a-video> <!-- 1600 × 872 -->
+        </a-entity>
+        <a-entity mindar-image-target="targetIndex: 3"  class="ar-target" data-video="#vid4">
+            <a-video src="#vid4"  position="0 0 0" width="1" height="1.4"></a-video> <!-- 2000 × 3554 -->
+        </a-entity>
+        <a-entity mindar-image-target="targetIndex: 4"  class="ar-target" data-video="#vid5">
+            <a-video src="#vid5"  position="0 0 0" width="1" height="1.4"></a-video> <!-- 1846 × 2304 -->
+        </a-entity>
+        <a-entity mindar-image-target="targetIndex: 5"  class="ar-target" data-video="#vid6">
+            <a-video src="#vid6"  position="0 0 0" width="1" height="0.714"></a-video> <!-- 2620 × 1632 -->
+        </a-entity>
+        <a-entity mindar-image-target="targetIndex: 6"  class="ar-target" data-video="#vid7">
+            <a-video src="#vid7"  position="0 0 0" width="1" height="1.4"></a-video> <!-- 1662 × 2592 -->
+        </a-entity>
+        <a-entity mindar-image-target="targetIndex: 7"  class="ar-target" data-video="#vid8">
+            <a-video src="#vid8"  position="0 0 0" width="1" height="1.4"></a-video> <!-- 1896 × 3372 -->
+        </a-entity>
+        <a-entity mindar-image-target="targetIndex: 8"  class="ar-target" data-video="#vid9">
+            <a-video src="#vid9"  position="0 0 0" width="1" height="0.714"></a-video> <!-- 2000 × 1360 -->
+        </a-entity>
+        <a-entity mindar-image-target="targetIndex: 9"  class="ar-target" data-video="#vid10">
+            <a-video src="#vid10" position="0 0 0" width="1" height="0.714"></a-video> <!-- 2630 × 1600 -->
+        </a-entity>
+        <a-entity mindar-image-target="targetIndex: 10" class="ar-target" data-video="#vid11">
+            <a-video src="#vid11" position="0 0 0" width="1" height="1.4"></a-video> <!-- 1792 × 2390 -->
+        </a-entity>
+        <a-entity mindar-image-target="targetIndex: 11" class="ar-target" data-video="#vid12">
+            <a-video src="#vid12" position="0 0 0" width="1" height="1.000"></a-video> <!-- 2048 × 2048 -->
+        </a-entity>
+        <a-entity mindar-image-target="targetIndex: 12" class="ar-target" data-video="#vid13">
+            <a-video src="#vid13" position="0 0 0" width="1" height="1.4"></a-video> <!-- 1684 × 2528 -->
+        </a-entity>
+        <a-entity mindar-image-target="targetIndex: 13" class="ar-target" data-video="#vid14">
+            <a-video src="#vid14" position="0 0 0" width="1" height="1.4"></a-video> <!-- 1684 × 2528 -->
+        </a-entity>
+
+    </a-scene>
+
+    <script>
+    (function() {
+        'use strict';
+
+        // ===== Debug log (?debug=1) =====
+        var DEBUG = location.search.indexOf('debug=1') >= 0;
+        var debugEl = document.getElementById('debug-info');
+        if (DEBUG) debugEl.style.display = 'block';
+        function dlog(msg) {
+            console.log('[KCM-AR]', msg);
+            if (!DEBUG) return;
+            var t = new Date().toTimeString().split(' ')[0];
+            var lines = (debugEl.textContent || '').split('\n');
+            lines.unshift(t + ' ' + msg);
+            debugEl.textContent = lines.slice(0, 40).join('\n');
+        }
+        dlog('Init');
+
+        // ===== Element refs =====
+        function $(id) { return document.getElementById(id); }
+        var loadingScreen = $('loading-screen');
+        var consentScreen = $('consent-screen');
+        var errorScreen   = $('error-screen');
+        var scanHint      = $('scanning-hint');
+        var consentCheck  = $('consent-check');
+        var startBtn      = $('start-btn');
+        var declineBtn    = $('decline-btn');
+        var audioBtn      = $('audio-btn');
+        var sceneEl       = document.querySelector('a-scene');
+
+        // ===== Ortam =====
+        var ua = navigator.userAgent;
+        var isIOS = /iPad|iPhone|iPod/.test(ua) ||
+                    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+        var isAndroid = /Android/i.test(ua);
+        dlog('Platform: ' + (isIOS ? 'iOS' : (isAndroid ? 'Android' : 'Other')));
+
+        // ===== Hata göster =====
+        var errorShown = false;
+        function showError(title, message) {
+            errorShown = true;
+            $('error-title').textContent = title;
+            $('error-message').textContent = message;
+            $('error-ios-hint').style.display = isIOS ? 'block' : 'none';
+            $('error-android-hint').style.display = isAndroid ? 'block' : 'none';
+            loadingScreen.style.display = 'none';
+            consentScreen.style.display = 'none';
+            errorScreen.style.display = 'flex';
+            dlog('ERR: ' + title);
+        }
+
+        // ===== Ön kontrol =====
+        if (location.protocol !== 'https:' &&
+            location.hostname !== 'localhost' &&
+            location.hostname !== '127.0.0.1') {
+            showError('Güvenli Bağlantı Gerekli',
+                'AR için sayfaya HTTPS üzerinden erişmeniz gerekmektedir.');
+            return;
+        }
+        if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+            showError('Tarayıcı Desteklenmiyor',
+                'Tarayıcınız kamera erişimini desteklemiyor. Güncel bir tarayıcı (iOS Safari 14+, Chrome) kullanın.');
+            return;
+        }
+
+        // ===== Yükleme yüzdesi =====
+        var progress = 0;
+        var progressEl = $('progress-text');
+        var progressInt = setInterval(function() {
+            if (progress < 95) {
+                progress += Math.floor(Math.random() * 4) + 1;
+                if (progress > 95) progress = 95;
+                progressEl.textContent = progress + '%';
+            }
+        }, 200);
+
+        var loadFinished = false;
+        function finishLoading() {
+            if (loadFinished || errorShown) return;
+            loadFinished = true;
+            clearInterval(progressInt);
+            progressEl.textContent = '100%';
+            setTimeout(function() {
+                loadingScreen.style.display = 'none';
+                consentScreen.style.display = 'flex';
+            }, 400);
+            dlog('Loading finished');
+        }
+
+        // Sahne yüklenince ya da 8 saniye geçince devam et
+        if (sceneEl.hasLoaded) {
+            finishLoading();
+        } else {
+            sceneEl.addEventListener('loaded', finishLoading);
+        }
+        setTimeout(finishLoading, 8000);
+
+        // ===== Video hata dinleyicileri (teşhis için) =====
+        document.querySelectorAll('a-assets video').forEach(function(v) {
+            v.addEventListener('error', function() {
+                var err = this.error;
+                var msg = this.id + ' HATA ';
+                if (err) {
+                    if (err.code === 4) msg += 'NOT_SUPPORTED (dosya yok ya da format uyumsuz)';
+                    else if (err.code === 2) msg += 'NETWORK';
+                    else if (err.code === 3) msg += 'DECODE';
+                    else msg += 'kod=' + err.code;
+                }
+                console.error('[KCM-AR]', msg);
+                dlog(msg);
+            });
+        });
+
+        // ===== KVKK =====
+        consentCheck.addEventListener('change', function() {
+            startBtn.disabled = !consentCheck.checked;
+        });
+
+        declineBtn.addEventListener('click', function() {
+            consentScreen.style.display = 'none';
+            showError('Onay Gerekli',
+                'AR deneyimini kullanabilmek için kullanım koşullarını kabul etmeniz gerekmektedir.');
+        });
+
+        // ===== Başlat butonu =====
+        startBtn.addEventListener('click', async function() {
+            if (!consentCheck.checked) return;
+
+            startBtn.disabled = true;
+            startBtn.textContent = 'Kamera başlatılıyor...';
+
+            // KRİTİK: Senkron warmup — kullanıcı dokunma context'i içinde tüm videolarda
+            // play()→pause() yap. Bu sayede mind-ar'ın targetFound event'inde play()
+            // autoplay policy engeline takılmaz. Tek yapılması gereken anahtar adım.
+            var vids = document.querySelectorAll('a-assets video');
+            dlog('Warmup: ' + vids.length + ' video');
+            vids.forEach(function(v) {
+                v.muted = true;
+                var p = v.play();
+                if (p && p.then) {
+                    p.then(function() {
+                        v.pause(); v.currentTime = 0;
+                        dlog('Warm OK: ' + v.id);
+                    }).catch(function(e) {
+                        dlog('Warm FAIL: ' + v.id + ' ' + e.name);
+                    });
+                }
+            });
+
+            try {
+                // iOS-uyumlu: getUserMedia kullanıcı dokunma context'i içinde
+                var stream = await navigator.mediaDevices.getUserMedia({
+                    video: {
+                        facingMode: { ideal: 'environment' },
+                        width:  { ideal: 1280 },
+                        height: { ideal: 720 }
+                    },
+                    audio: false
+                });
+                stream.getTracks().forEach(function(t) { t.stop(); });
+                dlog('Camera permission OK');
+
+                if (!sceneEl.systems['mindar-image-system']) {
+                    throw new Error('Mind-AR sistemi yüklenmedi');
+                }
+
+                consentScreen.style.display = 'none';
+                document.body.classList.add('ar-active');
+                document.documentElement.classList.add('ar-active');
+
+                await sceneEl.systems['mindar-image-system'].start();
+                dlog('Mind-AR started');
+
+                bindTargetEvents();
+
+            } catch (err) {
+                dlog('Start failed: ' + (err && err.name) + ' ' + (err && err.message));
+                handleCameraError(err);
+            }
+        });
+
+        function handleCameraError(err) {
+            startBtn.disabled = false;
+            startBtn.textContent = 'Deneyimi Başlat';
+            document.body.classList.remove('ar-active');
+            document.documentElement.classList.remove('ar-active');
+            var name = err && err.name;
+            if (name === 'NotAllowedError' || name === 'PermissionDeniedError') {
+                showError('Kamera İzni Reddedildi',
+                    'Kamera erişimine izin verilmediği için AR deneyimi başlatılamıyor.');
+            } else if (name === 'NotFoundError' || name === 'DevicesNotFoundError') {
+                showError('Kamera Bulunamadı',
+                    'Cihazınızda kullanılabilir bir arka kamera bulunamadı.');
+            } else if (name === 'NotReadableError' || name === 'TrackStartError') {
+                showError('Kamera Meşgul',
+                    'Kameranız başka bir uygulama tarafından kullanılıyor olabilir.');
+            } else {
+                showError('Beklenmeyen Hata',
+                    'AR başlatılırken bir sorun oluştu: ' + ((err && err.message) || 'Bilinmeyen hata'));
+            }
+        }
+
+        // ===== Target event'leri (orijinal mantık) =====
+        var lostTimers = {};
+        var activeCount = 0;
+
+        function bindTargetEvents() {
+            var targets = document.querySelectorAll('.ar-target');
+            dlog('Binding ' + targets.length + ' targets');
+
+            // Eşleşme toast'u — 1.8 saniye görünüp kaybolur
+            var toastEl = $('match-toast');
+            var toastTimer = null;
+            function showMatchToast() {
+                if (!toastEl) return;
+                toastEl.classList.add('show');
+                clearTimeout(toastTimer);
+                toastTimer = setTimeout(function() {
+                    toastEl.classList.remove('show');
+                }, 1800);
+            }
+
+            targets.forEach(function(target) {
+                var vidSelector = target.getAttribute('data-video');
+                var videoEl = document.querySelector(vidSelector);
+                if (!videoEl) {
+                    dlog('No video for ' + vidSelector);
+                    return;
+                }
+
+                target.addEventListener('targetFound', function() {
+                    dlog('Found ' + videoEl.id + ' rs=' + videoEl.readyState);
+                    if (lostTimers[videoEl.id]) {
+                        clearTimeout(lostTimers[videoEl.id]);
+                        delete lostTimers[videoEl.id];
+                    }
+                    activeCount++;
+                    scanHint.classList.add('hidden');
+                    showMatchToast();
+
+                    var p = videoEl.play();
+                    if (p && p.then) {
+                        p.then(function() { dlog('Play OK: ' + videoEl.id); })
+                         .catch(function(e) { dlog('Play FAIL: ' + videoEl.id + ' ' + e.name); });
+                    }
+                });
+
+                target.addEventListener('targetLost', function() {
+                    // Anlık tracking kayıplarına karşı 800ms debounce
+                    lostTimers[videoEl.id] = setTimeout(function() {
+                        videoEl.pause();
+                        videoEl.currentTime = 0;
+                        activeCount = Math.max(0, activeCount - 1);
+                        if (activeCount === 0) scanHint.classList.remove('hidden');
+                        delete lostTimers[videoEl.id];
+                    }, 800);
+                });
+            });
+        }
+
+        // ===== Ses kontrolü =====
+        var isMuted = true;
+        audioBtn.addEventListener('click', function() {
+            isMuted = !isMuted;
+            document.querySelectorAll('a-assets video').forEach(function(v) { v.muted = isMuted; });
+            this.textContent = isMuted ? '🔇 Sesi Aç' : '🔊 Sesi Kapat';
+        });
+
+        // ===== Sayfa görünmez olunca videoları durdur (pil tasarrufu) =====
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden) {
+                document.querySelectorAll('a-assets video').forEach(function(v) { v.pause(); });
+            }
+        });
+
+    })();
+    </script>
+</body>
+</html>
